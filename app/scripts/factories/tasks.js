@@ -24,9 +24,19 @@ app.factory('tasksFactory', function() {
 			dueDate: 'saturday'
 		},
 		{
-			name: "Préparer liste des chants",
-			service: 'louange',
+			name: "Faire balance",
+			service: 'sono',
 			dueDate: 'saturday'
+		},
+		{
+			name: "Créer brochure",
+			service: 'programme',
+			dueDate: 'friday'
+		},
+		{
+			name: "Définir titre du message",
+			service: 'prédication',
+			dueDate: 'friday'
 		}
 	];
 
