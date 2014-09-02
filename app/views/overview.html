@@ -1,0 +1,12 @@
+<header ng-include="'views/header.html'"></header>
+
+<div class="services-container">
+  <div class="services" ng-repeat="service in services">
+  	<div class="service">
+  		<div class="light"></div>
+  		<h2 class="name">{{ service.name }}</h2>
+  		<div class="task-remaining">Tâches effectuées {{ service.taskDoneCounter }} sur {{ service.taskCounter }}</div>
+  		<button></button>
+  	</div>
+  </div>
+</div>
