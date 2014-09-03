@@ -1,12 +1,12 @@
+@import '_vars';
 
 // -------------------
-// VARS
+// LOCAL VARS
 
 $service_height: 100px;
-$corner_triangle_size: 48px;
 
 
-// END VARS
+// END LOCAL VARS
 // -------------------
 
 .services {
@@ -14,17 +14,37 @@ $corner_triangle_size: 48px;
 	.service {
 		height: $service_height;
 		background-color: white;
-		border: solid #BBBBBB;
-		border-width: 1px;
+		border: solid 1px $red;
 		padding: 10px;
 		position: relative;
 		margin-bottom: 10px;
 		text-align: center;
+		// overflow: hidden;
+		cursor: pointer;
+
+		&.completed {
+			border-color: $green;
+
+			.status-color-line {
+				background-color: $green;
+			}
+		}
 
 		&:hover {
-			.light {
-				// TODO
+
+			.button {
+				color: $red;
 			}
+
+			.status-color-line {
+				width: 4%;
+
+				// &:before {
+				// 	box-shadow: 0 0 400px 50px $red;
+				// 	left: 900px;
+				// }
+			}
+
 		}
 
 		&:before, &:after {
@@ -46,31 +66,25 @@ $corner_triangle_size: 48px;
 		 }
 	}
 
-	.light {
-		// width: 40px;
-		// height: 40px;
-		// position: absolute;
-		// top: 0;
-		// left: 0;
-		// z-index: 10;
-		// border-right: $corner_triangle_size solid white;
-		// border-bottom: $corner_triangle_size solid white;
-
-		// &.green {
-		// 	border-top: $corner_triangle_size solid green;
-		// 	border-left: $corner_triangle_size solid green;
-		// }
-
-		width: 10%;
+	.status-color-line {
+		width: 2%;
 		position: absolute;
 		top: 0;
 		left: 0;
 		bottom: 0;
-		z-index: 10;
+		background-color: $red;
 
-		&.green {
-			background-color: green;
-		}
+		transition: width 0.2s ease;
+
+		// &:before {
+		// 	content: "";
+		// 	position: absolute;
+		// 	top: 0;
+		// 	bottom: 0;
+		// 	left: 0;
+
+		// 	transition: left 0.5s ease;
+		// }
 	}
 
 	.name {
@@ -91,6 +105,8 @@ $corner_triangle_size: 48px;
 		top: 0;
 		right: 0;
 		margin: 19px 15px;
+
+		transition: color 0.5s ease;
 	}
 
 }
