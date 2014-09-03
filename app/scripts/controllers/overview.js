@@ -35,6 +35,8 @@ app.controller('OverviewController', function ($scope, churchServicesFactory, me
 				}
 			}); // End loop over every task
 
+			service.taskDoneCounter === service.taskCounter ? service.completed = true : service.completed = false;
+
 		}); // End loop over every service
 
 		$scope.members = members;

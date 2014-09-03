@@ -132,6 +132,17 @@ $service_height: 100px;
 		transition: color 0.5s ease;
 	}
 
+	.all-tasks-completed {
+		position: absolute;
+		top: 30%;
+		left: 4%;
+		display: block;
+		transform: rotateZ(-15deg);
+		font-family: impact;
+		font-size: 2em;
+		color: $green;
+	}
+
 }
 
 

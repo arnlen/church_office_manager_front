@@ -13,7 +13,8 @@
 
 <div class="services">
 
-	<div class="service" ng-repeat="service in services" ng-class="{ completed: service.taskDoneCounter === service.taskCounter, flipped: flipped }" ng-show="displayAllTasks || service.taskDoneCounter != service.taskCounter" ng-model="flipped" ng-click="flipped = !flipped">
+	<div class="service" ng-repeat="service in services" ng-class="{ completed: service.completed }" ng-show="displayAllTasks || !service.completed">
+		<div class="all-tasks-completed" ng-show="service.completed">Terminé</div>
 		<div class="status-color-line"></div>
 		<h2 ch-capitalize class="name" name="{{ service.name }}"></h2>
 		<div class="task-remaining">Tâches effectuées : {{ service.taskDoneCounter }} sur {{ service.taskCounter }}</div>
