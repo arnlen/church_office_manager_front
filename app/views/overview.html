@@ -1,3 +1,9 @@
+<div class="office-date">
+	<div class="previous glyphicon glyphicon-circle-arrow-left"></div>
+	<h1>Réunion du {{ office.date }}</h1>
+	<div class="next glyphicon glyphicon-circle-arrow-right"></div>
+</div>
+
 <div class="switch-button-container" ng-click="displayAllTasks = !displayAllTasks">
 
 		<div class="option">
@@ -7,18 +13,26 @@
 			<span>Seulement les incomplètes</span>
 		</div>
 
-		<div class="switch" ng-class="{ right: displayAllTasks }"></div>
+		<div class="switch" ng-class="{ right: displayAllTasks }">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
 
 </div>
 
 <div class="services">
 
 	<div class="service" ng-repeat="service in services" ng-class="{ completed: service.completed }" ng-show="displayAllTasks || !service.completed">
+
 		<div class="all-tasks-completed" ng-show="service.completed">Terminé</div>
 		<div class="status-color-line"></div>
 		<h2 ch-capitalize class="name" name="{{ service.name }}"></h2>
 		<div class="task-remaining">Tâches effectuées : {{ service.taskDoneCounter }} sur {{ service.taskCounter }}</div>
 		<div class='button'>></div>
+
 	</div>
 
 </div>

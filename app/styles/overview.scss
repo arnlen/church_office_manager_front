@@ -1,13 +1,94 @@
 @import '_vars';
 
+
 // --------------------------------------
 // LOCAL VARS
 
 $service_height: 100px;
+$transition_time: 0.4s;
 
 
-// END LOCAL VARS
-// -------------------
+// --------------------------------------
+// SWITCH BUTTON
+
+.switch-button-container {
+	width: 70%;
+	min-height: 30px;
+	margin: 0 auto 20px;
+	position: relative;
+	border: 1px solid gray;
+	cursor: pointer;
+	overflow: hidden;
+
+	.option {
+		text-align: center;
+		position: relative;
+		z-index: 20;
+		float: left;
+		width: 50%;
+		box-shadow: 3px 3px 9px -2px rgba(0, 0, 0, 0.4) inset;
+		line-height: 28px;
+		background-color: $green;
+		color: white;
+
+		&.right { background-color: $red; }
+
+	}
+
+	.switch {
+		position: absolute;
+		z-index: 30;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		width: 50%;
+		background-color: #EEEEEE;
+		box-shadow: 0 0 10px 0;
+		text-align: center;
+		padding: 5px;
+
+		transition: left $transition_time ease;
+
+		&.right {
+			left: 50%;
+		}
+
+		span {
+			width: 1px;
+			height: 100%;
+			display: inline-block;
+			margin: 0px 2px;
+			box-shadow: 1px 1px 0px 1px rgba(0, 0, 0, 0.2);
+		}
+	}
+}
+
+
+// --------------------------------------
+// OFFICE DATE
+
+.office-date {
+	font-size: 2em;
+	text-align: center;
+	margin-bottom: 10px;
+
+	h1 { margin-top: 0; }
+
+	.previous, .next {
+		position: absolute;
+		top: 0;
+	}
+
+	.previous { left: 0; }
+	.next { right: 0; }
+
+	@media screen and (max-width: 768px) {
+	  .previous { left: 15px; }
+	  .next { right: 15px; }
+	}
+
+}
+
 
 // --------------------------------------
 // SERVICES
@@ -24,17 +105,8 @@ $service_height: 100px;
 		text-align: center;
 		cursor: pointer;
 		left: 0;
-		backface-visibility: hidden;
 
-		transition: left 0.4s ease, height 0.4s ease, transform 0.3s ease;
-
-		&.flipped {
-			transform: rotateY(180deg);
-
-			&:before, &:after {
-				box-shadow: 0 15px 10px rgba(0, 0, 0, 0);
-			}
-		}
+		transition: left $transition_time ease, height $transition_time ease;
 
 		// Override default ng-hide dehaviour
 		&.ng-hide {
@@ -129,7 +201,7 @@ $service_height: 100px;
 		right: 0;
 		margin: 19px 15px;
 
-		transition: color 0.5s ease;
+		transition: color $transition_time ease;
 	}
 
 	.all-tasks-completed {
@@ -141,53 +213,6 @@ $service_height: 100px;
 		font-family: impact;
 		font-size: 2em;
 		color: $green;
-	}
-
-}
-
-
-// --------------------------------------
-// HEADER
-
-.switch-button-container {
-	width: 70%;
-	min-height: 30px;
-	margin: 0 auto 20px;
-	position: relative;
-	border: 1px solid gray;
-	cursor: pointer;
-	overflow: hidden;
-
-	.option {
-		text-align: center;
-		position: relative;
-		z-index: 20;
-		float: left;
-		width: 50%;
-		box-shadow: 3px 3px 9px -2px rgba(0, 0, 0, 0.4) inset;
-		line-height: 28px;
-		background-color: $green;
-		color: white;
-
-		&.right { background-color: $red; }
-
-	}
-
-	.switch {
-		position: absolute;
-		z-index: 30;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		width: 50%;
-		background-color: #EEEEEE;
-		box-shadow: 0 0 10px 0;
-
-		transition: left 0.5s ease;
-
-		&.right {
-			left: 50%;
-		}
 	}
 
 }
