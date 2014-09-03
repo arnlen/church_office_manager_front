@@ -30,6 +30,7 @@ app.controller('OverviewController', function ($scope, churchServicesFactory, me
 					typeof(service.taskDoneCounter) == 'undefined' ? service.taskDoneCounter = 0 : '';
 					typeof(service.taskCounter) == 'undefined' ? service.taskCounter = 1 : service.taskCounter++;
 					typeof(service.tasks) == 'undefined' ? service.tasks = [] : '';
+					task.completed ? service.taskDoneCounter++ : '';
 					service.tasks.push(task);
 				}
 			}); // End loop over every task
@@ -39,6 +40,9 @@ app.controller('OverviewController', function ($scope, churchServicesFactory, me
 		$scope.members = members;
 		$scope.services = services;
 		$scope.tasks = tasks;
+
+		// Init display mode (display all task yes or no)
+		$scope.displayAllTasks = true;
 
 	};
 

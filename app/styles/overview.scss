@@ -1,6 +1,6 @@
 @import '_vars';
 
-// -------------------
+// --------------------------------------
 // LOCAL VARS
 
 $service_height: 100px;
@@ -8,6 +8,9 @@ $service_height: 100px;
 
 // END LOCAL VARS
 // -------------------
+
+// --------------------------------------
+// SERVICES
 
 .services {
 
@@ -19,14 +22,43 @@ $service_height: 100px;
 		position: relative;
 		margin-bottom: 10px;
 		text-align: center;
-		// overflow: hidden;
 		cursor: pointer;
+		left: 0;
+		backface-visibility: hidden;
+
+		transition: left 0.4s ease, height 0.4s ease, transform 0.3s ease;
+
+		&.flipped {
+			transform: rotateY(180deg);
+
+			&:before, &:after {
+				box-shadow: 0 15px 10px rgba(0, 0, 0, 0);
+			}
+		}
+
+		// Override default ng-hide dehaviour
+		&.ng-hide {
+			display: inherit!important;
+			left: 200%;
+			height: 0;
+		}
 
 		&.completed {
 			border-color: $green;
 
 			.status-color-line {
 				background-color: $green;
+			}
+
+			.task-remaining {
+				color: $green;
+			}
+
+			&:hover {
+
+				.button {
+					color: $green;
+				}
 			}
 		}
 
@@ -37,12 +69,11 @@ $service_height: 100px;
 			}
 
 			.status-color-line {
-				width: 4%;
+				width: 3%;
+			}
 
-				// &:before {
-				// 	box-shadow: 0 0 400px 50px $red;
-				// 	left: 900px;
-				// }
+			&:before, &:after {
+				bottom: 25px;
 			}
 
 		}
@@ -57,6 +88,8 @@ $service_height: 100px;
 		  height: 20%;
 		  box-shadow: 0 15px 10px rgba(0, 0, 0, 0.4);
 		  transform: rotate(-3deg);
+
+		  transition: bottom 0.2s ease;
 		}
 
 		&:after{
@@ -75,16 +108,6 @@ $service_height: 100px;
 		background-color: $red;
 
 		transition: width 0.2s ease;
-
-		// &:before {
-		// 	content: "";
-		// 	position: absolute;
-		// 	top: 0;
-		// 	bottom: 0;
-		// 	left: 0;
-
-		// 	transition: left 0.5s ease;
-		// }
 	}
 
 	.name {
@@ -92,7 +115,7 @@ $service_height: 100px;
 	}
 
 	.task-remaining {
-
+		color: $red;
 	}
 
 	.button {
@@ -107,6 +130,53 @@ $service_height: 100px;
 		margin: 19px 15px;
 
 		transition: color 0.5s ease;
+	}
+
+}
+
+
+// --------------------------------------
+// HEADER
+
+.switch-button-container {
+	width: 70%;
+	min-height: 30px;
+	margin: 0 auto 20px;
+	position: relative;
+	border: 1px solid gray;
+	cursor: pointer;
+	overflow: hidden;
+
+	.option {
+		text-align: center;
+		position: relative;
+		z-index: 20;
+		float: left;
+		width: 50%;
+		box-shadow: 3px 3px 9px -2px rgba(0, 0, 0, 0.4) inset;
+		line-height: 28px;
+		background-color: $green;
+		color: white;
+
+		&.right { background-color: $red; }
+
+	}
+
+	.switch {
+		position: absolute;
+		z-index: 30;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		width: 50%;
+		background-color: #EEEEEE;
+		box-shadow: 0 0 10px 0;
+
+		transition: left 0.5s ease;
+
+		&.right {
+			left: 50%;
+		}
 	}
 
 }
