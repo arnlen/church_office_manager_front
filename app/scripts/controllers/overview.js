@@ -27,6 +27,8 @@ app.controller('OverviewController', function ($scope, churchServicesFactory, me
 
 			angular.forEach(tasks, function(task, index) {
 				if (task.service.toLowerCase() === service.name.toLowerCase()) {
+					typeof(service.taskDoneCounter) == 'undefined' ? service.taskDoneCounter = 0 : '';
+					typeof(service.taskCounter) == 'undefined' ? service.taskCounter = 1 : service.taskCounter++;
 					typeof(service.tasks) == 'undefined' ? service.tasks = [] : '';
 					service.tasks.push(task);
 				}

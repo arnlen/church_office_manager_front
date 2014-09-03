@@ -1,0 +1,96 @@
+
+// -------------------
+// VARS
+
+$service_height: 100px;
+$corner_triangle_size: 48px;
+
+
+// END VARS
+// -------------------
+
+.services {
+
+	.service {
+		height: $service_height;
+		background-color: white;
+		border: solid #BBBBBB;
+		border-width: 1px;
+		padding: 10px;
+		position: relative;
+		margin-bottom: 10px;
+		text-align: center;
+
+		&:hover {
+			.light {
+				// TODO
+			}
+		}
+
+		&:before, &:after {
+		  content: "";
+		  position: absolute;
+		  z-index: -1;
+		  bottom: 15px;
+		  left: 10px;
+		  width: 50%;
+		  height: 20%;
+		  box-shadow: 0 15px 10px rgba(0, 0, 0, 0.4);
+		  transform: rotate(-3deg);
+		}
+
+		&:after{
+		  right: 10px;
+		  left: auto;
+		  transform: rotate(3deg);
+		 }
+	}
+
+	.light {
+		// width: 40px;
+		// height: 40px;
+		// position: absolute;
+		// top: 0;
+		// left: 0;
+		// z-index: 10;
+		// border-right: $corner_triangle_size solid white;
+		// border-bottom: $corner_triangle_size solid white;
+
+		// &.green {
+		// 	border-top: $corner_triangle_size solid green;
+		// 	border-left: $corner_triangle_size solid green;
+		// }
+
+		width: 10%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		z-index: 10;
+
+		&.green {
+			background-color: green;
+		}
+	}
+
+	.name {
+		margin-top: 5px;
+	}
+
+	.task-remaining {
+
+	}
+
+	.button {
+		font-family: comic sans ms;
+		text-align: center;
+		font-size: 3em;
+		text-shadow: rgba(0, 0, 0, 0.1) -1px 0, rgba(0, 0, 0, 0.1) 0 -1px, rgba(255, 255, 255, 0.1) 1px 0, rgba(255, 255, 255, 0.1) 0 1px, rgba(0, 0, 0, 0.1) -1px -1px, rgba(255, 255, 255, 0.1) 1px 1px;
+		color: rgba(255, 255, 255, 0.6);
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 19px 15px;
+	}
+
+}
