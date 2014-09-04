@@ -3,7 +3,7 @@
 app.factory('overviewFactory', function() {
 
 	// This JSON should be returned by the Rails API
-	return [
+	return  [
 	  {
 	    "name": "louange",
 	    "leader": "Jeff",
@@ -15,13 +15,17 @@ app.factory('overviewFactory', function() {
 	      "Willaim",
 	      "Emmanuel"
 	    ],
+	    "taskDoneCounter": 1,
+	    "taskCounter": 1,
 	    "tasks": [
 	      {
 	        "name": "Créer liste des chants",
 	        "service": "louange",
-	        "dueDate": "saturday"
+	        "dueDate": "saturday",
+	        "completed": true
 	      }
-	    ]
+	    ],
+	    "completed": true
 	  },
 	  {
 	    "name": "accueil",
@@ -30,13 +34,17 @@ app.factory('overviewFactory', function() {
 	      "Nico",
 	      "Cynthia"
 	    ],
+	    "taskDoneCounter": 0,
+	    "taskCounter": 1,
 	    "tasks": [
 	      {
 	        "name": "Imprimer brochures",
 	        "service": "accueil",
-	        "dueDate": "sunday"
+	        "dueDate": "sunday",
+	        "completed": false
 	      }
-	    ]
+	    ],
+	    "completed": false
 	  },
 	  {
 	    "name": "projection",
@@ -46,18 +54,23 @@ app.factory('overviewFactory', function() {
 	      "Didier"
 	    ],
 	    "leader": "Arnaud",
+	    "taskDoneCounter": 0,
+	    "taskCounter": 2,
 	    "tasks": [
 	      {
 	        "name": "Créer PPT (accueil + anniversaire + annonces)",
 	        "service": "projection",
-	        "dueDate": "saturday"
+	        "dueDate": "saturday",
+	        "completed": false
 	      },
 	      {
 	        "name": "Saisir liste des chants dans VideoPsalm",
 	        "service": "projection",
-	        "dueDate": "saturday"
+	        "dueDate": "saturday",
+	        "completed": false
 	      }
-	    ]
+	    ],
+	    "completed": false
 	  },
 	  {
 	    "name": "sono",
@@ -67,13 +80,17 @@ app.factory('overviewFactory', function() {
 	      "Arnaud",
 	      "Didier"
 	    ],
+	    "taskDoneCounter": 0,
+	    "taskCounter": 1,
 	    "tasks": [
 	      {
 	        "name": "Faire balance",
 	        "service": "sono",
-	        "dueDate": "saturday"
+	        "dueDate": "saturday",
+	        "completed": false
 	      }
-	    ]
+	    ],
+	    "completed": false
 	  },
 	  {
 	    "name": "programme",
@@ -81,13 +98,17 @@ app.factory('overviewFactory', function() {
 	    "members": [
 	      "Didier"
 	    ],
+	    "taskDoneCounter": 0,
+	    "taskCounter": 1,
 	    "tasks": [
 	      {
 	        "name": "Créer brochure",
 	        "service": "programme",
-	        "dueDate": "friday"
+	        "dueDate": "friday",
+	        "completed": false
 	      }
-	    ]
+	    ],
+	    "completed": false
 	  },
 	  {
 	    "name": "prédication",
@@ -95,13 +116,17 @@ app.factory('overviewFactory', function() {
 	    "members": [
 	      "Emmanuel"
 	    ],
+	    "taskDoneCounter": 0,
+	    "taskCounter": 1,
 	    "tasks": [
 	      {
 	        "name": "Définir titre du message",
 	        "service": "prédication",
-	        "dueDate": "friday"
+	        "dueDate": "friday",
+	        "completed": false
 	      }
-	    ]
+	    ],
+	    "completed": false
 	  }
 	]
 
