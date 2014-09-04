@@ -1,6 +1,6 @@
 <div class="office-date">
 	<div class="previous glyphicon glyphicon-circle-arrow-left"></div>
-	<h1>Réunion du {{ office.date }}</h1>
+	<h1>Réunion du {{ office.date | date:'d/MM/yyyy' }}</h1>
 	<div class="next glyphicon glyphicon-circle-arrow-right"></div>
 </div>
 
@@ -25,12 +25,12 @@
 
 <div class="services">
 
-	<div class="service" ng-repeat="service in services" ng-class="{ completed: service.completed }" ng-show="displayAllTasks || !service.completed">
+	<div class="service" ng-repeat="service in office.services" ng-class="{ completed: service.ready }" ng-show="displayAllTasks || !service.ready">
 
-		<div class="all-tasks-completed" ng-show="service.completed">Terminé</div>
+		<div class="all-tasks-completed" ng-show="service.ready">Terminé</div>
 		<div class="status-color-line"></div>
 		<h2 ch-capitalize class="name" name="{{ service.name }}"></h2>
-		<div class="task-remaining">Tâches effectuées : {{ service.taskDoneCounter }} sur {{ service.taskCounter }}</div>
+		<div class="task-remaining">Tâches effectuées : {{ service.task_done }} sur {{ service.task_total }}</div>
 		<div class='button'>></div>
 
 	</div>
@@ -38,5 +38,5 @@
 </div>
 
 <pre>
-  {{ services | json }}
+  {{ office | json }}
 </pre>
