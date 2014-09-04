@@ -25,7 +25,7 @@
 
 <div class="services">
 
-	<div class="service" ng-repeat="service in office.services" ng-class="{ completed: service.ready }" ng-show="displayAllTasks || !service.ready">
+	<div class="service" ng-repeat="service in office.services" ng-class="{ completed: service.ready }" ng-show="displayAllTasks || !service.ready" ng-click="loadClickedService(service)">
 
 		<div class="all-tasks-completed" ng-show="service.ready">Terminé</div>
 		<div class="status-color-line"></div>
@@ -35,8 +35,16 @@
 
 	</div>
 
-</div>
+	<div class="service-panel">
+		<div class="name">{{ selectedService.name }}</div>
+		<div class="leader-name">{{ selectedService.leader_name }}</div>
+		<ul class="tasks">
+			<li class="task" ng-repeat="task in selectedService.tasks">{{ task.name }} - {{ task.due_date }}</li>
+		</ul>
+	</div>
 
-<pre>
-  {{ office | json }}
-</pre>
+	<pre>
+	  {{ selectedService | json }}
+	</pre>
+
+</div>

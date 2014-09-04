@@ -113,6 +113,10 @@ $transition_time: 0.4s;
 			display: inherit!important;
 			left: 200%;
 			height: 0;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+
 		}
 
 		&.completed {
