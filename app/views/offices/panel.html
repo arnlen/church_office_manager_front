@@ -12,7 +12,7 @@
 		</tr>
 		<tr class="task" ng-repeat="task in selectedService.tasks">
 			<td class="name">
-				<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="toggleCompletedTask({{ task }})">
+				<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="toggleCompletedTask({{ task }}, {{ selectedService }})">
 				<label for="task_{{ task.id }}">{{ task.name }}</label>
 			</td>
 			<td class="due-date">{{ task.due_date | date:'d/MM/yyyy' }}</td>
