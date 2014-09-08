@@ -1,0 +1,36 @@
+@import '_vars';
+
+
+// --------------------------------------
+// SERVICE PANEL
+
+.service-panel {
+	position: fixed;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: seashell;
+	width: 500px;
+	z-index: 50;
+	text-align: center;
+	padding: 20px;
+
+	h2 {
+		font-size: 1.5em;
+	}
+
+	.tasks {
+		margin: 20px;
+
+		.task {
+			position: relative;
+
+			.checkbox {
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				background-color: red;
+			}
+		}
+	}
+}

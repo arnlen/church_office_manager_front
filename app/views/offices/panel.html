@@ -1,0 +1,10 @@
+<div class="service-panel">
+
+	<h1 class="name">{{ selectedService.name }}</h1>
+	<div class="leader-name">Personne en charge : {{ selectedService.leader_name }}</div>
+	<h2>Tâches à accomplir pour la prochaine réunion</h2>
+	<ul class="tasks">
+		<li class="task" ng-repeat="task in selectedService.tasks"><span class="checkbox"></span>{{ task.name }} - {{ task.due_date }}</li>
+	</ul>
+
+</div>

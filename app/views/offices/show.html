@@ -35,13 +35,7 @@
 
 	</div>
 
-	<div class="service-panel">
-		<div class="name">{{ selectedService.name }}</div>
-		<div class="leader-name">{{ selectedService.leader_name }}</div>
-		<ul class="tasks">
-			<li class="task" ng-repeat="task in selectedService.tasks">{{ task.name }} - {{ task.due_date }}</li>
-		</ul>
-	</div>
+	<div ng-include="'views/offices/panel.html'"></div>
 
 	<pre>
 	  {{ selectedService | json }}
