@@ -35,10 +35,8 @@
 
 	</div>
 
+	<!-- Right panel for service -->
 	<div ng-include="'views/offices/panel.html'"></div>
-
-	<pre>
-	  {{ selectedService | json }}
-	</pre>
+	<div class="overlay" ng-class="{ visible: panelOpenned }" ng-click="closePanel()"></div>
 
 </div>

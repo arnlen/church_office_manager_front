@@ -1,6 +1,3 @@
-@import '_vars';
-
-
 // --------------------------------------
 // SWITCH BUTTON
 
@@ -12,6 +9,7 @@
 	border: 1px solid gray;
 	cursor: pointer;
 	overflow: hidden;
+	z-index: 5;
 
 	.option {
 		text-align: center;

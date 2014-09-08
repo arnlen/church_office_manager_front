@@ -1,10 +1,22 @@
-<div class="service-panel">
+<div class="service-panel" ng-class="{ visible: panelOpenned }">
+
+	<i class="fa fa-angle-double-right close-button" ng-click="closePanel()"></i>
 
 	<h1 class="name">{{ selectedService.name }}</h1>
 	<div class="leader-name">Personne en charge : {{ selectedService.leader_name }}</div>
 	<h2>Tâches à accomplir pour la prochaine réunion</h2>
-	<ul class="tasks">
-		<li class="task" ng-repeat="task in selectedService.tasks"><span class="checkbox"></span>{{ task.name }} - {{ task.due_date }}</li>
-	</ul>
+	<table class="tasks">
+		<tr>
+			<th>Tâche</th>
+			<th>Échéance</th>
+		</tr>
+		<tr class="task" ng-repeat="task in selectedService.tasks">
+			<td class="name">
+				<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="toggleCompletedTask({{ task }})">
+				<label for="task_{{ task.id }}">{{ task.name }}</label>
+			</td>
+			<td class="due-date">{{ task.due_date | date:'d/MM/yyyy' }}</td>
+		</tr>
+	</table>
 
 </div>

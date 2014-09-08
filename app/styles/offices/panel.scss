@@ -1,12 +1,9 @@
-@import '_vars';
-
-
 // --------------------------------------
 // SERVICE PANEL
 
 .service-panel {
 	position: fixed;
-	right: 0;
+	right: -500px;
 	top: 0;
 	bottom: 0;
 	background-color: seashell;
@@ -14,23 +11,53 @@
 	z-index: 50;
 	text-align: center;
 	padding: 20px;
+	box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
 
-	h2 {
-		font-size: 1.5em;
+	transition: right $transition_time ease;
+
+	&.visible { right: 0; }
+
+	h2 { font-size: 1.5em; }
+
+	label { margin: 0 35px 0; }
+
+	th {
+		text-align: center;
+		color: gray;
+		font-weight: lighter;
 	}
+
+	td { position: relative; }
 
 	.tasks {
 		margin: 20px;
+		text-align: left;
+		width: 90%;
 
 		.task {
 			position: relative;
+			height: 45px;
 
-			.checkbox {
-				position: absolute;
-				width: 20px;
-				height: 20px;
-				background-color: red;
+			.name {
+				width: 75%;
+			}
+
+			.due-date {
+				text-align: center;
 			}
 		}
+	}
+
+	.close-button {
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		font-size: 3em;
+		cursor: pointer;
+		color: $gray;
+
+		transition: color $transition_time ease;
+
+		&:hover { color: $red; }
 	}
 }

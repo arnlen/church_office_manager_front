@@ -1,50 +1,15 @@
 'use strict';
 
-app.factory('tasksFactory', function() {
+app.factory('tasksFactory', ['$resource', function($resource) {
 
-	return [
-		{
-			name: "Créer liste des chants",
-			service: 'louange',
-			dueDate: 'saturday',
-			completed: true
-		},
-		{
-			name: "Imprimer brochures",
-			service: 'accueil',
-			dueDate: 'sunday',
-			completed: false
-		},
-		{
-			name: "Créer PPT (accueil + anniversaire + annonces)",
-			service: 'projection',
-			dueDate: 'saturday',
-			completed: false
-		},
-		{
-			name: "Saisir liste des chants dans VideoPsalm",
-			service: 'projection',
-			dueDate: 'saturday',
-			completed: false
-		},
-		{
-			name: "Faire balance",
-			service: 'sono',
-			dueDate: 'saturday',
-			completed: false
-		},
-		{
-			name: "Créer brochure",
-			service: 'programme',
-			dueDate: 'friday',
-			completed: false
-		},
-		{
-			name: "Définir titre du message",
-			service: 'prédication',
-			dueDate: 'friday',
-			completed: false
-		}
-	];
+	var Task = $resource('http://localhost:3000/tasks/:id',
+	{
+		id: "@id"
+	},
+	{
+		update: { method: 'PUT', params: { task: "@task" }}
+	});
 
-});
+	return Task;
+
+}]);

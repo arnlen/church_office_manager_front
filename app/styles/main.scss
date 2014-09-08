@@ -1,7 +1,12 @@
+@import '_vars';
+
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+$fa-font-path: "/bower_components/font-awesome/fonts";
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import "font-awesome/scss/font-awesome";
 // endbower
+
 
 /* Space out content a bit */
 body {
@@ -18,3 +23,58 @@ body {
     max-width: 730px;
   }
 }
+
+
+// --------------------------------------
+// CUSTOM CHECKBOX
+
+label {
+	font-weight: normal;
+	cursor: pointer;
+	line-height: 2em;
+
+	&:before, &:after {
+		font-family: fontawesome;
+		font-size: 2em;
+		position: absolute;
+		top: 10px;
+		left: 0;
+	}
+
+	&:before {
+		content: '\f096';
+		color: $red;
+		transition: all 0.30s;
+	}
+
+	&:after {
+		content: '\f046';
+		color: $green;
+		overflow: hidden;
+		max-width: 0;
+		opacity: 0.5;
+		transition: all 0.30s;
+	}
+}
+
+input[type="checkbox"] {
+	margin: 0 20px;
+	display: none;
+
+	&:checked + label:before {
+		opacity: 0;
+	}
+
+	&:checked + label:after {
+		max-width: 2em;
+		opacity: 1;
+	}
+}
+
+
+// --------------------------------------
+// FILE IMPORTATION
+
+@import "offices/header";
+@import "offices/panel";
+@import "offices/services";
