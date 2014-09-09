@@ -3,8 +3,13 @@
 	<i class="fa fa-angle-double-right close-button" ng-click="closePanel()"></i>
 
 	<h1 class="name">{{ selectedService.name }}</h1>
-	<div class="leader-name">Personne en charge : {{ selectedService.leader_name }}</div>
-	<h2>Tâches à accomplir pour la prochaine réunion</h2>
+	<div class="leader-name">Responsable :
+		<span class="label label-default">{{ selectedService.leader_name }}</span>
+	</div>
+	<div class="in-charge-this-meeting">Cette réunion :
+		<span class="label" ng-class="{ 'label-danger': selectedService.member_in_charge_name == 'A définir' }">{{ selectedService.member_in_charge_name }}</span>
+	</div>
+	<h2>Tâches à accomplir pour cette réunion</h2>
 	<table class="tasks">
 		<tr>
 			<th>Tâche</th>

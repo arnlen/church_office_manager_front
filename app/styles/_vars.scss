@@ -1,4 +1,11 @@
 // -------------------
+// FONTS
+
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+$fa-font-path: "/bower_components/font-awesome/fonts";
+
+
+// -------------------
 // COLORS
 
 $red: #EB6A6A;
@@ -6,5 +13,8 @@ $green: #28AB24;
 $blue: #637DA6;
 $gray: #DDDDDD;
 
+
+// -------------------
+// TIMERS
 
 $transition_time: 0.4s;

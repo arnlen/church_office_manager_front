@@ -1,10 +1,7 @@
 @import '_vars';
 
-$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
-$fa-font-path: "/bower_components/font-awesome/fonts";
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
-@import "font-awesome/scss/font-awesome";
 // endbower
 
 
@@ -73,8 +70,8 @@ input[type="checkbox"] {
 
 
 // --------------------------------------
-// FILE IMPORTATION
+// LABELS OVERRIDE
 
-@import "offices/header";
-@import "offices/panel";
-@import "offices/services";
+.label {
+	cursor: pointer;
+}
