@@ -9,7 +9,7 @@
 body {
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: #FFFFF5;
+  background-color: ivory;
 }
 
 .container { position: relative; }
@@ -30,18 +30,25 @@ label {
 	cursor: pointer;
 	line-height: 2em;
 
+	&:hover {
+		&:before, &:after {
+			color: $green;
+		}
+	}
+
 	&:before, &:after {
 		font-family: fontawesome;
 		font-size: 2em;
 		position: absolute;
 		top: 10px;
 		left: 0;
+
+		transition: all 0.30s;
 	}
 
 	&:before {
 		content: '\f096';
 		color: $red;
-		transition: all 0.30s;
 	}
 
 	&:after {
@@ -50,7 +57,6 @@ label {
 		overflow: hidden;
 		max-width: 0;
 		opacity: 0.5;
-		transition: all 0.30s;
 	}
 }
 
