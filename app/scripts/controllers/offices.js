@@ -42,11 +42,11 @@ app.controller('OfficesController', function ($scope, officesFactory, tasksFacto
 	// ------------------------------------------------------
 	// MEMBER PANEL
 
-	$scope.openMemberPanel = function(member) {
-		// membersFactory.get({ id: member.id }).$promise.then(function(result) {
-			// TODO : load into the member panel
+	$scope.openMemberPanel = function(member_id) {
+		membersFactory.get({ id: member_id }).$promise.then(function(result) {
+			$scope.member = result;
 			$scope.memberPanelOpenned = true;
-		// });
+		});
 	};
 
 	$scope.closeMemberPanel = function(member) {

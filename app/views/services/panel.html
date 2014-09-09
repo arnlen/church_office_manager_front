@@ -4,10 +4,10 @@
 
 	<h1 class="name">{{ selectedService.name }}</h1>
 	<div class="leader-name">Responsable :
-		<span class="label label-default" ng-click="openMemberPanel()">{{ selectedService.leader_name }}</span>
+		<span class="label label-default" ng-click="openMemberPanel(selectedService.leader_id)">{{ selectedService.leader_name }}</span>
 	</div>
 	<div class="in-charge-this-meeting">Cette réunion :
-		<span class="label" ng-class="{ 'label-danger': selectedService.member_in_charge_name == 'A définir' }">{{ selectedService.member_in_charge_name }}</span>
+		<span class="label" ng-class="{ 'label-danger': !selectedService.member_in_charge_name }">{{ selectedService.member_in_charge_name || "A définir !" }}</span>
 	</div>
 	<h2>Tâches à accomplir pour cette réunion</h2>
 	<table class="tasks">
