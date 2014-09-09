@@ -16,11 +16,11 @@ app.controller('OfficesController', function ($scope, officesFactory, tasksFacto
 
 	$scope.openServicePanel = function(clicked_service) {
 		$scope.selectedService = clicked_service;
-		$scope.servicePanelOpenned = true;
+		$scope.servicePanelOpen = true;
 	};
 
 	$scope.closeServicePanel = function(clicked_service) {
-		$scope.servicePanelOpenned = false;
+		$scope.servicePanelOpen = false;
 	};
 
 	$scope.toggleCompletedTask = function(task, selectedService) {
@@ -45,17 +45,35 @@ app.controller('OfficesController', function ($scope, officesFactory, tasksFacto
 	$scope.openMemberPanel = function(member_id) {
 		membersFactory.get({ id: member_id }).$promise.then(function(result) {
 			$scope.member = result;
-			$scope.memberPanelOpenned = true;
+			$scope.memberPanelOpen = true;
 		});
 	};
 
 	$scope.closeMemberPanel = function(member) {
-		$scope.memberPanelOpenned = false;
+		$scope.memberPanelOpen = false;
 	};
 
 	$scope.closeAllPanels = function() {
-		$scope.memberPanelOpenned = false;
-		$scope.servicePanelOpenned = false;
+		$scope.memberPanelOpen = false;
+		$scope.servicePanelOpen = false;
+	};
+
+	$scope.toggleMemberList = function() {
+		if (!$scope.members) {
+			membersFactory.query().$promise.then(function(result) {
+				$scope.members = result;
+				$scope.memberListOpen = !$scope.memberListOpen;
+			});
+		} else {
+			$scope.memberListOpen = !$scope.memberListOpen;
+		}
+	};
+
+	$scope.updateMemberInCharge = function(service_id, member_id) {
+		servicesFactory.update({ id: service_id, member_id: member_id }).$promise.then(function(result) {
+			// TODO:
+			$scope.toggleMemberList();
+		});
 	};
 
 });

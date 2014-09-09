@@ -1,20 +1,38 @@
-<div class="office-panel level-one" ng-class="{ active: servicePanelOpenned, 'pushed-once': memberPanelOpenned }">
+<div class="office-panel level-one" ng-class="{ active: servicePanelOpen, 'pushed-once': memberPanelOpen }">
 
+	<!-- Close button -->
 	<i class="fa fa-angle-double-right close-button" ng-click="closeServicePanel()"></i>
 
+	<!-- Service leader -->
 	<h1 class="name">{{ selectedService.name }}</h1>
 	<div class="leader-name">Responsable :
-		<span class="label label-default" ng-click="openMemberPanel(selectedService.leader_id)">{{ selectedService.leader_name }}</span>
+		<span class="label label-default" ng-click="openMemberPanel(selectedService.leader_id)">
+			{{ selectedService.leader_name }}
+		</span>
 	</div>
+
+	<!-- In charge for this office -->
 	<div class="in-charge-this-meeting">Cette réunion :
-		<span class="label" ng-class="{ 'label-danger': !selectedService.member_in_charge_name }">{{ selectedService.member_in_charge_name || "A définir !" }}</span>
+		<span class="label" ng-class="{ 'label-danger': !selectedService.member_in_charge_name }" ng-click="toggleMemberList()">
+			{{ selectedService.member_in_charge_name || "A définir !" }}
+		</span>
 	</div>
+
+	<div class="member-list-container" ng-class="{ visible: memberListOpen }">
+		<span class="member label label-danger" ng-repeat="member in members" ng-click="updateMemberInCharge(selectedService.id, member.id)">{{ member.name }}</span>
+	</div>
+
+	<!-- Tasks to do section -->
 	<h2>Tâches à accomplir pour cette réunion</h2>
+
+	<!-- Table of tasks -->
 	<table class="tasks">
+
 		<tr>
 			<th>Tâche</th>
 			<th>Échéance</th>
 		</tr>
+
 		<tr class="task" ng-repeat="task in selectedService.tasks">
 			<td class="name">
 				<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="toggleCompletedTask({{ task }}, {{ selectedService }})">
@@ -22,6 +40,7 @@
 			</td>
 			<td class="due-date">{{ task.due_date | date:'d/MM/yyyy' }}</td>
 		</tr>
+
 	</table>
 
 </div>
