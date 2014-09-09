@@ -25,7 +25,7 @@
 
 <div class="services">
 
-	<div class="service" ng-repeat="service in office.services" ng-class="{ completed: service.ready }" ng-show="displayAllTasks || !service.ready" ng-click="loadClickedService(service)">
+	<div class="service" ng-repeat="service in office.services" ng-class="{ completed: service.ready }" ng-show="displayAllTasks || !service.ready" ng-click="openServicePanel(service)">
 
 		<div class="all-tasks-completed" ng-show="service.ready">Terminé</div>
 		<div class="status-color-line"></div>
@@ -35,8 +35,9 @@
 
 	</div>
 
-	<!-- Right panel for service -->
-	<div ng-include="'views/offices/panel.html'"></div>
-	<div class="overlay" ng-class="{ visible: panelOpenned }" ng-click="closePanel()"></div>
+	<!-- Right panels -->
+	<div ng-include="'views/services/panel.html'"></div>
+	<div ng-include="'views/members/panel.html'"></div>
+	<div class="overlay" ng-class="{ 'visible-service': servicePanelOpenned, 'visible-member': memberPanelOpenned }" ng-click="closeAllPanels()"></div>
 
 </div>

@@ -135,9 +135,10 @@ $service_height: 100px;
 		color: $green;
 	}
 
+	// Overlay when the right panel is open
 	.overlay {
 		position: fixed;
-		z-index: 10;
+		z-index: 45;
 		top: 0;
 		left: 0;
 		bottom: 0;
@@ -148,7 +149,7 @@ $service_height: 100px;
 
 		transition: opacity $transition_time ease;
 
-		&.visible {
+		&.visible-service, &.visible-member {
 			opacity: 0.5;
 			pointer-events: auto;
 		}

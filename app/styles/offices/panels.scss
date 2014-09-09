@@ -3,21 +3,38 @@
 // --------------------------------------
 // SERVICE PANEL
 
-.service-panel {
+.office-panel {
 	position: fixed;
 	right: -500px;
 	top: 0;
 	bottom: 0;
 	background-color: seashell;
 	width: 500px;
-	z-index: 50;
 	text-align: center;
 	padding: 20px;
 	box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
 
 	transition: right $transition_time ease;
 
-	&.visible { right: 0; }
+	&.level-one {
+		z-index: 50;
+
+		&.active {
+			right: 0;
+		}
+
+		&.pushed-once {
+			right: 30px;
+		}
+	}
+
+	&.level-two {
+		z-index: 100;
+
+		&.active {
+			right: 0;
+		}
+	}
 
 	h2 { font-size: 1.5em; }
 

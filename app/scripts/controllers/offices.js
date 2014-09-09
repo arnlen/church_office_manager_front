@@ -1,22 +1,26 @@
 'use strict';
 
-app.controller('OfficesController', function ($scope, officeFactory, tasksFactory, servicesFactory) {
+app.controller('OfficesController', function ($scope, officesFactory, tasksFactory, servicesFactory, membersFactory) {
 
 	$scope.reloadOffice = function() {
-		officeFactory.get().$promise.then(function(result) {
+		officesFactory.get().$promise.then(function(result) {
 			$scope.office = result.offices[0];
 		});
 	};
 
 	$scope.reloadOffice();
 
-	$scope.loadClickedService = function(clicked_service) {
+
+	// ------------------------------------------------------
+	// SERVICE PANEL
+
+	$scope.openServicePanel = function(clicked_service) {
 		$scope.selectedService = clicked_service;
-		$scope.panelOpenned = true;
+		$scope.servicePanelOpenned = true;
 	};
 
-	$scope.closePanel = function() {
-		$scope.panelOpenned = false;
+	$scope.closeServicePanel = function(clicked_service) {
+		$scope.servicePanelOpenned = false;
 	};
 
 	$scope.toggleCompletedTask = function(task, selectedService) {
@@ -32,6 +36,26 @@ app.controller('OfficesController', function ($scope, officeFactory, tasksFactor
 		servicesFactory.get({ id: selectedService.id }).$promise.then(function(result) {
 			// TODO: only reload one service
 		});
+	};
+
+
+	// ------------------------------------------------------
+	// MEMBER PANEL
+
+	$scope.openMemberPanel = function(member) {
+		// membersFactory.get({ id: member.id }).$promise.then(function(result) {
+			// TODO : load into the member panel
+			$scope.memberPanelOpenned = true;
+		// });
+	};
+
+	$scope.closeMemberPanel = function(member) {
+		$scope.memberPanelOpenned = false;
+	};
+
+	$scope.closeAllPanels = function() {
+		$scope.memberPanelOpenned = false;
+		$scope.servicePanelOpenned = false;
 	};
 
 });

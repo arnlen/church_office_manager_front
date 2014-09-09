@@ -1,10 +1,10 @@
-<div class="service-panel" ng-class="{ visible: panelOpenned }">
+<div class="office-panel level-one" ng-class="{ active: servicePanelOpenned, 'pushed-once': memberPanelOpenned }">
 
-	<i class="fa fa-angle-double-right close-button" ng-click="closePanel()"></i>
+	<i class="fa fa-angle-double-right close-button" ng-click="closeServicePanel()"></i>
 
 	<h1 class="name">{{ selectedService.name }}</h1>
 	<div class="leader-name">Responsable :
-		<span class="label label-default">{{ selectedService.leader_name }}</span>
+		<span class="label label-default" ng-click="openMemberPanel()">{{ selectedService.leader_name }}</span>
 	</div>
 	<div class="in-charge-this-meeting">Cette réunion :
 		<span class="label" ng-class="{ 'label-danger': selectedService.member_in_charge_name == 'A définir' }">{{ selectedService.member_in_charge_name }}</span>
