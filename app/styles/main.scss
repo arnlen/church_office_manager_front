@@ -84,3 +84,86 @@ input[type="checkbox"] {
 	font-size: 1em;
 	font-weight: normal;
 }
+
+
+// --------------------------------------
+// PANELS
+
+.panel {
+	position: fixed;
+	right: -500px;
+	top: 0;
+	bottom: 0;
+	background-color: seashell;
+	width: 500px;
+	text-align: center;
+	padding: 20px;
+	box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+
+	transition: right $transition_time ease;
+
+	&.level-one {
+		z-index: 50;
+
+		&.active {
+			right: 0;
+		}
+
+		&.pushed-once {
+			right: 30px;
+		}
+	}
+
+	&.level-two {
+		z-index: 100;
+
+		&.active {
+			right: 0;
+		}
+	}
+
+	.close-button {
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		font-size: 3em;
+		cursor: pointer;
+		color: $gray;
+
+		transition: color $transition_time ease;
+
+		&:hover { color: $red; }
+	}
+
+	h2 { font-size: 1.5em; }
+
+	label { margin: 0 35px 0; }
+
+	th {
+		text-align: center;
+		color: gray;
+		font-weight: lighter;
+	}
+
+	td { position: relative; }
+}
+
+// Overlay when the panel is open
+.overlay {
+	position: fixed;
+	z-index: 45;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: black;
+	opacity: 0;
+	pointer-events: none;
+
+	transition: opacity $transition_time ease;
+
+	&.visible-service, &.visible-member {
+		opacity: 0.5;
+		pointer-events: auto;
+	}
+}

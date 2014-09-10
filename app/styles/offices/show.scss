@@ -32,7 +32,6 @@ $service_height: 100px;
 			margin: 0;
 			padding: 0;
 			overflow: hidden;
-
 		}
 
 		&.completed {
@@ -133,26 +132,6 @@ $service_height: 100px;
 		font-family: impact;
 		font-size: 2em;
 		color: $green;
-	}
-
-	// Overlay when the right panel is open
-	.overlay {
-		position: fixed;
-		z-index: 45;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		background-color: black;
-		opacity: 0;
-		pointer-events: none;
-
-		transition: opacity $transition_time ease;
-
-		&.visible-service, &.visible-member {
-			opacity: 0.5;
-			pointer-events: auto;
-		}
 	}
 
 }
