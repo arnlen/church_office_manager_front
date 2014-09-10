@@ -1,13 +1,14 @@
 'use strict';
 
-app.controller('ServicesController', function ($scope, servicesFactory) {
+app.controller('ServicesController', function ($scope, servicesFactory, membersFactory) {
+
+
+	// ------------------------------------------------------
+	// Service loading
 
 	$scope.loadService = function() {
-		if (!$scope.selectedService) { return; }
-
 		servicesFactory.get({ id: $scope.selectedService.id }).$promise.then(function(result) {
 			$scope.loadedService = result;
-			$scope.servicePanelOpen = true;
 		});
 	};
 
@@ -17,57 +18,52 @@ app.controller('ServicesController', function ($scope, servicesFactory) {
 	};
 
 	// Watch the variabel "selectedService" to load the service when clicked
-	$scope.$watch('selectedService', function(newValue, oldValue) {
+	$scope.$watch('selectedService', function(newService, oldService) {
+		if (!$scope.selectedService) { return; }
+
 		$scope.loadService();
 	});
 
-	// $scope.toggleCompletedTask = function(task, selectedService) {
-	// 	task.completed = !task.completed
-	// 	tasksFactory.update(task).$promise.then(function(result) {
-	// 		$scope.task = result.task;
-	// 		$scope.reloadOffice();
-	// 		// $scope.reloadService(selectedService);
-	// 	});
-	// };
-
-	// $scope.reloadService = function(selectedService) {
-	// 	servicesFactory.get({ id: selectedService.id }).$promise.then(function(result) {
-	// 		// TODO: only reload one service
-	// 	});
-	// };
 
 	// ------------------------------------------------------
-	// MEMBER PANEL
+	// Panels management
 
-	// $scope.openMemberPanel = function(member_id) {
-	// 	membersFactory.get({ id: member_id }).$promise.then(function(result) {
-	// 		$scope.member = result;
-	// 		$scope.memberPanelOpen = true;
-	// 	});
-	// };
+	$scope.openServicePanel = function() {
+		// TODO
+	};
 
-	// $scope.closeAllPanels = function() {
-	// 	$scope.memberPanelOpen = false;
-	// 	$scope.servicePanelOpen = false;
-	// };
+	$scope.closeServicePanel = function() {
+		// TODO
+	};
 
-	// $scope.toggleMemberList = function() {
-	// 	if (!$scope.members) {
-	// 		membersFactory.query().$promise.then(function(result) {
-	// 			$scope.members = result;
-	// 			$scope.memberListOpen = !$scope.memberListOpen;
-	// 		});
-	// 	} else {
-	// 		$scope.memberListOpen = !$scope.memberListOpen;
-	// 	}
-	// };
+	$scope.closeAllPanels = function() {
+		$scope.closeServicePanel();
+	};
 
-	// $scope.updateMemberInCharge = function(service_id, member_id) {
-	// 	servicesFactory.update({ id: service_id, member_id: member_id }).$promise.then(function(result) {
-	// 		// TODO:
-	// 		$scope.toggleMemberList();
-	// 	});
-	// };
 
+	// ------------------------------------------------------
+	// Assign a member section
+
+	$scope.toggleMemberList = function() {
+		if (!$scope.members) {
+			membersFactory.query().$promise.then(function(result) {
+				$scope.members = result;
+				$scope.memberListOpen = !$scope.memberListOpen;
+			});
+		} else {
+			$scope.memberListOpen = !$scope.memberListOpen;
+		}
+	};
+
+	$scope.confirmMemberInCharge = function(member) {
+		$scope.memberToConfirm = member;
+	};
+
+	$scope.updateMemberInCharge = function(member) {
+		$scope.loadedService.member_in_charge_id = member.id;
+		$scope.loadedService.$update();
+		$scope.memberListOpen = false;
+		$scope.memberToConfirm = false;
+	};
 
 });

@@ -25,7 +25,7 @@
 
 <div class="services">
 
-	<div class="service" ng-repeat="service in office.services" ng-class="{ completed: service.ready }" ng-show="displayAllTasks || !service.ready" ng-click="selectService(service)">
+	<div class="service" ng-repeat="service in services" ng-class="{ completed: service.ready }" ng-show="displayAllTasks || !service.ready" ng-click="selectService(service)">
 
 		<div class="all-tasks-completed" ng-show="service.ready">Terminé</div>
 		<div class="status-color-line"></div>

@@ -9,7 +9,7 @@
 body {
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: ivory;
+  background-color: lightblue;
 }
 
 .container { position: relative; }
@@ -76,20 +76,9 @@ input[type="checkbox"] {
 
 
 // --------------------------------------
-// LABELS OVERRIDE
-
-.label {
-	cursor: pointer;
-	line-height: 3em;
-	font-size: 1em;
-	font-weight: normal;
-}
-
-
-// --------------------------------------
 // PANELS
 
-.panel {
+.right-panel {
 	position: fixed;
 	right: -500px;
 	top: 0;
@@ -166,4 +155,11 @@ input[type="checkbox"] {
 		opacity: 0.5;
 		pointer-events: auto;
 	}
+}
+
+// --------------------------------------
+// BTN
+
+.btn {
+	margin: 5px 0;
 }

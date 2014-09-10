@@ -6,7 +6,7 @@
 // --------------------------------------
 // PANELS
 
-.panel {
+.right-panel {
 
 	.tasks {
 		margin: 20px;
@@ -26,18 +26,33 @@
 	.member-list-container {
 		background-color: $red;
 		box-shadow: 3px 3px 9px -2px rgba(0, 0, 0, 0.4) inset;
-		margin: 0 -20px;
+		margin: 20px -20px;
 		overflow: hidden;
 		width: 500px;
-		padding: 0;
 		height: 0;
 		color: white;
+		position: relative;
 
-		transition: height $transition_time ease, padding $transition_time ease;
+		transition: height $transition_time ease;
 
-		&.visible {
-			padding: 25px;
-			height: 200px;
+		&.visible { height: 260px; }
+
+		.list, .confirmation {
+			position: absolute;
+			transition: top $transition_time ease;
+		}
+
+		.list {
+			top: -240px;
+
+			&.active { top: 20px; }
+		}
+
+		.confirmation {
+			top: 270px;
+			width: 100%;
+
+			&.active { top: 100px; }
 		}
 
 		.member {

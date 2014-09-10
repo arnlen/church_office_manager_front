@@ -7,7 +7,8 @@ app.factory('servicesFactory', ['$resource', function($resource) {
 		id: '@id'
 	},
 	{
-		update: { method: "PUT", params: { member_id: "@member_id" }}
+		update: { method: "PUT" },
+		get_office_services: { method: 'GET', params: { officeId: "@officeId"}, isArray: true }
 	});
 
 	return Service;
