@@ -8,10 +8,10 @@ app.controller('TasksController', function ($scope, tasksFactory) {
 		});
 	};
 
-	$scope.$watch('loadedService', function() {
-		if (!$scope.loadedService) { return; }
+	$scope.$watch('selectedService', function() {
+		if (!$scope.selectedService) { return; }
 
-		$scope.loadTasks($scope.loadedService.id);
+		$scope.loadTasks($scope.selectedService.id);
 	});
 
 	$scope.updateTask = function(task) {

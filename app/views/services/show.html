@@ -15,7 +15,7 @@
 
 		<!-- In charge this office -->
 		<span class="btn" ng-class="{ 'btn-primary': loadedService.member_in_charge_name, 'btn-danger': !loadedService.member_in_charge_name }" ng-click="toggleMemberList()">
-			Cette réunion : {{ loadedService.member_in_charge_name || "Attention : personne ne s'occupe de ce service pour cette réunion !" }}
+			Cette réunion : {{ loadedService.member_in_charge_name || "Personne" }}
 		</span>
 
 	</div>

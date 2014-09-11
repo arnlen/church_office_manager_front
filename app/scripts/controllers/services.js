@@ -6,10 +6,10 @@ app.controller('ServicesController', function ($scope, servicesFactory, membersF
 	// ------------------------------------------------------
 	// Service loading
 
-	var loadService = function(callback) {
+	var loadService = function() {
 		servicesFactory.get({ id: $scope.selectedService.id }).$promise.then(function(result) {
 			$scope.loadedService = result;
-			callback;
+			$scope.servicePanelOpen = true;
 		});
 	};
 
@@ -30,12 +30,14 @@ app.controller('ServicesController', function ($scope, servicesFactory, membersF
 	// Panels management
 
 	$scope.openServicePanel = function() {
-		loadService($scope.servicePanelOpen = true);
+		loadService();
 	};
 
 	$scope.closeServicePanel = function() {
-		unloadService();
 		$scope.servicePanelOpen = false;
+		window.setTimeout(function() {
+			unloadService();
+		}, 400);
 	};
 
 	$scope.closeAllPanels = function() {
