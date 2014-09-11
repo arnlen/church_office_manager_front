@@ -10,12 +10,13 @@ app.controller('ServicesController', function ($scope, servicesFactory, membersF
 		servicesFactory.get({ id: $scope.selectedService.id }).$promise.then(function(result) {
 			$scope.loadedService = result;
 			$scope.servicePanelOpen = true;
+			$scope.selectService(false);
 		});
 	};
 
-	var unloadService = function() {
+	$scope.unloadService = function() {
 		$scope.loadedService = false;
-		$scope.selectService(false);
+		console.log("Service unloaded.");
 	};
 
 	// Watch the variabel "selectedService" to load the service when clicked
@@ -35,9 +36,7 @@ app.controller('ServicesController', function ($scope, servicesFactory, membersF
 
 	$scope.closeServicePanel = function() {
 		$scope.servicePanelOpen = false;
-		window.setTimeout(function() {
-			unloadService();
-		}, 400);
+		console.log("Closing panel...");
 	};
 
 	$scope.closeAllPanels = function() {
