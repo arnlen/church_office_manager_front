@@ -22,15 +22,13 @@ $service_height: 100px;
 		cursor: pointer;
 		left: 0;
 
-		transition: left $transition_time ease, height $transition_time ease;
+		transition: left $transition_time ease, margin-bottom $transition_time ease;
 
 		// Override default ng-hide dehaviour
 		&.ng-hide {
 			display: inherit!important;
 			left: 200%;
-			height: 0;
-			margin: 0;
-			padding: 0;
+			margin-bottom: -$service_height;
 			overflow: hidden;
 		}
 

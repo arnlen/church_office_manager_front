@@ -1,7 +1,7 @@
-<div class="right-panel level-one" ng-class="{ active: loadedService, 'pushed-once': loadedMember }" ng-model="loadedService">
+<div class="right-panel level-one" ng-class="{ active: servicePanelOpen, 'pushed-once': loadedMember }" ng-model="loadedService">
 
 	<!-- Close button -->
-	<i class="fa fa-angle-double-right close-button" ng-click="unloadService()"></i>
+	<i class="fa fa-angle-double-right close-button" ng-click="closeServicePanel()"></i>
 
 	<h1 class="name">{{ loadedService.name }}</h1>
 
@@ -65,4 +65,4 @@
 <div ng-include="'views/members/show.html'" ng-controller="MembersController"></div>
 
 <!-- Overlay -->
-<div class="overlay" ng-class="{ 'visible-service': loadedService, 'visible-member': memberPanelOpen }" ng-click="closeAllPanels()"></div>
+<div class="overlay" ng-class="{ 'visible-service': servicePanelOpen, 'visible-member': memberPanelOpen }" ng-click="closeAllPanels()"></div>
