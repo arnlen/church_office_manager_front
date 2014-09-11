@@ -35,35 +35,20 @@ $service_height: 100px;
 		&.completed {
 			border-color: $green;
 
-			.status-color-line {
-				background-color: $green;
-			}
+			.status-color-line { background-color: $green; }
 
-			.task-remaining {
-				color: $green;
-			}
+			.task-remaining { color: $green; }
 
-			&:hover {
-
-				.button {
-					color: $green;
-				}
-			}
+			&:hover.button { color: $green; }
 		}
 
 		&:hover {
 
-			.button {
-				color: $red;
-			}
+			.button { color: $red; }
 
-			.status-color-line {
-				width: 3%;
-			}
+			.status-color-line { width: 3%; }
 
-			&:before, &:after {
-				bottom: 25px;
-			}
+			&:before, &:after { bottom: 25px; }
 
 		}
 
@@ -99,13 +84,9 @@ $service_height: 100px;
 		transition: width 0.2s ease;
 	}
 
-	.name {
-		margin-top: 5px;
-	}
+	.name { margin-top: 5px; }
 
-	.task-remaining {
-		color: $red;
-	}
+	.task-remaining { color: $red; }
 
 	.button {
 		font-family: comic sans ms;
