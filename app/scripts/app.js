@@ -8,4 +8,4 @@
  *
  * Main module of the application.
  */
-var app = angular.module('churchOfficeManagerFrontApp', ['ngResource', 'ngAnimate']);
+var app = angular.module('churchOfficeManagerFrontApp', [ 'ngResource', 'ngAnimate', 'config' ]);

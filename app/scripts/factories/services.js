@@ -1,8 +1,8 @@
 'use strict';
 
-app.factory('servicesFactory', ['$resource', function($resource) {
+app.factory('servicesFactory', ['$resource', 'API_BASE_URL', function($resource, API_BASE_URL) {
 
-	var Service = $resource('http://localhost:3000/services/:id',
+	var Service = $resource(API_BASE_URL + 'services/:id',
 	{
 		id: '@id'
 	},

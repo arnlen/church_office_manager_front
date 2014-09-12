@@ -1,7 +1,7 @@
 'use strict';
 
-app.factory('officesFactory', ['$resource', function($resource) {
+app.factory('officesFactory', ['$resource', 'API_BASE_URL', function($resource, API_BASE_URL) {
 
-	return $resource('http://localhost:3000/offices/next/1');
+	return $resource(API_BASE_URL + 'offices/next/1');
 
 }]);

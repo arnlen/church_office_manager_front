@@ -403,7 +403,7 @@ module.exports = function (grunt) {
         },
         constants: {
           ENV: 'development',
-          BASE_API_URL: 'http://localhost:3000/'
+          API_BASE_URL: 'http://localhost:3000/'
         }
       },
       production: {
@@ -412,7 +412,7 @@ module.exports = function (grunt) {
         },
         constants: {
           ENV: 'production',
-          BASE_API_URL: 'http://church-office-manager-api.herokuapp.com/'
+          API_BASE_URL: 'http://church-office-manager-api.herokuapp.com/'
         }
       }
     }
