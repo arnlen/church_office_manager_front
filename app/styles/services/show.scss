@@ -37,10 +37,6 @@
 		&.visible { height: 220px; }
 
 		@media screen and (max-width: $max_width_medium) {
-			&.visible { height: 250px; }
-		}
-
-		@media screen and (max-width: $max_width_low) {
 			&.visible { height: 340px; }
 		}
 
@@ -50,6 +46,8 @@
 		}
 
 		.list {
+			left: 5%;
+			width: 90%;
 			top: -240px;
 
 			@media screen and (max-width: $max_width_medium) {
