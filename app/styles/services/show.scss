@@ -26,16 +26,23 @@
 	.member-list-container {
 		background-color: $red;
 		box-shadow: 3px 3px 9px -2px rgba(0, 0, 0, 0.4) inset;
-		margin: 20px -20px;
+		margin: 20px 0;
 		overflow: hidden;
-		width: 500px;
 		height: 0;
 		color: white;
 		position: relative;
 
 		transition: height $transition_time ease;
 
-		&.visible { height: 260px; }
+		&.visible { height: 220px; }
+
+		@media screen and (max-width: $max_width_medium) {
+			&.visible { height: 250px; }
+		}
+
+		@media screen and (max-width: $max_width_low) {
+			&.visible { height: 340px; }
+		}
 
 		.list, .confirmation {
 			position: absolute;
@@ -45,22 +52,50 @@
 		.list {
 			top: -240px;
 
+			@media screen and (max-width: $max_width_medium) {
+				// line-height: 1.5em;
+			}
+
+			@media screen and (max-width: $max_width_low) {
+				top: -320px;
+			}
+
 			&.active { top: 20px; }
+
+			.member {
+				display: inline-block;
+				width: 80px;
+				padding: 5px 0;
+				margin: 2px;
+
+				@media screen and (max-width: $max_width_medium) {
+					// line-height: 1.5em;
+				}
+
+				@media screen and (max-width: $max_width_low) {
+					// line-height: 1em;
+				}
+
+				&:hover { background-color: $blue; }
+			}
 		}
 
 		.confirmation {
-			top: 270px;
-			width: 100%;
+			top: 350px;
+			width: 90%;
+			left: 5%;
 
-			&.active { top: 100px; }
-		}
+			&.active { top: 70px; }
 
-		.member {
-			margin: 2px;
-			display: inline-block;
-			line-height: 2em;
+			@media screen and (max-width: $max_width_medium) {
+				// line-height: 1.5em;
+			}
 
-			&:hover { background-color: $blue; }
+			@media screen and (max-width: $max_width_low) {
+				top: 350px;
+
+				&.active { top: 100px; }
+			}
 		}
 	}
 }

@@ -33,6 +33,10 @@ body {
   &.background-4 {
   	background-image: url("../images/background_4.jpeg");
   }
+
+  &.no-scroll {
+  	overflow: hidden;
+  }
 }
 
 .container { position: relative; }
@@ -102,17 +106,27 @@ input[type="checkbox"] {
 // PANELS
 
 .right-panel {
+	width: $panel_width_high;
+	right: -$panel_width_high;
 	position: fixed;
-	right: -500px;
 	top: 0;
 	bottom: 0;
 	background-color: seashell;
-	width: 500px;
 	text-align: center;
-	padding: 20px;
 	box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+	overflow: scroll;
 
 	transition: right $transition_time ease;
+
+	@media screen and (max-width: $max_width_medium) {
+			width: $panel_width_medium;
+			right: -$panel_width_medium;
+	}
+
+	@media screen and (max-width: $max_width_low) {
+			width: $panel_width_low;
+			right: -$panel_width_low;
+	}
 
 	&.level-one {
 		z-index: 50;

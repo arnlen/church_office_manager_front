@@ -27,10 +27,16 @@
 
 	<div class="service" ng-repeat="service in services" ng-class="{ completed: service.ready, 'ng-hide': service.ready && !displayAllTasks }" ng-click="selectService(service)">
 
-		<div class="all-tasks-completed" ng-show="service.ready">Terminé</div>
 		<div class="status-color-line"></div>
 		<h2 ch-capitalize class="name" name="{{ service.name }}"></h2>
-		<div class="task-remaining">Tâches effectuées : {{ service.task_done }} sur {{ service.task_total }}</div>
+		<div class="service-status">
+			<span ng-if="!service.ready">
+				Tâches effectuées : {{ service.task_done }} sur {{ service.task_total }}
+			</span>
+			<span ng-if="service.ready">
+				Service prêt !
+			</span>
+		</div>
 		<div class='button'>></div>
 
 	</div>

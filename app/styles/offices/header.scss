@@ -26,6 +26,11 @@
 
 		&.right { background-color: $red; }
 
+		@media screen and (max-width: $max_width_medium) {
+				padding: 5px 12px;
+				line-height: inherit;
+		}
+
 	}
 
 	.switch {
@@ -76,7 +81,7 @@
 	.previous { left: 0; }
 	.next { right: 0; }
 
-	@media screen and (max-width: 768px) {
+	@media screen and (max-width: $max_width_medium) {
 	  .previous { left: 15px; }
 	  .next { right: 15px; }
 	}

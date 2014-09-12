@@ -37,9 +37,12 @@ $service_height: 100px;
 
 			.status-color-line { background-color: $green; }
 
-			.task-remaining { color: $green; }
+			.service-status { color: $green; }
 
-			&:hover.button { color: $green; }
+			&:hover {
+				.button { color: $green; }
+			}
+
 		}
 
 		&:hover {
@@ -86,7 +89,7 @@ $service_height: 100px;
 
 	.name { margin-top: 5px; }
 
-	.task-remaining { color: $red; }
+	.service-status { color: $red; }
 
 	.button {
 		font-family: comic sans ms;
@@ -101,16 +104,4 @@ $service_height: 100px;
 
 		transition: color $transition_time ease;
 	}
-
-	.all-tasks-completed {
-		position: absolute;
-		top: 30%;
-		left: 4%;
-		display: block;
-		transform: rotateZ(-15deg);
-		font-family: impact;
-		font-size: 2em;
-		color: $green;
-	}
-
 }

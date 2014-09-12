@@ -32,11 +32,18 @@ app.controller('ServicesController', function ($scope, servicesFactory, membersF
 
 	$scope.openServicePanel = function() {
 		loadService();
+		$scope.bodyNotScrollable();
 	};
 
 	$scope.closeServicePanel = function() {
 		$scope.servicePanelOpen = false;
-		console.log("Closing panel...");
+
+		// Ensure member list is closed
+		$scope.memberListOpen = false;
+		$scope.memberToConfirm = false;
+
+		console.log('Closing panel...');
+		$scope.bodyScrollable();
 	};
 
 	$scope.closeAllPanels = function() {
