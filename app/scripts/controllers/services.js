@@ -46,8 +46,17 @@ app.controller('ServicesController', function ($scope, servicesFactory, membersF
 		$scope.bodyScrollable();
 	};
 
+	$scope.openMemberPanel = function() {
+		$scope.memberPanelOpen = true;
+	};
+
+	$scope.closeMemberPanel = function() {
+		$scope.memberPanelOpen = false;
+	};
+
 	$scope.closeAllPanels = function() {
 		$scope.closeServicePanel();
+		$scope.closeMemberPanel();
 	};
 
 
