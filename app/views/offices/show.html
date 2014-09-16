@@ -1,7 +1,7 @@
 <div class="office-date">
-	<div class="previous glyphicon glyphicon-circle-arrow-left"></div>
+	<div class="previous glyphicon glyphicon-circle-arrow-left" ng-click="previousOffice()"></div>
 	<h1>Réunion du {{ office.date | date:'d/MM/yyyy' }}</h1>
-	<div class="next glyphicon glyphicon-circle-arrow-right"></div>
+	<div class="next glyphicon glyphicon-circle-arrow-right" ng-click="nextOffice()"></div>
 </div>
 
 <div class="switch-button-container" ng-click="displayAllTasks = !displayAllTasks">

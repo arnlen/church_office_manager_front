@@ -80,6 +80,11 @@
 	.previous, .next {
 		position: absolute;
 		top: 0;
+		cursor: pointer;
+
+		&:hover {
+			color: $blue;
+		}
 	}
 
 	.previous { left: 0; }

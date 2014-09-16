@@ -9,7 +9,6 @@ app.controller('OfficesController', function ($scope, officesFactory, servicesFa
 
 			// Get office's services
 			loadServices();
-
 		});
 	};
 
@@ -20,6 +19,24 @@ app.controller('OfficesController', function ($scope, officesFactory, servicesFa
 	};
 
 	initialize();
+
+	$scope.previousOffice = function() {
+		officesFactory.get({ id: 'previous', date: $scope.office.date }).$promise.then(function(result) {
+			$scope.office = result;
+
+			// Get office's services
+			loadServices();
+		});
+	};
+
+	$scope.nextOffice = function() {
+		officesFactory.get({ id: 'next', date: $scope.office.date }).$promise.then(function(result) {
+			$scope.office = result;
+
+			// Get office's services
+			loadServices();
+		});
+	};
 
 
 	// ------------------------------------------------------
