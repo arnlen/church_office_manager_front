@@ -2,10 +2,14 @@
 
 <i class="fa fa-angle-double-right close-button" ng-click="closeMemberPanel()"></i>
 
-	<h1 class="name">{{ member.name }}</h1>
+	<h1 class="name">{{ loadedMember.name }}</h1>
 	<ul>
-		<li>Email : {{ member.email || "Non renseigné" }}</li>
-		<li>Téléphone : {{ member.phone || "Non renseigné" }}</li>
-		<li>Responsable du service : {{ member.leader_of }}</li>
+		<li>Email : {{ loadedMember.email || "Non renseigné" }}</li>
+		<li>Téléphone : {{ loadedMember.phone || "Non renseigné" }}</li>
 	</ul>
+
+	<!-- Member Services container -->
+	<div class="member-services">
+		<div class="service-badge" ng-class="{ leader: loadedMember.leader_of_id === service.id }" ng-repeat="service in services">{{ service.name }}</div>
+	</div>
 </div>

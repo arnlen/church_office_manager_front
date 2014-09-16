@@ -1,0 +1,22 @@
+@import '_vars';
+
+.member-services {
+	margin: 20px 10px;
+
+	.service-badge {
+		padding: 5px;
+		margin: 5px;
+		width: 85px;
+		display: inline-block;
+		color: white;
+		background-color: lightgray;
+
+		&.member, &.leader {
+			background-color: $blue;
+		}
+
+		&.leader {
+			box-shadow: 0 0 0 4px $green;
+		}
+	}
+}

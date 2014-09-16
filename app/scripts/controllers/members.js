@@ -2,9 +2,22 @@
 
 app.controller('MembersController', function ($scope, membersFactory) {
 
-	$scope.openMemberPanel = function() {
-		$scope.pushServicePanel();
-		$scope.memberPanelOpen = true;
+	// ------------------------------------------------------
+	// Service loading
+
+	var loadMember = function(memberId) {
+		membersFactory.get({ id: memberId }).$promise.then(function(result) {
+			$scope.loadedMember = result;
+			$scope.pushServicePanel();
+			$scope.memberPanelOpen = true;
+		});
+	};
+
+	// ------------------------------------------------------
+	// Panels management
+
+	$scope.openMemberPanel = function(memberId) {
+		loadMember(memberId);
 	};
 
 	$scope.closeMemberPanel = function() {
