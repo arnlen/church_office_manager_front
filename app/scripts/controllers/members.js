@@ -63,4 +63,31 @@ app.controller('MembersController', function ($scope, membersFactory) {
 		$scope.closeMemberList();
 	};
 
+	// ------------------------------------------------------
+	// Member service
+
+	$scope.toggleMemberService = function(member, service) {
+		var isLeader = $scope.loadedMember.leader_of_id === service.id,
+				isMember = $scope.isMemberOfThisService(service);
+
+		$scope.loadedMember.$toggleMemberService({ id: member.id, serviceId: service.id, isMember: isMember, isLeader: isLeader })
+	};
+
+	$scope.isMemberOfThisService = function(service) {
+		if ($scope.loadedMember) {
+			var isMember = false;
+
+			angular.forEach($scope.loadedMember.services, function(memberService) {
+
+				if (!isMember && service.id === memberService.id) {
+					isMember = true;
+				};
+			});
+
+			console.log("isMember? " + isMember);
+
+			return isMember;
+		}
+	};
+
 });

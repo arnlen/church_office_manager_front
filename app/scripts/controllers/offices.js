@@ -13,7 +13,7 @@ app.controller('OfficesController', function ($scope, officesFactory, servicesFa
 	};
 
 	var loadServices = function(officeId) {
-		servicesFactory.get_office_services({ officeId: $scope.office.id }).$promise.then(function(result) {
+		servicesFactory.getOfficeServices({ officeId: $scope.office.id }).$promise.then(function(result) {
 			$scope.services = result;
 		});
 	};

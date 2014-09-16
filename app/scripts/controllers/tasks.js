@@ -3,7 +3,7 @@
 app.controller('TasksController', function ($scope, tasksFactory) {
 
 	$scope.loadTasks = function(serviceId) {
-		tasksFactory.get_service_tasks({ serviceId: serviceId }).$promise.then(function(result) {
+		tasksFactory.getServiceTasks({ serviceId: serviceId }).$promise.then(function(result) {
 			$scope.tasks = result;
 		});
 	};

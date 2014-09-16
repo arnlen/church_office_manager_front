@@ -8,7 +8,7 @@ app.factory('tasksFactory', ['$resource', 'API_BASE_URL', function($resource, AP
 	},
 	{
 		update: { method: 'PUT' },
-		get_service_tasks: { method: 'GET', params: { serviceId: '@serviceId' }, isArray: true }
+		getServiceTasks: { method: 'GET', params: { serviceId: '@serviceId' }, isArray: true }
 	});
 
 	return Task;

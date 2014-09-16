@@ -48,6 +48,12 @@ body {
   }
 }
 
+a {
+	cursor: pointer;
+
+	&:hover { text-decoration: none; }
+}
+
 ul {
 	list-style: none;
 	padding: 0;
