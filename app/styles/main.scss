@@ -133,10 +133,18 @@ input[type="checkbox"] {
 
 		&.active {
 			right: 0;
-		}
 
-		&.pushed-once {
-			right: 30px;
+			&.pushed-once {
+				right: $panel_width_high;
+
+				@media screen and (max-width: $max_width_medium) {
+						right: $panel_width_medium;
+				}
+
+				@media screen and (max-width: $max_width_low) {
+						right: 0;
+				}
+			}
 		}
 	}
 

@@ -2,7 +2,6 @@
 
 app.controller('ServicesController', function ($scope, servicesFactory, membersFactory) {
 
-
 	// ------------------------------------------------------
 	// Service loading
 
@@ -36,53 +35,31 @@ app.controller('ServicesController', function ($scope, servicesFactory, membersF
 	};
 
 	$scope.closeServicePanel = function() {
+		$scope.pullServicePanel();
 		$scope.servicePanelOpen = false;
 
-		// Ensure member list is closed
-		$scope.memberListOpen = false;
-		$scope.memberToConfirm = false;
-
 		console.log('Closing panel...');
+
+		$scope.broadcastCloseMemberPanel = true;
 		$scope.bodyScrollable();
 	};
 
-	$scope.openMemberPanel = function() {
-		$scope.memberPanelOpen = true;
+	$scope.pushServicePanel = function() {
+		$scope.pushedOnce = true;
 	};
 
-	$scope.closeMemberPanel = function() {
-		$scope.memberPanelOpen = false;
+	$scope.pullServicePanel = function() {
+		$scope.pushedOnce = false;
 	};
 
 	$scope.closeAllPanels = function() {
+		$scope.broadcastCloseMemberPanel = true;
 		$scope.closeServicePanel();
-		$scope.closeMemberPanel();
 	};
 
-
-	// ------------------------------------------------------
-	// Assign a member section
-
-	$scope.toggleMemberList = function() {
-		if (!$scope.members) {
-			membersFactory.query().$promise.then(function(result) {
-				$scope.members = result;
-				$scope.memberListOpen = !$scope.memberListOpen;
-			});
-		} else {
-			$scope.memberListOpen = !$scope.memberListOpen;
-		}
-	};
-
-	$scope.confirmMemberInCharge = function(member) {
-		$scope.memberToConfirm = member;
-	};
-
-	$scope.updateMemberInCharge = function(member) {
-		$scope.loadedService.member_in_charge_id = member.id;
-		$scope.loadedService.$update();
-		$scope.memberListOpen = false;
-		$scope.memberToConfirm = false;
-	};
+	// Broadcast ack from the MemberPanel
+	$scope.broadcastCloseMemberPanelAck = function() {
+		$scope.broadcastCloseMemberPanel = false;
+	}
 
 });

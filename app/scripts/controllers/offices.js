@@ -38,14 +38,12 @@ app.controller('OfficesController', function ($scope, officesFactory, servicesFa
 		});
 	};
 
-
 	// ------------------------------------------------------
 	// Service selection for right panel openning
 
 	$scope.selectService = function(selectedService) {
 		$scope.selectedService = selectedService;
 	};
-
 
 	// ------------------------------------------------------
 	// Service refresh after task update
