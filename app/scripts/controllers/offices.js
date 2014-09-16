@@ -4,8 +4,8 @@ app.controller('OfficesController', function ($scope, officesFactory, servicesFa
 
 	var initialize = function() {
 		// Get office ID + date
-		officesFactory.get().$promise.then(function(result) {
-			$scope.office = result.offices[0];
+		officesFactory.get({ id: 'next' }).$promise.then(function(result) {
+			$scope.office = result;
 
 			// Get office's services
 			loadServices();
