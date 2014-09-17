@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('OfficesController', function ($scope, officesFactory, servicesFactory) {
+app.controller('OfficesController', function ($scope, officesFactory, servicesFactory, notify) {
 
 	var initialize = function() {
 		// Get office ID + date
@@ -9,6 +9,12 @@ app.controller('OfficesController', function ($scope, officesFactory, servicesFa
 
 			// Get office's services
 			loadServices();
+		});
+
+		// Configure notify
+		notify.config({
+			duration: 3000,
+			templateUrl: 'views/_partials/shared/notify-template.html'
 		});
 	};
 

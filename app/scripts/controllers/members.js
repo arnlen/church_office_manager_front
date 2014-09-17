@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('MembersController', function ($scope, membersFactory) {
+app.controller('MembersController', function ($scope, membersFactory, notify) {
 
 	// ------------------------------------------------------
 	// Service loading
@@ -70,7 +70,13 @@ app.controller('MembersController', function ($scope, membersFactory) {
 		var isLeader = $scope.loadedMember.leader_of_id === service.id,
 				isMember = $scope.isMemberOfThisService(service);
 
-		$scope.loadedMember.$toggleMemberService({ id: member.id, serviceId: service.id, isMember: isMember, isLeader: isLeader })
+		$scope.loadedMember.$toggleMemberService({ id: member.id, serviceId: service.id, isMember: isMember, isLeader: isLeader },
+			function(success) {
+				notify({ message: success.message, classes: 'success' });
+			},
+			function(failure) {
+				notify({ message: failure.data.message, classes: 'failure' });
+			});
 	};
 
 	$scope.isMemberOfThisService = function(service) {

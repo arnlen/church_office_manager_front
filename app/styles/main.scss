@@ -4,6 +4,9 @@
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+// --------------------------------------
+// GLOBAL HTML & BOOTSTRAP TAGS
+
 html {
 	height: 100%;
 	width: 100%;
@@ -39,15 +42,6 @@ body {
   }
 }
 
-.container { position: relative; }
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
-
 a {
 	cursor: pointer;
 
@@ -58,6 +52,15 @@ ul {
 	list-style: none;
 	padding: 0;
 }
+
+.container {
+	position: relative;
+
+	/* Responsive: Portrait tablets and up */
+	@media screen and (min-width: 768px) { max-width: 730px; }
+}
+
+.btn { margin: 5px 0; }
 
 
 // --------------------------------------
@@ -211,11 +214,4 @@ input[type="checkbox"] {
 		opacity: 0.5;
 		pointer-events: auto;
 	}
-}
-
-// --------------------------------------
-// BTN
-
-.btn {
-	margin: 5px 0;
 }

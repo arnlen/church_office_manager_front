@@ -1,0 +1,21 @@
+@import '_vars';
+
+.ch-notify-template {
+	position:fixed;
+	left:50%;
+	top:0px;
+	z-index: 9999;
+	max-width:400px;
+	text-align: center;
+	box-shadow: -2px 2px 8px 1px rgba(0, 0, 0, 0.6);
+	color: white;
+	font-weight: bold;
+	font-size: 1em;
+	padding: 8px;
+	visibility: hidden;
+
+	transition: top $transition_time ease, opacity $transition_time ease;
+
+	&.success { background-color: $blue; }
+	&.failure { background-color: $red; }
+}
