@@ -84,8 +84,6 @@ app.controller('MembersController', function ($scope, membersFactory) {
 				};
 			});
 
-			console.log("isMember? " + isMember);
-
 			return isMember;
 		}
 	};
