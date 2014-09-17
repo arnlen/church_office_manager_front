@@ -26,9 +26,9 @@
 	.member-list-container {
 		background-color: $red;
 		box-shadow: 3px 3px 9px -2px rgba(0, 0, 0, 0.4) inset;
-		margin: 20px 0;
 		overflow: hidden;
 		height: 0;
+		margin: 20px 0;
 		color: white;
 		position: relative;
 
@@ -93,6 +93,47 @@
 				top: 350px;
 
 				&.active { top: 100px; }
+			}
+		}
+	}
+
+	.edit-section {
+
+		.edit-member-list-container {
+			background-color: white;
+			box-shadow: 3px 3px 9px -2px rgba(0, 0, 0, 0.4) inset;
+			overflow: hidden;
+			height: 0;
+			margin: 20px 0;
+			padding: 0;
+			position: relative;
+			display: inline-block;
+
+			transition: height $transition_time ease, padding $transition_time ease;
+
+			&.visible {
+				height: 220px;
+				padding: 20px 0;
+			}
+
+			@media screen and (max-width: $max_width_medium) {
+				&.visible { height: 340px; }
+			}
+
+			.member {
+				color: white;
+				display: inline-block;
+				width: 80px;
+				padding: 5px 0;
+				margin: 2px;
+				background-color: lightgray;
+				cursor: pointer;
+
+				&:hover { background-color: $blue; }
+
+				&.member-of-this-service { background-color: $blue; }
+
+				&.leader-of-this-service { box-shadow: 0 0 0 4px $green; }
 			}
 		}
 	}

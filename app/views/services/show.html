@@ -1,17 +1,47 @@
-<div class="right-panel level-one" ng-class="{ active: servicePanelOpen, 'pushed-once': pushedOnce }" ng-model="loadedService" ch-after-transition>
+<div class="right-panel level-one" ng-class="{ active: servicePanelOpen, 'pushed-once': pushedOnce, 'edit-mode': editMode }" ng-model="loadedService" ch-after-transition>
 
-	<!-- Close button -->
-	<i class="fa fa-angle-double-right close-button" ng-click="closeServicePanel()"></i>
+	<div class="header-edit-mode">Modification du service</div>
+
+	<!-- Panel buttons: close, edit, save -->
+	<div class="buttons" ng-include="'views/shared/panel-buttons.html'"></div>
 
 	<h1 class="name">{{ loadedService.name }}</h1>
 
+	<!-- ================= EDIT SECTION ================= -->
+
+	<div class="edit-section" ng-show="editMode">
+
+		<!-- Manage service's members -->
+		<span class="btn btn-default" ng-click="editModeToggleMemberList()">
+			Gérer les membres
+		</span>
+
+		<div class="edit-member-list-container" ng-class="{ visible: editModeMemberListOpen }">
+
+			<p>Ajouter / Retirer des membres de ce service</p>
+			<span class="member" ng-class="{ 'member-of-this-service': thisServiceHasThisMember(member) }" ng-repeat="member in members" ng-click="toggleServiceMember(member)">{{ member.name }}</span>
+
+		</div>
+
+		<!-- Manage service's leader -->
+		<span class="btn btn-default" ng-click="editModeToggleLeaderList()">
+			Définir le responsable
+		</span>
+
+		<div class="leader-list-container" ng-class="{ visible: editModeLeaderListOpen }">
+
+			<p>Sélectionner le responsable du service</p>
+			<span class="member" ng-class="{ 'leader-of-this-service': thisServiceHasThisLeader(member) }" ng-repeat="member in serviceMembers" ng-click="toggleServiceLeader(member)">{{ member.name }}</span>
+		</div>
+
+	</div>
 
 	<!-- ================= MEMBERS CONTROLLER ================= -->
 
 
 	<div ng-controller="MembersController">
 
-		<div class="members-in-charge">
+		<div class="members-in-charge" ng-hide="editMode">
 
 			<!-- Leader -->
 			<span class="btn btn-default" ng-click="openMemberPanel(loadedService.leader_id)">

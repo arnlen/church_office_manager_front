@@ -14,7 +14,7 @@ app.controller('OfficesController', function ($scope, officesFactory, servicesFa
 		// Configure notify
 		notify.config({
 			duration: 3000,
-			templateUrl: 'views/_partials/shared/notify-template.html'
+			templateUrl: 'views/shared/notify-template.html'
 		});
 	};
 

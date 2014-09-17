@@ -8,7 +8,8 @@ app.factory('servicesFactory', ['$resource', 'API_BASE_URL', function($resource,
 	},
 	{
 		update: { method: "PUT" },
-		getOfficeServices: { method: 'GET', params: { officeId: "@officeId"}, isArray: true }
+		getOfficeServices: { method: 'GET', params: { officeId: "@officeId"}, isArray: true },
+		getServiceMembers: { method: 'GET', params: { getMembers: true}, isArray: true }
 	});
 
 	return Service;

@@ -38,14 +38,11 @@ app.controller('MembersController', function ($scope, membersFactory, notify) {
 	// Assign a member section
 
 	$scope.toggleMemberList = function() {
-		if (!$scope.members) {
-			membersFactory.query().$promise.then(function(result) {
-				$scope.members = result;
-				$scope.memberListOpen = !$scope.memberListOpen;
-			});
-		} else {
-			$scope.memberListOpen = !$scope.memberListOpen;
-		}
+		// This test should be useless since member list
+		// is loaded in ServicesController. Keep it whatever for now.
+		if (!$scope.members) { $scope.loadMemberList(); }
+
+		$scope.memberListOpen = !$scope.memberListOpen;
 	};
 
 	$scope.closeMemberList = function() {
@@ -76,7 +73,8 @@ app.controller('MembersController', function ($scope, membersFactory, notify) {
 			},
 			function(failure) {
 				notify({ message: failure.data.message, classes: 'failure' });
-			});
+			}
+		);
 	};
 
 	$scope.isMemberOfThisService = function(service) {
