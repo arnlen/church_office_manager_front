@@ -1,23 +1,15 @@
 'use strict';
 
-app.controller('MembersController', function ($scope, membersFactory, notify) {
-
-	// ------------------------------------------------------
-	// Service loading
-
-	var loadMember = function(memberId) {
-		membersFactory.get({ id: memberId }).$promise.then(function(result) {
-			$scope.loadedMember = result;
-			$scope.pushServicePanel();
-			$scope.memberPanelOpen = true;
-		});
-	};
+app.controller('MembersController', function ($scope, membersService, notify) {
 
 	// ------------------------------------------------------
 	// Panels management
 
 	$scope.openMemberPanel = function(memberId) {
-		loadMember(memberId);
+		memberService.loadOne($scope, member);
+
+		$scope.pushServicePanel();
+		$scope.memberPanelOpen = true;
 	};
 
 	$scope.closeMemberPanel = function() {
@@ -26,12 +18,10 @@ app.controller('MembersController', function ($scope, membersFactory, notify) {
 		$scope.pullServicePanel();
 	};
 
-	// Broadcast message ordering to close panel
-	$scope.$watch('broadcastCloseMemberPanel', function() {
-		if (!$scope.broadcastCloseMemberPanel) { return; }
+	$scope.$watch('loadedMember', function() {
+		if (!$scope.loadedMember) { return; }
 
-		$scope.closeMemberPanel();
-		$scope.broadcastCloseMemberPanelAck();
+		$scope.openMemberPanel();
 	});
 
 	// ------------------------------------------------------

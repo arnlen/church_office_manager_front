@@ -86,7 +86,7 @@
 
 		transition: color $transition_time ease;
 
-		.close-panel, .edit-panel, .cancel-edit-panel, .save-panel {
+		.close-panel, .edit-panel, .cancel-edit-panel, .valid-edit-panel {
 			position: absolute;
 		}
 
@@ -96,13 +96,13 @@
 			&:hover { color: $red; }
 		}
 
-		.edit-panel, .save-panel { right: 20px; }
+		.edit-panel, .valid-edit-panel { right: 20px; }
 
 		.edit-panel {
 			&:hover { color: $blue; }
 		}
 
-		.save-panel {
+		.valid-edit-panel {
 			&:hover { color: $green; }
 		}
 	}

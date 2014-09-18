@@ -13,23 +13,20 @@
 
 		<!-- Manage service's members -->
 		<span class="btn btn-default" ng-click="editModeToggleMemberList()">
-			Gérer les membres
+			Gérer les membres <i class="fa fa-angle-double-down"></i>
 		</span>
 
 		<div class="edit-member-list-container" ng-class="{ visible: editModeMemberListOpen }">
-
 			<p>Ajouter / Retirer des membres de ce service</p>
-			<span class="member" ng-class="{ 'member-of-this-service': thisServiceHasThisMember(member) }" ng-repeat="member in members" ng-click="toggleServiceMember(member)">{{ member.name }}</span>
-
+			<span class="member" ng-class="{ 'member-of-this-service': isMemberOfThisService(member) }" ng-repeat="member in members" ng-click="toggleMembership(member)">{{ member.name }}</span>
 		</div>
 
 		<!-- Manage service's leader -->
-		<span class="btn btn-default" ng-click="editModeToggleLeaderList()">
-			Définir le responsable
+		<span class="btn btn-default" ng-click="editModeToggleServiceMembersList()">
+			Définir le responsable <i class="fa fa-angle-double-down"></i>
 		</span>
 
-		<div class="leader-list-container" ng-class="{ visible: editModeLeaderListOpen }">
-
+		<div class="edit-service-members-list-container" ng-class="{ visible: editModeServiceMembersListOpen }">
 			<p>Sélectionner le responsable du service</p>
 			<span class="member" ng-class="{ 'leader-of-this-service': thisServiceHasThisLeader(member) }" ng-repeat="member in serviceMembers" ng-click="toggleServiceLeader(member)">{{ member.name }}</span>
 		</div>
@@ -59,7 +56,7 @@
 
 			<div class="list" ng-class="{ active: !memberToConfirm }">
 				<p>Quelle personne sera en charge durant cette réunion ?</p>
-				<span class="member btn btn-danger" ng-repeat="member in members" ng-click="confirmMemberInCharge(member)">{{ member.name }}</span>
+				<span class="member btn btn-danger" ng-repeat="member in serviceMembers" ng-click="confirmMemberInCharge(member)">{{ member.name }}</span>
 			</div>
 
 			<div class="confirmation" ng-class="{ active: memberToConfirm }">
@@ -96,7 +93,7 @@
 
 			<tr class="task" ng-repeat="task in tasks" ng-model="task">
 				<td class="name">
-					<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="updateTask(task)">
+					<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="update(task)">
 					<label for="task_{{ task.id }}">{{ task.name }}</label>
 				</td>
 				<td class="due-date">{{ task.due_date | date:'d/MM/yyyy' }}</td>

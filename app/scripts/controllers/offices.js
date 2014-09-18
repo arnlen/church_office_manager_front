@@ -1,72 +1,27 @@
 'use strict';
 
-app.controller('OfficesController', function ($scope, officesFactory, servicesFactory, notify) {
+app.controller('OfficesController', function ($scope, officesService, servicesService) {
 
 	var initialize = function() {
-		// Get office ID + date
-		officesFactory.get({ id: 'next' }).$promise.then(function(result) {
-			$scope.office = result;
-
-			// Get office's services
-			loadServices();
-		});
-
-		// Configure notify
-		notify.config({
-			duration: 3000,
-			templateUrl: 'views/shared/notify-template.html'
-		});
-	};
-
-	var loadServices = function(officeId) {
-		servicesFactory.getOfficeServices({ officeId: $scope.office.id }).$promise.then(function(result) {
-			$scope.services = result;
-		});
+		// Get office's ID + date + services
+		officesService.load($scope, 'next');
 	};
 
 	initialize();
 
 	$scope.previousOffice = function() {
-		officesFactory.get({ id: 'previous', date: $scope.office.date }).$promise.then(function(result) {
-			$scope.office = result;
-
-			// Get office's services
-			loadServices();
-		});
+		officesService.load($scope, 'previous');
 	};
 
 	$scope.nextOffice = function() {
-		officesFactory.get({ id: 'next', date: $scope.office.date }).$promise.then(function(result) {
-			$scope.office = result;
-
-			// Get office's services
-			loadServices();
-		});
+		officesService.load($scope, 'next');
 	};
 
 	// ------------------------------------------------------
 	// Service selection for right panel openning
 
 	$scope.selectService = function(selectedService) {
-		$scope.selectedService = selectedService;
-	};
-
-	// ------------------------------------------------------
-	// Service refresh after task update
-
-	$scope.refreshService = function(serviceToRefresh) {
-		var found = false;
-
-		angular.forEach($scope.services, function(service) {
-
-			if (!found && service.id == serviceToRefresh.id) {
-				found = true;
-
-				service.task_done = serviceToRefresh.task_done;
-				service.ready = serviceToRefresh.ready;
-			}
-
-		});
+		servicesService.loadOne($scope, selectedService);
 	};
 
 });
