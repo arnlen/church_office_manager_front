@@ -3,47 +3,6 @@
 app.controller('ServicesController', function ($scope, servicesService, membersService, notify) {
 
 	// ------------------------------------------------------
-	// Service loading
-
-	// $scope.unloadService = function() {
-	// 	$scope.loadedService = false;
-	// 	console.log("Service unloaded.");
-	// };
-
-	// $scope.$watch('loadedService', function() {
-	// 	if (!$scope.loadedService) { return; }
-
-	// 	$scope.openServicePanel();
-	// });
-
-
-	// ------------------------------------------------------
-	// Panels management
-
-	// $scope.openServicePanel = function() {
-	// 	$scope.servicePanelOpen = true;
-	// 	$scope.bodyNotScrollable();
-	// };
-
-	// $scope.closeServicePanel = function() {
-	// 	$scope.pullServicePanel();
-	// 	$scope.servicePanelOpen = false;
-
-	// 	console.log('Closing panel...');
-
-	// 	$scope.broadcastCloseMemberPanel = true;
-	// 	$scope.bodyScrollable();
-	// };
-
-	// $scope.pushServicePanel = function() {
-	// 	$scope.pushedOnce = true;
-	// };
-
-	// $scope.pullServicePanel = function() {
-	// 	$scope.pushedOnce = false;
-	// };
-
-	// ------------------------------------------------------
 	// View / Edit mode manager
 
 	$scope.toggleEditMode = function() {

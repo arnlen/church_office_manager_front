@@ -13,45 +13,15 @@ app.controller('OfficesController', function ($scope, officesService, servicesSe
 		// Office loading
 
 		officesService.load('next').then(function(result) {
-
-			$rootScope.$broadcast('office.updated');
 			officesService.office = result;
+			$rootScope.$broadcast('office.updated');
 
 			// ------------------------------------------------
 			// Services loading
 
 			servicesService.loadAll(officesService.office).then(function(result) {
-
-				$rootScope.$broadcast('services.updated');
 				servicesService.services = result;
-
-				// ------------------------------------------------
-				// Services members and tasks loading
-
-				angular.forEach(servicesService.services, function(service) {
-
-					var deferred_tasks = $q.defer(),
-							deferred_members = $q.defer(),
-							all_finished = $q.all();
-
-					tasksService.loadAll(service).then(function(tasks) {
-						service.tasks = tasks;
-						deferred_tasks.resolve(tasks);
-					});
-
-					membersService.loadAll(service).then(function(members) {
-						service.members = members;
-						deferred_members.resolve(members);
-					});
-
-					var promise_tasks = deferred_tasks.promise,
-							promise_members = deferred_members.promise;
-
-					$q.all([ promise_tasks, promise_members] ).then(function(result) {
-						$rootScope.$broadcast('services.updated');
-					});
-
-				});
+				$rootScope.$broadcast('services.updated');
 			});
 		});
 
@@ -59,8 +29,8 @@ app.controller('OfficesController', function ($scope, officesService, servicesSe
 		// Members loading
 
 		membersService.loadAll().then(function(result) {
-			$rootScope.$broadcast('members.updated');
 			membersService.members = result;
+			$rootScope.$broadcast('members.updated');
 		});
 
 	} // end function activate()
@@ -78,37 +48,25 @@ app.controller('OfficesController', function ($scope, officesService, servicesSe
 	// ================= EVENT CATCHERS ================= //
 
 	$scope.$on('office.updated', function(event) {
-		console.log('[Updated] Office');
 		$scope.office = officesService.office;
+		console.log('[Updated] Office');
 	});
 
 	$scope.$on('services.updated', function(event) {
-		console.log('[Updated] Services');
 		$scope.services = servicesService.services;
+		console.log('[Updated] Services');
 	});
 
 	$scope.$on('loadedService.updated', function(event) {
-		console.log('[Updated] Loaded Service');
-		// console.log(servicesService.loadedService);
 		$scope.loadedService = servicesService.loadedService;
-	});
-
-	$scope.$on('ask.servicePanel.open', function(event) {
-		console.log('[Ask] Service panel open');
-		$scope.servicePanelOpen = true;
-		// $scope.bodyNotScrollable();
-	});
-
-	$scope.$on('ask.servicePanel.close', function(event) {
-		console.log('[Ask] Service panel to close');
-		$scope.servicePanelOpen = false;
+		console.log('[Updated] Loaded Service');
 	});
 
 	$scope.$on('ask.allPanels.close', function(event) {
 		console.log('[Ask] All panels to close');
 		$scope.servicePanelOpen = false;
 		$scope.memberPanelOpen = false;
-		$scope.$digest(); // TODO: find why this doesn't work without this call
+		$scope.$apply(); // TODO: find why this doesn't work without this call
 	});
 
 });
