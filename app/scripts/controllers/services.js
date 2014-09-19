@@ -13,7 +13,6 @@ app.controller('ServicesController', function ($scope, servicesService, membersS
 	$scope.$watch('loadedService', function() {
 		if (!$scope.loadedService) { return; }
 
-		console.log("loadedService");
 		$scope.openServicePanel();
 	});
 

@@ -1,48 +1,51 @@
 'use strict';
 
-app.factory('tasksService', ['$resource', 'API_BASE_URL', function($resource, API_BASE_URL) {
+app.factory('tasksService', ['$resource', 'API_BASE_URL', '$q', function ($resource, API_BASE_URL, $q) {
 
-	var Task = {
 
-		resource: $resource(API_BASE_URL + 'tasks/:id',
-			{
-				id: '@id'
-			},
-			{
-				update: { method: 'PUT' },
-				getServiceTasks: { method: 'GET', params: { serviceId: '@serviceId' }, isArray: true }
-			}
-		),
-
-		loadAll: function(scope, service) {
-			this.resource.getServiceTasks({ serviceId: service.id }).$promise.then(function(result) {
-				scope.tasks = result;
-			});
+	var resource = $resource(API_BASE_URL + 'tasks/:id',
+		{
+			id: '@id'
 		},
+		{
+			update: { method: 'PUT' },
+			getServiceTasks: { method: 'GET', params: { serviceId: '@serviceId' }, isArray: true }
+		}
+	);
 
-		update: function(scope, task) {
-			var found = false,
-					loadedService = scope.loadedService;
+	var loadAllTasks = function(service) {
+		var deferred = $q.defer();
+		resource.getServiceTasks({ serviceId: service.id }).$promise.then(function(result) {
+			deferred.resolve(result);
+		});
+		return deferred.promise;
+	};
 
-			task.$update().then(function() {
+	var updateTask = function(task) {
+		var found = false,
+				loadedService = scope.loadedService;
 
-				// Get updated service
-				loadedService.$get().then(function() {
+		task.$update().then(function() {
 
-					// Refresh the global list with all services
-					angular.forEach(scope.services, function(service) {
-						if (!found && service.id === loadedService.id) {
-							found = true;
-							service.task_done = loadedService.task_done;
-							service.ready = loadedService.ready;
-						}
-					});
+			// Get updated service
+			loadedService.$get().then(function() {
 
+				// Refresh the global list with all services
+				angular.forEach(scope.services, function(service) {
+					if (!found && service.id === loadedService.id) {
+						found = true;
+						service.task_done = loadedService.task_done;
+						service.ready = loadedService.ready;
+					}
 				});
 
 			});
-		}
+		});
+	};
 
+	var Task = {
+		loadAll: loadAllTasks, // promise
+		update: updateTask // promise
 	};
 
 	return Task;

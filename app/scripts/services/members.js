@@ -1,73 +1,87 @@
 'use strict';
 
-app.factory('membersService', ['$resource', 'API_BASE_URL', 'notify', function ($resource, API_BASE_URL, notify) {
+app.factory('membersService', ['$resource', 'API_BASE_URL', '$rootScope', 'notify', '$q', function ($resource, API_BASE_URL, $rootScope, notify, $q) {
+
+	// Init attributes
+	var members = null;
+
+	var resource = $resource(API_BASE_URL + 'members/:id',
+		{
+			id: '@id'
+		},
+		{
+			joinOrLeaveService: { method: 'PUT', params: {
+				serviceId: '@serviceId',
+				isMember: '@isMember',
+				isLeader: '@isLeader'
+			}}
+		}
+	);
+
+	var loadMember = function(member) {
+		var deferred = $q.defer();
+		if (member) {
+			this.resource.get({ id: member.id }).$promise.then(function(result) {
+				deferred.resolve(result);
+			});
+		}
+		return deferred.promise;
+	};
+
+	var loadAllMembers = function(service) {
+		var deferred = $q.defer();
+		if (service) {
+			resource.query({ serviceId: service.id }).$promise.then(function(result) {
+				deferred.resolve(result);
+			});
+		} else {
+			resource.query().$promise.then(function(result) {
+				deferred.resolve(result);
+			});
+		}
+		return deferred.promise;
+	};
+
+	var isMemberOfThisService = function(member, service) {
+		if (service) {
+			var isMember = false;
+
+			angular.forEach(member.services, function(memberService) {
+				if (!isMember && service.id === memberService.id) {
+					isMember = true;
+				};
+			});
+
+			return isMember;
+		}
+	};
+
+	var isLeaderOfThisService = function(member, service) {
+		return service.leader_id === member.id;
+	};
+
+	var joinOrLeaveService = function(member, service) {
+		var deferred = $q.defer(),
+				isMember = isMemberOfThisService(member, service);
+
+		member.$joinOrLeaveService({ id: member.id, serviceId: service.id, isMember: isMember }).then(
+			function(success) {
+				deferred.resolve(success);
+			},
+			function(failure) {
+				deferred.reject(failure);
+			}
+		);
+		return deferred.promise;
+	};
 
 	var Member = {
-
-		resource: $resource(API_BASE_URL + 'members/:id',
-			{
-				id: '@id'
-			},
-			{
-				joinOrLeaveService: { method: 'PUT', params: {
-					serviceId: '@serviceId',
-					isMember: '@isMember',
-					isLeader: '@isLeader'
-				}}
-			}
-		),
-
-		loadOne: function(scope, member) {
-			this.resource.get({ id: member.id }).$promise.then(function(result) {
-				scope.loadedMember = result;
-			});
-		},
-
-		loadAll: function(scope, service) {
-			if (service) {
-				this.resource.query({ serviceId: service.id }).$promise.then(function(result) {
-					scope.serviceMembers = result;
-				});
-			} else {
-				this.resource.query().$promise.then(function(result) {
-					scope.members = result;
-				});
-			}
-		},
-
-		isMemberOfThisService: function(member, service) {
-			if (service) {
-				var isMember = false;
-
-				angular.forEach(member.services, function(memberService) {
-					if (!isMember && service.id === memberService.id) {
-						isMember = true;
-					};
-				});
-
-				return isMember;
-			}
-		},
-
-		isLeaderOfThisService: function(member, service) {
-			return service.leader_id === member.id;
-		},
-
-		joinOrLeaveService: function(scope, member, service) {
-
-			var isMember = this.isMemberOfThisService(member, service);
-
-			member.$joinOrLeaveService({ id: member.id, serviceId: service.id, isMember: isMember }).then(
-				function(success) {
-					notify({ message: success.message, classes: 'success' });
-				},
-				function(failure) {
-					notify({ message: failure.data.message, classes: 'failure' });
-				}
-			);
-
-		}
-
+		members: members, // null on init
+		load: loadMember, // promise
+		loadAll: loadAllMembers, // promise
+		isMemberOfThisService: isMemberOfThisService, // bool
+		isLeaderOfThisService: isLeaderOfThisService, // bool
+		joinOrLeaveService: joinOrLeaveService // promise
 	};
 
 	return Member;

@@ -1,43 +1,44 @@
 'use strict';
 
-app.factory('servicesService', ['$resource', 'API_BASE_URL', 'tasksService', 'membersService', function ($resource, API_BASE_URL, tasksService, membersService) {
+app.factory('servicesService', ['$resource', 'API_BASE_URL', '$rootScope', '$q', function ($resource, API_BASE_URL, $rootScope, $q) {
 
-	// Will be returned by the service
-	var Service = {
+	// Init attributes
+	var loadedService = null,
+			services = null;
 
-		resource: $resource(API_BASE_URL + 'services/:id',
-			{
-				id: '@id'
-			},
-			{
-				update: { method: "PUT" },
-				getOfficeServices: { method: 'GET', params: { officeId: "@officeId"}, isArray: true },
-				getServiceMembers: { method: 'GET', params: { getMembers: true}, isArray: true }
-			}
-		),
-
-		loadOne: function(scope, service, notloadServiceTasksOnCallback, notloadServiceMembersOnCallback) {
-
-			this.resource.get({ id: service.id }).$promise.then(function(result) {
-				scope.loadedService = result;
-
-				if (!notloadServiceTasksOnCallback) {
-					tasksService.loadAll(scope, scope.loadedService);
-				}
-
-				if (!notloadServiceMembersOnCallback) {
-					membersService.loadAll(scope, scope.loadedService);
-				}
-
-			});
+	var resource = $resource(API_BASE_URL + 'services/:id',
+		{
+			id: '@id'
 		},
-
-		loadAll: function(scope, office) {
-			this.resource.getOfficeServices({ officeId: office.id }).$promise.then(function(result) {
-				scope.services = result;
-			});
+		{
+			update: { method: "PUT" },
+			getOfficeServices: { method: 'GET', params: { officeId: "@officeId"}, isArray: true }
 		}
+	);
 
+	var loadService = function(service) {
+		var deferred = $q.defer();
+		resource.get({ id: service.id }).$promise.then(function(result) {
+			deferred.resolve(result);
+		});
+		return deferred.promise;
+	};
+
+	var loadAllServices = function(office) {
+		var deferred = $q.defer();
+		// if (office) {
+			resource.getOfficeServices({ officeId: office.id }).$promise.then(function(result) {
+				deferred.resolve(result);
+			});
+		// }
+		return deferred.promise;
+	};
+
+	var Service = {
+		services: services, // null on init
+		loadedService: loadedService, // null on init
+		load: loadService, // promise
+		loadAll: loadAllServices // promise
 	};
 
 	return Service;
