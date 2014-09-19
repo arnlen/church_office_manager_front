@@ -5,43 +5,43 @@ app.controller('ServicesController', function ($scope, servicesService, membersS
 	// ------------------------------------------------------
 	// Service loading
 
-	$scope.unloadService = function() {
-		$scope.loadedService = false;
-		console.log("Service unloaded.");
-	};
+	// $scope.unloadService = function() {
+	// 	$scope.loadedService = false;
+	// 	console.log("Service unloaded.");
+	// };
 
-	$scope.$watch('loadedService', function() {
-		if (!$scope.loadedService) { return; }
+	// $scope.$watch('loadedService', function() {
+	// 	if (!$scope.loadedService) { return; }
 
-		$scope.openServicePanel();
-	});
+	// 	$scope.openServicePanel();
+	// });
 
 
 	// ------------------------------------------------------
 	// Panels management
 
-	$scope.openServicePanel = function() {
-		$scope.servicePanelOpen = true;
-		$scope.bodyNotScrollable();
-	};
+	// $scope.openServicePanel = function() {
+	// 	$scope.servicePanelOpen = true;
+	// 	$scope.bodyNotScrollable();
+	// };
 
-	$scope.closeServicePanel = function() {
-		$scope.pullServicePanel();
-		$scope.servicePanelOpen = false;
+	// $scope.closeServicePanel = function() {
+	// 	$scope.pullServicePanel();
+	// 	$scope.servicePanelOpen = false;
 
-		console.log('Closing panel...');
+	// 	console.log('Closing panel...');
 
-		$scope.broadcastCloseMemberPanel = true;
-		$scope.bodyScrollable();
-	};
+	// 	$scope.broadcastCloseMemberPanel = true;
+	// 	$scope.bodyScrollable();
+	// };
 
-	$scope.pushServicePanel = function() {
-		$scope.pushedOnce = true;
-	};
+	// $scope.pushServicePanel = function() {
+	// 	$scope.pushedOnce = true;
+	// };
 
-	$scope.pullServicePanel = function() {
-		$scope.pushedOnce = false;
-	};
+	// $scope.pullServicePanel = function() {
+	// 	$scope.pushedOnce = false;
+	// };
 
 	// ------------------------------------------------------
 	// View / Edit mode manager

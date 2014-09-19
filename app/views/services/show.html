@@ -1,4 +1,4 @@
-<div class="right-panel level-one" ng-class="{ active: servicePanelOpen, 'pushed-once': pushedOnce, 'edit-mode': editMode }" ng-model="loadedService" ch-after-transition>
+<div class="right-panel level-one" ng-class="{ active: servicePanelOpen, 'pushed-once': pushedOnce, 'edit-mode': editMode }" ng-model="loadedService">
 
 	<div class="header-edit-mode">Modification du service</div>
 
@@ -91,7 +91,7 @@
 				<th>Échéance</th>
 			</tr>
 
-			<tr class="task" ng-repeat="task in tasks" ng-model="task">
+			<tr class="task" ng-repeat="task in loadedService.tasks" ng-model="task">
 				<td class="name">
 					<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="update(task)">
 					<label for="task_{{ task.id }}">{{ task.name }}</label>
@@ -108,4 +108,4 @@
 </div>
 
 <!-- Overlay -->
-<div class="overlay" ng-class="{ 'visible-service': servicePanelOpen }" ng-click="closeAllPanels()"></div>
+<div class="overlay" ng-class="{ 'visible-service': servicePanelOpen }" ch-close-all-panels></div>

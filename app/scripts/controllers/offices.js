@@ -87,11 +87,28 @@ app.controller('OfficesController', function ($scope, officesService, servicesSe
 		$scope.services = servicesService.services;
 	});
 
-	// ------------------------------------------------------
-	// Service selection for right panel openning
+	$scope.$on('loadedService.updated', function(event) {
+		console.log('[Updated] Loaded Service');
+		// console.log(servicesService.loadedService);
+		$scope.loadedService = servicesService.loadedService;
+	});
 
-	$scope.selectService = function(selectedService) {
-		servicesService.loadOne($scope, selectedService);
-	};
+	$scope.$on('ask.servicePanel.open', function(event) {
+		console.log('[Ask] Service panel open');
+		$scope.servicePanelOpen = true;
+		// $scope.bodyNotScrollable();
+	});
+
+	$scope.$on('ask.servicePanel.close', function(event) {
+		console.log('[Ask] Service panel to close');
+		$scope.servicePanelOpen = false;
+	});
+
+	$scope.$on('ask.allPanels.close', function(event) {
+		console.log('[Ask] All panels to close');
+		$scope.servicePanelOpen = false;
+		$scope.memberPanelOpen = false;
+		$scope.$digest(); // TODO: find why this doesn't work without this call
+	});
 
 });
