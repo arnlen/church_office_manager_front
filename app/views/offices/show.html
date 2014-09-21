@@ -23,9 +23,11 @@
 
 </div>
 
+<pre>{{ selectedService }}</pre>
+
 <div class="services">
 
-	<div class="service" ng-repeat="service in services" ng-class="{ completed: service.ready, 'ng-hide': service.ready && !displayAllTasks }" ch-toggle-service-panel>
+	<div class="service" ng-repeat="service in services" ng-class="{ completed: service.ready, 'ng-hide': service.ready && !displayAllTasks }" ng-click="toggleServicePanel()">
 
 		<div class="status-color-line"></div>
 		<h2 ch-capitalize class="name" name="{{ service.name }}"></h2>
@@ -41,9 +43,7 @@
 
 	</div>
 
-</div>
-
-<!-- Service panel -->
-<div ng-controller="ServicesController">
+	<!-- Service panel -->
 	<ch-service-panel></ch-service-panel>
+
 </div>
