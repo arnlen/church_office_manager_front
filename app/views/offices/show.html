@@ -23,27 +23,14 @@
 
 </div>
 
-<pre>{{ selectedService }}</pre>
+<div class="services" ng-model="selectedService" ng-init="selectedService = {coucou: 'hi'}">
 
-<div class="services">
-
-	<div class="service" ng-repeat="service in services" ng-class="{ completed: service.ready, 'ng-hide': service.ready && !displayAllTasks }" ng-click="toggleServicePanel()">
-
-		<div class="status-color-line"></div>
-		<h2 ch-capitalize class="name" name="{{ service.name }}"></h2>
-		<div class="service-status">
-			<span ng-if="!service.ready">
-				Tâches effectuées : {{ service.task_done }} sur {{ service.task_total }}
-			</span>
-			<span ng-if="service.ready">
-				Service prêt !
-			</span>
-		</div>
-		<div class='button'>></div>
-
-	</div>
+	<!-- Service -->
+	<div ng-repeat="service in services" ch-service-list-item service="service" selected-service="selectedService"></div>
 
 	<!-- Service panel -->
-	<ch-service-panel></ch-service-panel>
+	<ch-service-panel selected-service="selectedService"></ch-service-panel>
+
+	<pre>{{ selectedService | json }}</pre>
 
 </div>

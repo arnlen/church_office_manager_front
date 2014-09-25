@@ -2,8 +2,7 @@
 
 app.controller('OfficesController', function ($scope, officesService, servicesService, membersService, tasksService, $timeout, $q, $rootScope) {
 
-	activate();
-
+	// activate();
 
 	// ================= FUNCTIONS ================= //
 
@@ -14,14 +13,14 @@ app.controller('OfficesController', function ($scope, officesService, servicesSe
 
 		officesService.load('next').then(function(result) {
 			officesService.office = result;
-			$rootScope.$broadcast('office.updated');
+			$rootScope.$broadcast('office.loaded');
 
 			// ------------------------------------------------
 			// Services loading
 
 			servicesService.loadAll(officesService.office).then(function(result) {
 				servicesService.services = result;
-				$rootScope.$broadcast('services.updated');
+				$rootScope.$broadcast('services.loaded');
 			});
 		});
 
@@ -30,7 +29,7 @@ app.controller('OfficesController', function ($scope, officesService, servicesSe
 
 		membersService.loadAll().then(function(result) {
 			membersService.members = result;
-			$rootScope.$broadcast('members.updated');
+			$rootScope.$broadcast('members.loaded');
 		});
 
 	} // end function activate()
@@ -46,6 +45,25 @@ app.controller('OfficesController', function ($scope, officesService, servicesSe
 
 
 	// ================= EVENT CATCHERS ================= //
+
+	// Loadings
+
+	$scope.$on('office.loaded', function(event) {
+		$scope.office = officesService.office;
+		console.log('[Loaded] Office');
+	});
+
+	$scope.$on('services.loaded', function(event) {
+		$scope.services = servicesService.services;
+		console.log('[Loaded] Services');
+	});
+
+	$scope.$on('members.loaded', function(event) {
+		$scope.members = membersService.members;
+		console.log('[Loaded] Members');
+	});
+
+	// Updates
 
 	$scope.$on('office.updated', function(event) {
 		$scope.office = officesService.office;
