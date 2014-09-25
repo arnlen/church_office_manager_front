@@ -23,14 +23,14 @@
 
 </div>
 
-<div class="services" ng-model="selectedService" ng-init="selectedService = {coucou: 'hi'}">
+<pre>{{ selected.service }}</pre>
+
+<div class="services">
 
 	<!-- Service -->
-	<div ng-repeat="service in services" ch-service-list-item service="service" selected-service="selectedService"></div>
+	<div ng-repeat="service in services" ch-service-list-item service="service" selected-service="selected.service"></div>
 
 	<!-- Service panel -->
-	<ch-service-panel selected-service="selectedService"></ch-service-panel>
-
-	<pre>{{ selectedService | json }}</pre>
+	<ch-service-panel selected-service="selected.service" service-panel-open="panel.service.open"></ch-service-panel>
 
 </div>

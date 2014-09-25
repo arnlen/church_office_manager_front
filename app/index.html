@@ -37,18 +37,6 @@
 
     </div>
 
-    <br>
-    <br>
-    <br>
-
-    <!-- Debug app -->
-    <div ng-controller="DebugFirstController">
-        Scope global : <input type="text" ng-model="appStatus" /><br>
-        Directive 1 : <div my-directive status-directive-1="appStatus"></div><br>
-        Directive 2 : <div my-directive-2 status-directive-2="appStatus"></div><br>
-        Scope global : <pre>{{ appStatus }}</pre>
-    </div>
-
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -81,7 +69,6 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/debug-app.js"></script>
         <script src="scripts/config.js"></script>
         <script src="scripts/controllers/offices.js"></script>
         <script src="scripts/controllers/services.js"></script>

@@ -6,26 +6,19 @@ app.directive('chServicePanel', ['servicesService', '$timeout', function (servic
 	}
 
 	function controller($scope, servicesService) {
-
 		$scope.$watch('selectedService', function(service) {
-			console.log($scope.selectedService);
+			console.log('Service Panel Controller says: ' + $scope.selectedService.name);
+			// $scope.$apply(function() {
+				$scope.servicePanelOpen = true;
+			// });
 		})
-
-		function selectService(service) {
-			$scope.selectedService = service;
-			console.log($scope.selectedService);
-		}
-
-		function toggleServicePanel() {
-			$scope.selectedService = !$scope.selectedService;
-			console.log($scope.selectedService);
-		}
 	}
 
 	return {
 		restrict: 'E',
 		scope: {
-			selectedService: '=selectedService'
+			servicePanelOpen: '=',
+			selectedService: '='
 		},
 		templateUrl: 'views/services/show.html',
 		link: link,

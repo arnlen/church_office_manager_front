@@ -2,11 +2,26 @@
 
 app.controller('OfficesController', function ($scope, officesService, servicesService, membersService, tasksService, $timeout, $q, $rootScope) {
 
-	// activate();
+	activate();
 
 	// ================= FUNCTIONS ================= //
 
 	function activate() {
+
+		$scope.selected = {
+			service: undefined,
+			member: undefined
+		};
+
+		$scope.loaded = {
+			service: undefined,
+			member: undefined
+		};
+
+		$scope.panel = {
+			service: { open: false },
+			member: { open: false }
+		};
 
 		// ------------------------------------------------
 		// Office loading
