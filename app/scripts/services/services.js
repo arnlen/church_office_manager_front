@@ -37,7 +37,7 @@ app.factory('servicesService', ['$resource', 'API_BASE_URL', '$rootScope', '$q',
 	var Service = {
 		services: services, // null on init
 		loadedService: loadedService, // null on init
-		load: loadService, // promise
+		find: loadService, // promise
 		loadAll: loadAllServices // promise
 	};
 

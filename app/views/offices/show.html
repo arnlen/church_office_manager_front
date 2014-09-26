@@ -23,12 +23,12 @@
 
 </div>
 
-<pre>{{ selected.service }}</pre>
+<pre>{{ office.service | json }}</pre>
 
 <div class="services">
 
 	<!-- Service -->
-	<div ng-repeat="service in services" ch-service-list-item service="service" selected-service="selected.service"></div>
+	<div ng-repeat="service in services" ch-service-list-item service="service" office-service="office.service"></div>
 
 	<!-- Service panel -->
 	<ch-service-panel selected-service="selected.service" service-panel-open="panel.service.open"></ch-service-panel>

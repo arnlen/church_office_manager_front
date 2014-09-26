@@ -8,20 +8,30 @@ app.controller('OfficesController', function ($scope, officesService, servicesSe
 
 	function activate() {
 
-		$scope.selected = {
-			service: undefined,
-			member: undefined
-		};
+		// ------------------------------------------------
+		// Scope variables
 
-		$scope.loaded = {
-			service: undefined,
-			member: undefined
-		};
+		$scope.office = {
 
-		$scope.panel = {
-			service: { open: false },
-			member: { open: false }
-		};
+			loaded: undefined,
+
+			members: undefined,
+
+			services: undefined,
+
+			service: {
+				clicked: undefined,
+				loaded: undefined,
+				panelOpen: false,
+				displayAll: false
+			},
+
+			member: {
+				clicked: undefined,
+				loaded: undefined,
+				panelOpen: false
+			}
+		}
 
 		// ------------------------------------------------
 		// Office loading
@@ -64,34 +74,34 @@ app.controller('OfficesController', function ($scope, officesService, servicesSe
 	// Loadings
 
 	$scope.$on('office.loaded', function(event) {
-		$scope.office = officesService.office;
+		$scope.office.loaded = officesService.office;
 		console.log('[Loaded] Office');
 	});
 
 	$scope.$on('services.loaded', function(event) {
-		$scope.services = servicesService.services;
+		$scope.office.services = servicesService.services;
 		console.log('[Loaded] Services');
 	});
 
 	$scope.$on('members.loaded', function(event) {
-		$scope.members = membersService.members;
+		$scope.office.members = membersService.members;
 		console.log('[Loaded] Members');
 	});
 
 	// Updates
 
 	$scope.$on('office.updated', function(event) {
-		$scope.office = officesService.office;
+		$scope.office.loaded = officesService.office;
 		console.log('[Updated] Office');
 	});
 
 	$scope.$on('services.updated', function(event) {
-		$scope.services = servicesService.services;
+		$scope.office.services = servicesService.services;
 		console.log('[Updated] Services');
 	});
 
 	$scope.$on('loadedService.updated', function(event) {
-		$scope.loadedService = servicesService.loadedService;
+		$scope.office.service.loaded = servicesService.loadedService;
 		console.log('[Updated] Loaded Service');
 	});
 

@@ -1,11 +1,17 @@
 'use strict';
 
-app.directive('chServiceListItem', function () {
+app.directive('chServiceListItem', [ '$rootScope', 'servicesService', function ($rootScope, Service) {
 
 	function link(scope, element, attr) {
+
+		// On click on a service
 		element.on('click', function(event) {
 			scope.$apply(function() {
-				scope.selectedService = scope.service;
+				scope.officeService.clicked = scope.service;
+				Service.find(scope.officeService.clicked).then(function(service) {
+					Service.loadedService = service;
+					$rootScope.$broadcast('service.loaded');
+				});
 			});
 		});
 	}
@@ -14,11 +20,10 @@ app.directive('chServiceListItem', function () {
 		restrict: 'A',
 		scope: {
 			service: '=',
-			selectedService: "="
+			officeService: '='
 		},
 		templateUrl: 'views/services/service-list-item-template.html',
 		link: link
 	};
 
-	// { completed: service.ready, 'ng-hide': service.ready && !displayAllTasks }
-});
+}]);
