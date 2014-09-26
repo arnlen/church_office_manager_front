@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('config', [])
+angular.module('churchOfficeManagerConfig', [])
 
 .constant('ENV', 'development')
 

@@ -1,9 +1,18 @@
-'use strict';
+(function() {
+	'use strict';
 
-app.controller('TasksController', function ($scope, tasksService) {
+	angular
+		.module('churchOfficeManager')
+		.controller('TasksController', TasksController);
 
-	$scope.update = function(task) {
-		tasksService.update($scope, task);
-	};
+	TasksController.$inject = ['$scope', 'tasksService'];
 
-});
+	function TasksController ($scope, Task) {
+
+		$scope.update = function(task) {
+			Task.update($scope, task);
+		};
+
+	}
+
+})();

@@ -1,19 +1,28 @@
-'use strict';
+(function() {
+	'use strict';
 
-app.controller('GlobalController', function ($scope, notify) {
+	angular
+			.module('churchOfficeManager')
+			.controller('GlobalController', GlobalController);
 
-	// Configure notify
-	notify.config({
-		duration: 3000,
-		templateUrl: 'views/shared/notify-template.html'
-	});
+	GlobalController.$inject = ['$scope', 'notify'];
 
-	$scope.bodyScrollable = function() {
-		$scope.bodyNoScroll = false;
-	};
+	function GlobalController ($scope, notify) {
 
-	$scope.bodyNotScrollable = function() {
-		$scope.bodyNoScroll = true;
-	};
+		// Configure notify
+		notify.config({
+			duration: 3000,
+			templateUrl: 'views/shared/notify-template.html'
+		});
 
-});
+		$scope.bodyScrollable = function() {
+			$scope.bodyNoScroll = false;
+		};
+
+		$scope.bodyNotScrollable = function() {
+			$scope.bodyNoScroll = true;
+		};
+
+	}
+
+})();

@@ -1,28 +1,37 @@
-'use strict';
+(function() {
+	'use strict';
 
-app.controller('ServicesController', function ($scope, servicesService, membersService, notify) {
+	angular
+		.module('churchOfficeManager')
+		.controller('ServicesController', ServicesController);
 
-	// ------------------------------------------------------
-	// View / Edit mode manager
+	ServicesController.$inject = ['$scope', 'notify', 'servicesService', 'membersService'];
 
-	$scope.toggleEditMode = function() {
-		$scope.editMode = !$scope.editMode;
-	};
+	function ServicesController ($scope, notify, Service, Member) {
 
-	$scope.editModeToggleMemberList = function() {
-		$scope.editModeMemberListOpen = !$scope.editModeMemberListOpen;
-	};
+		// ------------------------------------------------------
+		// View / Edit mode manager
 
-	$scope.editModeToggleServiceMembersList = function() {
-		$scope.editModeServiceMembersListOpen = !$scope.editModeServiceMembersListOpen;
-	};
+		$scope.toggleEditMode = function() {
+			$scope.editMode = !$scope.editMode;
+		};
 
-	$scope.isMemberOfThisService = function(member) {
-		return membersService.isMemberOfThisService(member, $scope.loadedService);
-	};
+		$scope.editModeToggleMemberList = function() {
+			$scope.editModeMemberListOpen = !$scope.editModeMemberListOpen;
+		};
 
-	$scope.toggleMembership = function(member) {
-		membersService.joinOrLeaveService($scope, member, $scope.loadedService);
-	};
+		$scope.editModeToggleServiceMembersList = function() {
+			$scope.editModeServiceMembersListOpen = !$scope.editModeServiceMembersListOpen;
+		};
 
-});
+		$scope.isMemberOfThisService = function(member) {
+			return membersService.isMemberOfThisService(member, $scope.loadedService);
+		};
+
+		$scope.toggleMembership = function(member) {
+			membersService.joinOrLeaveService($scope, member, $scope.loadedService);
+		};
+
+	}
+
+})();

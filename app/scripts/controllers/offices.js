@@ -1,115 +1,125 @@
-'use strict';
+(function() {
+	'use strict';
 
-app.controller('OfficesController', function ($scope, officesService, servicesService, membersService, tasksService, $timeout, $q, $rootScope) {
+	angular
+		.module('churchOfficeManager')
+		.controller('OfficesController', OfficesController);
 
-	activate();
+	OfficesController.$inject = ['$scope', '$rootScope', 'officesService', 'servicesService', 'membersService', 'tasksService'];
 
-	// ================= FUNCTIONS ================= //
+	function OfficesController ($scope, $rootScope, Office, Service, Member, Task) {
 
-	function activate() {
+		/*jshint validthis: true */
+		var vm = this;
 
-		// ------------------------------------------------
-		// Scope variables
+		vm.office = {};
+		vm.getPrevious = getPrevious;
+		vm.getNext = getNext;
 
-		$scope.office = {
+		activate();
 
-			loaded: undefined,
 
-			members: undefined,
+		// ================= FUNCTIONS ================= //
 
-			services: undefined,
 
-			service: {
-				clicked: undefined,
+		function activate() {
+
+			vm.office = {
 				loaded: undefined,
-				panelOpen: false,
-				displayAll: false
-			},
-
-			member: {
-				clicked: undefined,
-				loaded: undefined,
-				panelOpen: false
-			}
-		}
-
-		// ------------------------------------------------
-		// Office loading
-
-		officesService.load('next').then(function(result) {
-			officesService.office = result;
-			$rootScope.$broadcast('office.loaded');
+				members: undefined,
+				services: undefined,
+				service: {
+					clicked: undefined,
+					loaded: undefined,
+					panelOpen: false,
+					displayAll: false
+				},
+				member: {
+					clicked: undefined,
+					loaded: undefined,
+					panelOpen: false
+				}
+			};
 
 			// ------------------------------------------------
-			// Services loading
+			// Office loading
 
-			servicesService.loadAll(officesService.office).then(function(result) {
-				servicesService.services = result;
-				$rootScope.$broadcast('services.loaded');
+			Office.find('next').then(function(office) {
+				Office.current = office;
+				$rootScope.$broadcast('office.loaded');
+
+				// ------------------------------------------------
+				// Services loading
+
+				Service.all(Office.current).then(function(services) {
+					Service.services = services;
+					$rootScope.$broadcast('services.loaded');
+				});
 			});
-		});
 
-		// ------------------------------------------------
-		// Members loading
+			// ------------------------------------------------
+			// Members loading
 
-		membersService.loadAll().then(function(result) {
-			membersService.members = result;
-			$rootScope.$broadcast('members.loaded');
-		});
+			Member.all().then(function(members) {
+				Member.members = members;
+				$rootScope.$broadcast('members.loaded');
+			});
 
-	} // end function activate()
+		} // end function activate()
 
 
-	function previousOffice() {
-		officesService.load($scope, 'previous');
+		function getPrevious() {
+			Office.find($scope, 'previous');
+		}
+
+		function getNext() {
+			Office.find($scope, 'next');
+		}
+
+
+		// ================= EVENT CATCHERS ================= //
+
+		// Loadings
+
+		// $scope.$on('office.loaded', function(event) {
+		// 	$scope.office.loaded = officesService.office;
+		// 	console.log('[Loaded] Office');
+		// });
+
+		// $scope.$on('services.loaded', function(event) {
+		// 	$scope.office.services = servicesService.services;
+		// 	console.log('[Loaded] Services');
+		// });
+
+		// $scope.$on('members.loaded', function(event) {
+		// 	$scope.office.members = membersService.members;
+		// 	console.log('[Loaded] Members');
+		// });
+
+		// // Updates
+
+		// $scope.$on('office.updated', function(event) {
+		// 	$scope.office.loaded = officesService.office;
+		// 	console.log('[Updated] Office');
+		// });
+
+		// $scope.$on('services.updated', function(event) {
+		// 	$scope.office.services = servicesService.services;
+		// 	console.log('[Updated] Services');
+		// });
+
+		// $scope.$on('loadedService.updated', function(event) {
+		// 	$scope.office.service.loaded = servicesService.loadedService;
+		// 	console.log('[Updated] Loaded Service');
+		// });
+
+		// $scope.$on('ask.allPanels.close', function(event) {
+		// 	console.log('[Ask] All panels to close');
+		// 	$scope.servicePanelOpen = false;
+		// 	$scope.memberPanelOpen = false;
+		// 	$scope.$apply(); // TODO: find why this doesn't work without this call
+		// });
+
 	}
 
-	function nextOffice() {
-		officesService.load($scope, 'next');
-	}
-
-
-	// ================= EVENT CATCHERS ================= //
-
-	// Loadings
-
-	$scope.$on('office.loaded', function(event) {
-		$scope.office.loaded = officesService.office;
-		console.log('[Loaded] Office');
-	});
-
-	$scope.$on('services.loaded', function(event) {
-		$scope.office.services = servicesService.services;
-		console.log('[Loaded] Services');
-	});
-
-	$scope.$on('members.loaded', function(event) {
-		$scope.office.members = membersService.members;
-		console.log('[Loaded] Members');
-	});
-
-	// Updates
-
-	$scope.$on('office.updated', function(event) {
-		$scope.office.loaded = officesService.office;
-		console.log('[Updated] Office');
-	});
-
-	$scope.$on('services.updated', function(event) {
-		$scope.office.services = servicesService.services;
-		console.log('[Updated] Services');
-	});
-
-	$scope.$on('loadedService.updated', function(event) {
-		$scope.office.service.loaded = servicesService.loadedService;
-		console.log('[Updated] Loaded Service');
-	});
-
-	$scope.$on('ask.allPanels.close', function(event) {
-		console.log('[Ask] All panels to close');
-		$scope.servicePanelOpen = false;
-		$scope.memberPanelOpen = false;
-		$scope.$apply(); // TODO: find why this doesn't work without this call
-	});
-
-});
+})();
