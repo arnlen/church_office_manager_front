@@ -27,8 +27,6 @@
 				officeService: '='
 			},
 			templateUrl: 'scripts/directives/service-list-item.directive.html',
-			// controllerAs: '',
-			// controller: OfficeController,
 			link: link
 		};
 

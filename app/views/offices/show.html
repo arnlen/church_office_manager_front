@@ -4,7 +4,7 @@
 	<div class="next glyphicon glyphicon-circle-arrow-right" ng-click="nextOffice()"></div>
 </div>
 
-<div class="switch-button-container" ng-click="displayAllTasks = !displayAllTasks">
+<div class="switch-button-container" ng-click="vm.service.displayAll = !vm.service.displayAll">
 
 		<div class="option">
 			<span>Afficher toutes les tâches</span>
@@ -13,7 +13,7 @@
 			<span>Seulement les incomplètes</span>
 		</div>
 
-		<div class="switch" ng-class="{ right: displayAllTasks }">
+		<div class="switch" ng-class="{ right: vm.service.displayAll }">
 			<span></span>
 			<span></span>
 			<span></span>
@@ -23,12 +23,10 @@
 
 </div>
 
-<pre>{{ vm.service.loaded | json }}</pre>
-
 <div class="services">
 
 	<!-- Service -->
-	<div ng-repeat="service in vm.office.services" ch-service-list-item service="service" office-service="vm.service.clicked"></div>
+	<div ng-repeat="service in vm.office.services" ch-service-list-item service="service" office-service="vm.service"></div>
 
 	<!-- Service panel -->
 	<ch-service-panel loaded-service="vm.service.loaded" panel-open="vm.service.panelOpen"></ch-service-panel>
