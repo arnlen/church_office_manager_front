@@ -13,9 +13,9 @@
 				resource = $resource(API_BASE_URL + 'offices/:id', { id: '@id' });
 
 		var Office = {
-					office: current_office, // null on init
-					find: find // promise
-				};
+			current_office: current_office, // null on init
+			find: find // promise
+		};
 
 		return Office;
 

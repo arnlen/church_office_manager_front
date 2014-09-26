@@ -9,28 +9,36 @@
 
 	function chServicePanel (Service) {
 
-		function link(scope, element, attr) {
-			scope.$watch('selectedService', function(service) {
-				console.log('Service Panel Controller says: ' + offices.selectedService.name);
-				// $scope.$apply(function() {
-					scope.servicePanelOpen = true;
-				// });
-			})
-		}
+		function controller ($scope) {
+			var vm = this;
 
-		function controller($scope) {
+			vm.openPanel = openPanel;
+			vm.closePanel = closePanel;
+			vm.toggleEditMode = toggleEditMode;
+			vm.editMode = false;
+
+			function openPanel () {
+				$scope.panelOpen = true;
+			}
+
+			function closePanel () {
+				$scope.panelOpen = false;
+			}
+
+			function toggleEditMode () {
+				vm.editMode = !vm.editMode
+			}
 		}
 
 		return {
 			restrict: 'E',
 			scope: {
-				servicePanelOpen: '=',
-				selectedService: '='
+				panelOpen: '=',
+				loadedService: '='
 			},
-			templateUrl: 'views/services/show.html',
-			link: link,
-			// controllerAs: '',
-			controller: controller
+			templateUrl: 'scripts/directives/service-panel.directive.html',
+			controller: controller,
+			controllerAs: 'vm'
 		};
 
 	}

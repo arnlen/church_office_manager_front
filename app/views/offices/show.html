@@ -1,6 +1,6 @@
 <div class="office-date">
 	<div class="previous glyphicon glyphicon-circle-arrow-left" ng-click="previousOffice()"></div>
-	<h1>Réunion du {{ office.date | date:'d/MM/yyyy' }}</h1>
+	<h1>Réunion du {{ vm.office.loaded.date | date:'d/MM/yyyy' }}</h1>
 	<div class="next glyphicon glyphicon-circle-arrow-right" ng-click="nextOffice()"></div>
 </div>
 
@@ -23,14 +23,14 @@
 
 </div>
 
-<pre>{{ office.service | json }}</pre>
+<pre>{{ vm.service.loaded | json }}</pre>
 
 <div class="services">
 
 	<!-- Service -->
-	<div ng-repeat="service in services" ch-service-list-item service="service" office-service="office.service"></div>
+	<div ng-repeat="service in vm.office.services" ch-service-list-item service="service" office-service="vm.service.clicked"></div>
 
 	<!-- Service panel -->
-	<ch-service-panel selected-service="selected.service" service-panel-open="panel.service.open"></ch-service-panel>
+	<ch-service-panel loaded-service="vm.service.loaded" panel-open="vm.service.panelOpen"></ch-service-panel>
 
 </div>

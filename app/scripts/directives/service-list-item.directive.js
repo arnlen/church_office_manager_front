@@ -13,12 +13,9 @@
 
 			// On click on a service
 			element.on('click', function(event) {
-				scope.$apply(function() {
-					scope.officeService.clicked = scope.service;
-					Service.find(scope.officeService.clicked).then(function(service) {
-						Service.loadedService = service;
-						$rootScope.$broadcast('service.loaded');
-					});
+				Service.find(scope.service).then(function(service) {
+					Service.loadedService = service;
+					$rootScope.$broadcast('loadedService.updated');
 				});
 			});
 		}
@@ -30,6 +27,8 @@
 				officeService: '='
 			},
 			templateUrl: 'scripts/directives/service-list-item.directive.html',
+			// controllerAs: '',
+			// controller: OfficeController,
 			link: link
 		};
 

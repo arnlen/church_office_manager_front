@@ -13,6 +13,8 @@
 		var vm = this;
 
 		vm.office = {};
+		vm.service = {};
+		vm.member = {};
 		vm.getPrevious = getPrevious;
 		vm.getNext = getNext;
 
@@ -27,31 +29,33 @@
 			vm.office = {
 				loaded: undefined,
 				members: undefined,
-				services: undefined,
-				service: {
-					clicked: undefined,
-					loaded: undefined,
-					panelOpen: false,
-					displayAll: false
-				},
-				member: {
-					clicked: undefined,
-					loaded: undefined,
-					panelOpen: false
-				}
+				services: undefined
+			};
+
+			vm.service = {
+				clicked: undefined,
+				loaded: undefined,
+				panelOpen: false,
+				displayAll: false
+			};
+
+			vm.member = {
+				clicked: undefined,
+				loaded: undefined,
+				panelOpen: false
 			};
 
 			// ------------------------------------------------
 			// Office loading
 
 			Office.find('next').then(function(office) {
-				Office.current = office;
+				Office.current_office = office;
 				$rootScope.$broadcast('office.loaded');
 
 				// ------------------------------------------------
 				// Services loading
 
-				Service.all(Office.current).then(function(services) {
+				Service.all(Office.current_office).then(function(services) {
 					Service.services = services;
 					$rootScope.$broadcast('services.loaded');
 				});
@@ -81,20 +85,20 @@
 
 		// Loadings
 
-		// $scope.$on('office.loaded', function(event) {
-		// 	$scope.office.loaded = officesService.office;
-		// 	console.log('[Loaded] Office');
-		// });
+		$scope.$on('office.loaded', function(event) {
+			vm.office.loaded = Office.current_office;
+			console.log('[Loaded] Office');
+		});
 
-		// $scope.$on('services.loaded', function(event) {
-		// 	$scope.office.services = servicesService.services;
-		// 	console.log('[Loaded] Services');
-		// });
+		$scope.$on('services.loaded', function(event) {
+			vm.office.services = Service.services;
+			console.log('[Loaded] Services');
+		});
 
-		// $scope.$on('members.loaded', function(event) {
-		// 	$scope.office.members = membersService.members;
-		// 	console.log('[Loaded] Members');
-		// });
+		$scope.$on('members.loaded', function(event) {
+			vm.office.members = Member.members;
+			console.log('[Loaded] Members');
+		});
 
 		// // Updates
 
@@ -108,10 +112,11 @@
 		// 	console.log('[Updated] Services');
 		// });
 
-		// $scope.$on('loadedService.updated', function(event) {
-		// 	$scope.office.service.loaded = servicesService.loadedService;
-		// 	console.log('[Updated] Loaded Service');
-		// });
+		$scope.$on('loadedService.updated', function(event) {
+			vm.service.loaded = Service.loadedService;
+			vm.service.panelOpen = true;
+			console.log('[Updated] Loaded Service');
+		});
 
 		// $scope.$on('ask.allPanels.close', function(event) {
 		// 	console.log('[Ask] All panels to close');
