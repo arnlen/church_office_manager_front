@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="styles/shared/panels.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="churchOfficeManager" ng-controller="GlobalController as global" class="background-2" ng-class="{ 'no-scroll': bodyNoScroll }">
+  <body ng-app="churchOfficeManager" ng-controller="GlobalController as global" class="background-2" ng-class="{ 'no-scroll': !global.bodyScrollable }">
 
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>

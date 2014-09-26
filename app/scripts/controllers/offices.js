@@ -17,6 +17,7 @@
 		vm.member = {};
 		vm.getPrevious = getPrevious;
 		vm.getNext = getNext;
+		vm.closeAllPanels = closeAllPanels;
 
 		activate();
 
@@ -78,6 +79,11 @@
 
 		function getNext() {
 			Office.find($scope, 'next');
+		}
+
+		function closeAllPanels() {
+			vm.service.panelOpen = false;
+			vm.member.panelOpen = false;
 		}
 
 

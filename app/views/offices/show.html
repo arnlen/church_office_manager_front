@@ -29,6 +29,9 @@
 	<div ng-repeat="service in vm.office.services" ch-service-list-item service="service" office-service="vm.service"></div>
 
 	<!-- Service panel -->
-	<ch-service-panel loaded-service="vm.service.loaded" panel-open="vm.service.panelOpen"></ch-service-panel>
+	<ch-service-panel loaded-service="vm.service.loaded" panel-open="vm.service.panelOpen" body-scrollable="global.bodyScrollable"></ch-service-panel>
 
 </div>
+
+<!-- Overlay -->
+<div class="overlay" ng-class="{ 'visible': vm.service.panelOpen }" ng-click="vm.closeAllPanels()"></div>

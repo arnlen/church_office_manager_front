@@ -134,7 +134,7 @@
 
 	transition: opacity $transition_time ease;
 
-	&.visible-service, &.visible-member {
+	&.visible {
 		opacity: 0.5;
 		pointer-events: auto;
 	}
