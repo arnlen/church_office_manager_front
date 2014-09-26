@@ -22,7 +22,7 @@
 		activate();
 
 
-		// ================= FUNCTIONS ================= //
+		// ---------------- Functions ---------------- //
 
 
 		function activate() {

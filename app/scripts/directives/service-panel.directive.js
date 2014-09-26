@@ -9,6 +9,22 @@
 
 	function chServicePanel (Service) {
 
+		var directive = {
+			restrict: 'E',
+			scope: {
+				panelOpen: '=',
+				loadedService: '=',
+				bodyScrollable: '='
+			},
+			templateUrl: 'scripts/directives/service-panel.directive.html',
+			controller: controller,
+			controllerAs: 'vm'
+		};
+
+		return directive;
+
+		// ---------------- Functions ---------------- //
+
 		function controller ($scope) {
 			var vm = this;
 
@@ -48,18 +64,6 @@
 				$scope.bodyScrollable = vm.bodyScrollable;
 			}
 		}
-
-		return {
-			restrict: 'E',
-			scope: {
-				panelOpen: '=',
-				loadedService: '=',
-				bodyScrollable: '='
-			},
-			templateUrl: 'scripts/directives/service-panel.directive.html',
-			controller: controller,
-			controllerAs: 'vm'
-		};
 
 	}
 
