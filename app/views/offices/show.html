@@ -4,7 +4,7 @@
 	<div class="next glyphicon glyphicon-circle-arrow-right" ng-click="nextOffice()"></div>
 </div>
 
-<div class="switch-button-container" ng-click="vm.service.displayAll = !vm.service.displayAll">
+<div class="switch-button-container" ng-click="vm.Service.displayAll = !vm.Service.displayAll">
 
 		<div class="option">
 			<span>Afficher toutes les tâches</span>
@@ -13,7 +13,7 @@
 			<span>Seulement les incomplètes</span>
 		</div>
 
-		<div class="switch" ng-class="{ right: vm.service.displayAll }">
+		<div class="switch" ng-class="{ right: vm.Service.displayAll }">
 			<span></span>
 			<span></span>
 			<span></span>
@@ -26,12 +26,12 @@
 <div class="services">
 
 	<!-- Service -->
-	<div ng-repeat="service in vm.office.services" ch-service-list-item service="service" office-service="vm.service"></div>
+	<div ng-repeat="service in vm.Office.services" ch-service-list-item service="service"></div>
 
 	<!-- Service panel -->
-	<ch-service-panel loaded-service="vm.service.loaded" panel-open="vm.service.panelOpen" body-scrollable="global.bodyScrollable"></ch-service-panel>
+	<ch-service-panel service="vm.Service"></ch-service-panel>
 
 </div>
 
 <!-- Overlay -->
-<div class="overlay" ng-class="{ 'visible': vm.service.panelOpen }" ng-click="vm.closeAllPanels()"></div>
+<div class="overlay" ng-class="{ 'visible': vm.Service.panelOpen }" ng-click="vm.Office.closeAllPanels()"></div>

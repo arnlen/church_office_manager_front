@@ -5,63 +5,66 @@
 		.module('churchOfficeManager')
 		.directive('chServicePanel', chServicePanel);
 
-	chServicePanel.$inject = ['servicesService'];
+	chServicePanel.$inject = ['servicesService', '$q'];
 
-	function chServicePanel (Service) {
+	function chServicePanel (Service, $q) {
 
 		var directive = {
 			restrict: 'E',
 			scope: {
-				panelOpen: '=',
-				loadedService: '=',
-				bodyScrollable: '='
+				service: '='
 			},
 			templateUrl: 'scripts/directives/service-panel.directive.html',
+			link: link,
 			controller: controller,
-			controllerAs: 'vm'
+			controllerAs: 'dvm'
 		};
 
 		return directive;
 
 		// ---------------- Functions ---------------- //
 
+		function link (scope, element, attr, vm) {
+			scope.$on('ServiceController > service.clicked', function(event) {
+				console.log('[ServicePanelDirective][Event] Catched "ServiceController > service.clicked"');
+
+				loadService(vm.Service.clicked).then(function(success) {
+					vm.Service.openPanel();
+				});
+			});
+
+			function loadService (service) {
+				var deferred = $q.defer();
+
+				Service.find(service).then(function(service) {
+					vm.Service.loaded = service;
+					deferred.resolve(vm.Service.loaded);
+				});
+
+				return deferred.promise;
+			}
+		}
+
 		function controller ($scope) {
 			var vm = this;
 
-			vm.panelOpen = false;
-			vm.editMode = false;
-			vm.openPanel = openPanel;
-			vm.closePanel = closePanel;
-			vm.toggleEditMode = toggleEditMode;
-			vm.updateScope = updateScope;
-
-			$scope.$watch('panelOpen', function() {
-				if ($scope.panelOpen) {
-					vm.openPanel();
-				} else {
-					vm.closePanel();
-				}
-			});
+			vm.Service = $scope.service;
+			vm.Service.openPanel = openPanel;
+			vm.Service.closePanel = closePanel;
+			vm.Service.toggleEditMode = toggleEditMode;
 
 			function openPanel () {
-				vm.panelOpen = true;
-				vm.bodyScrollable = false;
-				vm.updateScope(); // update scope with new controller variables status
+				vm.Service.panelOpen = true;
+				$scope.$emit('service-panel.directive > service.panelOpen');
 			}
 
 			function closePanel () {
-				vm.panelOpen = false;
-				vm.bodyScrollable = true;
-				vm.updateScope();  // update scope with new controller variables status
+				vm.Service.panelOpen = false;
+				$scope.$emit('service-panel.directive > service.panelClosed');
 			}
 
 			function toggleEditMode () {
-				vm.editMode = !vm.editMode
-			}
-
-			function updateScope () {
-				$scope.panelOpen = vm.panelOpen;
-				$scope.bodyScrollable = vm.bodyScrollable;
+				vm.Service.editMode = !vm.Service.editMode
 			}
 		}
 

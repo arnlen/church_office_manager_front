@@ -9,9 +9,14 @@
 
 	function TasksController ($scope, Task) {
 
-		$scope.update = function(task) {
+		/*jshint validthis: true */
+		var vm = this;
+
+		vm.update = update;
+
+		function update(task) {
 			Task.update($scope, task);
-		};
+		}
 
 	}
 

@@ -10,8 +10,10 @@
 	function servicesService ($resource, API_BASE_URL, $rootScope, $q) {
 
 		// Init attributes
-		var loadedService = null,
-				services = null,
+		var clicked = undefined,
+				loaded = undefined,
+				panelOpen = false,
+				displayAll = false,
 				resource = $resource(API_BASE_URL + 'services/:id', { id: '@id' },
 				{
 					update: { method: "PUT" },
@@ -19,8 +21,10 @@
 				});
 
 		var Service = {
-			services: services, // null on init
-			loadedService: loadedService, // null on init
+			clicked: clicked, // undefined on init
+			loaded: loaded, // undefined on init
+			panelOpen: panelOpen, // false on init
+			displayAll: displayAll, // false on init
 			find: find, // promise
 			all: all // promise
 		};

@@ -9,27 +9,12 @@
 
 	function MembersController ($scope, notify, Member) {
 
-		// ------------------------------------------------------
-		// Panels management
+		/*jshint validthis: true */
+		var vm = this;
 
-		$scope.openMemberPanel = function(memberId) {
-			Member.find($scope, member);
 
-			$scope.pushServicePanel();
-			$scope.memberPanelOpen = true;
-		};
+		// ---------------- Functions ---------------- //
 
-		$scope.closeMemberPanel = function() {
-			$scope.memberPanelOpen = false;
-			$scope.closeMemberList();
-			$scope.pullServicePanel();
-		};
-
-		$scope.$watch('loadedMember', function() {
-			if (!$scope.loadedMember) { return; }
-
-			$scope.openMemberPanel();
-		});
 
 		// ------------------------------------------------------
 		// Assign a member section

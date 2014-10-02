@@ -1,11 +1,11 @@
-<div class="right-panel level-two" ng-class="{ active: memberPanelOpen }">
+<div class="right-panel level-two" ng-class="{ active: dvm.panelOpen }">
 
-<i class="fa fa-angle-double-right close-button" ng-click="closeMemberPanel()"></i>
+<i class="fa fa-angle-double-right close-button" ng-click="dvm.closePanel()"></i>
 
-	<h1 class="name">{{ loadedMember.name }}</h1>
+	<h1 class="name">{{ dvm.loadedMember.name }}</h1>
 	<ul>
-		<li>Email : {{ loadedMember.email || "Non renseigné" }}</li>
-		<li>Téléphone : {{ loadedMember.phone || "Non renseigné" }}</li>
+		<li>Email : {{ dvm.loadedMember.email || "Non renseigné" }}</li>
+		<li>Téléphone : {{ dvm.loadedMember.phone || "Non renseigné" }}</li>
 	</ul>
 
 	<!-- Member Services container -->

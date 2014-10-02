@@ -1,12 +1,12 @@
-<div class="service" ng-class="{ completed: service.ready, 'ng-hide': service.ready && !officeService.displayAll }">
+<div class="service" ng-class="{ completed: dvm.service.ready, 'ng-hide': dvm.service.ready && !dvm.Service.displayAll }">
 
 	<div class="status-color-line"></div>
-	<h2 ch-capitalize class="name" name="{{ service.name }}"></h2>
+	<h2 ch-capitalize class="name" name="{{ dvm.service.name }}"></h2>
 	<div class="service-status">
-		<span ng-if="!service.ready">
-			Tâches effectuées : {{ service.task_done }} sur {{ service.task_total }}
+		<span ng-if="!dvm.service.ready">
+			Tâches effectuées : {{ dvm.service.task_done }} sur {{ dvm.service.task_total }}
 		</span>
-		<span ng-if="service.ready">
+		<span ng-if="dvm.service.ready">
 			Service prêt !
 		</span>
 	</div>

@@ -1,15 +1,19 @@
-<div class="right-panel level-one" ng-class="{ active: vm.panelOpen, 'pushed-once': pushedOnce, 'edit-mode': editMode }" ng-model="loadedService">
+<div class="right-panel level-one" ng-class="{ active: dvm.Service.panelOpen, 'edit-mode': dvm.Service.editMode }">
 
 	<div class="header-edit-mode">Modification du service</div>
 
 	<!-- Panel buttons: close, edit, save -->
-	<div class="buttons" ng-include="'views/shared/panel-buttons.html'"></div>
+	<div class="buttons">
+		<i class="fa fa-angle-double-right close-panel" ng-click="dvm.Service.closePanel()" ng-hide="dvm.Service.editMode"></i>
+		<i class="fa fa-check valid-edit-panel" ng-click="dvm.Service.toggleEditMode()" ng-show="dvm.Service.editMode"></i>
+		<i class="fa fa-edit edit-panel" ng-click="dvm.Service.toggleEditMode()" ng-hide="dvm.Service.editMode"></i>
+	</div>
 
-	<h1 class="name">{{ loadedService.name }}</h1>
+	<h1 class="name">{{ dvm.Service.loaded.name }}</h1>
 
 	<!-- ================= EDIT SECTION ================= -->
 
-	<div class="edit-section" ng-show="editMode">
+	<div class="edit-section" ng-show="dvm.Service.editMode">
 
 		<!-- Manage service's members -->
 		<span class="btn btn-default" ng-click="editModeToggleMemberList()">
@@ -38,16 +42,16 @@
 
 	<div ng-controller="MembersController">
 
-		<div class="members-in-charge" ng-hide="editMode">
+		<div class="members-in-charge" ng-hide="dvm.Service.editMode">
 
 			<!-- Leader -->
-			<span class="btn btn-default" ng-click="openMemberPanel(loadedService.leader_id)">
-				Responsable : {{ loadedService.leader_name }}
+			<span class="btn btn-default" ng-click="dvm.openMemberPanel(dvm.Service.loaded.leader_id)">
+				Responsable : {{ dvm.Service.loaded.leader_name }}
 			</span>
 
 			<!-- In charge this office -->
-			<span class="btn" ng-class="{ 'btn-primary': loadedService.member_in_charge_name, 'btn-danger': !loadedService.member_in_charge_name }" ng-click="toggleMemberList()">
-				Cette réunion : {{ loadedService.member_in_charge_name || "Personne" }}
+			<span class="btn" ng-class="{ 'btn-primary': dvm.Service.loaded.member_in_charge_name, 'btn-danger': !dvm.Service.loaded.member_in_charge_name }" ng-click="toggleMemberList()">
+				Cette réunion : {{ dvm.Service.loaded.member_in_charge_name || "Personne" }}
 			</span>
 
 		</div>
@@ -61,7 +65,7 @@
 
 			<div class="confirmation" ng-class="{ active: memberToConfirm }">
 				<p>
-					Assigner {{ memberToConfirm.name }} au service {{ loadedService.name }} pour cette réunion ?<br>
+					Assigner {{ memberToConfirm.name }} au service {{ dvm.Service.loaded.name }} pour cette réunion ?<br>
 					{{ memberToConfirm.name }} recevra un mail de confirmation.
 				</p>
 				<div class="btn btn-default" ng-click="confirmMemberInCharge(false)">Annuler</div>
@@ -71,7 +75,7 @@
 		</div>
 
 		<!-- Member panel -->
-		<div ng-include="'views/members/show.html'"></div>
+		<ch-member-panel loaded-member="dvm.member.loaded" panel-open="dvm.member.panelOpen"></ch-member-panel>
 
 	</div>
 
@@ -91,7 +95,7 @@
 				<th>Échéance</th>
 			</tr>
 
-			<tr class="task" ng-repeat="task in loadedService.tasks" ng-model="task">
+			<tr class="task" ng-repeat="task in dvm.Service.loaded.tasks" ng-model="task">
 				<td class="name">
 					<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="update(task)">
 					<label for="task_{{ task.id }}">{{ task.name }}</label>

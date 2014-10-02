@@ -9,11 +9,15 @@
 
 	function officesService ($resource, API_BASE_URL, $rootScope, $q) {
 
-		var current_office = null,
+		var loaded = undefined,
+				members = undefined,
+				services = undefined,
 				resource = $resource(API_BASE_URL + 'offices/:id', { id: '@id' });
 
 		var Office = {
-			current_office: current_office, // null on init
+			loaded: loaded, // undefined on init
+			members: members, // undefined on init
+			services: services, // undefined on init
 			find: find // promise
 		};
 
@@ -24,7 +28,7 @@
 		function find (id) {
 			var deferred = $q.defer();
 			if (id) {
-				var date = (current_office && current_office.date) || null;
+				var date = (loaded && loaded.date) || null;
 				resource.get({ id: id, date: date }).$promise.then(function(result) {
 					deferred.resolve(result);
 				});

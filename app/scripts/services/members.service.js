@@ -10,20 +10,23 @@
 	function membersService ($resource, API_BASE_URL, $rootScope, notify, $q) {
 
 		// Init attributes
-		var members = null;
-
-		var resource = $resource(API_BASE_URL + 'members/:id', { id: '@id' },
-			{
-				joinOrLeaveService: { method: 'PUT', params: {
-					serviceId: '@serviceId',
-					isMember: '@isMember',
-					isLeader: '@isLeader'
-				}}
-			}
-		);
+		var clicked = undefined,
+				loaded = undefined,
+				panelOpen = false,
+				resource = $resource(API_BASE_URL + 'members/:id', { id: '@id' },
+				{
+					joinOrLeaveService: { method: 'PUT', params: {
+						serviceId: '@serviceId',
+						isMember: '@isMember',
+						isLeader: '@isLeader'
+					}}
+				}
+			);
 
 		var Member = {
-			members: members, // null on init
+			clicked: clicked, // undefined on init
+			loaded: loaded, // undefined on init
+			panelOpen: panelOpen, // false on init
 			find: find, // promise
 			all: all, // promise
 			isMemberOfThisService: isMemberOfThisService, // bool

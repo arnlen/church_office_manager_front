@@ -9,26 +9,36 @@
 
 	function chServiceListItem ($rootScope, Service) {
 
-		function link(scope, element, attr) {
+		var directive = {
+			restrict: 'A',
+			scope: {
+				service: '='
+			},
+			templateUrl: 'scripts/directives/service-list-item.directive.html',
+			link: link,
+			controller: controller,
+			controllerAs: 'dvm'
+		};
+
+		return directive;
+
+		// ---------------- Functions ---------------- //
+
+		function link(scope, element, attr, vm) {
 
 			// On click on a service
 			element.on('click', function(event) {
-				Service.find(scope.service).then(function(service) {
-					Service.loadedService = service;
-					$rootScope.$broadcast('loadedService.updated');
-				});
+				vm.Service.clicked = scope.service;
+				scope.$emit('service-list-item.directive > service.clicked');
 			});
 		}
 
-		return {
-			restrict: 'A',
-			scope: {
-				service: '=',
-				officeService: '='
-			},
-			templateUrl: 'scripts/directives/service-list-item.directive.html',
-			link: link
-		};
+		function controller($scope) {
+			var vm = this;
+
+			vm.Service = Service; // ServicesService
+			vm.service = $scope.service; // Service of the ng-repeat
+		}
 
 	}
 

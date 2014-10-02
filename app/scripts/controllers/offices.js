@@ -5,124 +5,86 @@
 		.module('churchOfficeManager')
 		.controller('OfficesController', OfficesController);
 
-	OfficesController.$inject = ['$scope', '$rootScope', 'officesService', 'servicesService', 'membersService', 'tasksService'];
+	OfficesController.$inject = ['$scope', '$q', 'officesService', 'servicesService', 'membersService', 'tasksService'];
 
-	function OfficesController ($scope, $rootScope, Office, Service, Member, Task) {
+	function OfficesController($scope, $q, Office, Service, Member, Task) {
 
 		/*jshint validthis: true */
 		var vm = this;
 
-		vm.office = {};
-		vm.service = {};
-		vm.member = {};
-		vm.getPrevious = getPrevious;
-		vm.getNext = getNext;
-		vm.closeAllPanels = closeAllPanels;
+		vm.Office = Office;
+		vm.Service = Service;
+		vm.Member = Member;
+		vm.Office.getPrevious = getPrevious;
+		vm.Office.getNext = getNext;
+		vm.Office.closeAllPanels = closeAllPanels;
 
 		activate();
 
 
 		// ---------------- Functions ---------------- //
 
-
 		function activate() {
+			$q.all([loadOffice(), loadMembers()]).then(function(success) {
+				console.log('[OfficeController] Office and Members loaded');
+			});
+		}
 
-			vm.office = {
-				loaded: undefined,
-				members: undefined,
-				services: undefined
-			};
+		function loadOffice() {
+			var deferred = $q.defer();
 
-			vm.service = {
-				clicked: undefined,
-				loaded: undefined,
-				panelOpen: false,
-				displayAll: false
-			};
+			vm.Office.find('next').then(function(office) {
+				vm.Office.loaded = office;
 
-			vm.member = {
-				clicked: undefined,
-				loaded: undefined,
-				panelOpen: false
-			};
+				vm.Service.all(Office.loaded).then(function(services) {
+					vm.Office.services = services;
 
-			// ------------------------------------------------
-			// Office loading
-
-			Office.find('next').then(function(office) {
-				Office.current_office = office;
-				$rootScope.$broadcast('office.loaded');
-
-				// ------------------------------------------------
-				// Services loading
-
-				Service.all(Office.current_office).then(function(services) {
-					Service.services = services;
-					$rootScope.$broadcast('services.loaded');
+					deferred.resolve(vm.Office);
 				});
 			});
 
-			// ------------------------------------------------
-			// Members loading
+			return deferred.promise;
+		}
 
-			Member.all().then(function(members) {
-				Member.members = members;
-				$rootScope.$broadcast('members.loaded');
+		function loadMembers() {
+			var deferred = $q.defer();
+
+			vm.Member.all().then(function(members) {
+				vm.Office.members = members;
+				deferred.resolve(vm.Office);
 			});
 
-		} // end function activate()
+			return deferred.promise;
+		}
 
 
 		function getPrevious() {
-			Office.find($scope, 'previous');
+			vm.Office.find('previous');
 		}
 
 		function getNext() {
-			Office.find($scope, 'next');
+			vm.Office.find('next');
 		}
 
 		function closeAllPanels() {
-			vm.service.panelOpen = false;
-			vm.member.panelOpen = false;
+			vm.Service.panelOpen = false;
+			vm.Member.panelOpen = false;
 		}
 
 
 		// ================= EVENT CATCHERS ================= //
 
-		// Loadings
-
-		$scope.$on('office.loaded', function(event) {
-			vm.office.loaded = Office.current_office;
-			console.log('[Loaded] Office');
+		$scope.$on('service-list-item.directive > service.clicked', function(event, service) {
+			event.stopPropagation();
+			console.log('[OfficeController][Event] Catched "service-list-item.directive > service.clicked"');
+			$scope.$broadcast('ServiceController > service.clicked');
 		});
 
-		$scope.$on('services.loaded', function(event) {
-			vm.office.services = Service.services;
-			console.log('[Loaded] Services');
-		});
-
-		$scope.$on('members.loaded', function(event) {
-			vm.office.members = Member.members;
-			console.log('[Loaded] Members');
-		});
-
-		// // Updates
-
-		// $scope.$on('office.updated', function(event) {
-		// 	$scope.office.loaded = officesService.office;
-		// 	console.log('[Updated] Office');
+		// $scope.$on('loadedService.updated', function(event) {
+		// 	vm.service.loaded = Service.loadedService;
+		// 	vm.service.panelOpen = true;
+		// 	console.log('[Updated] Loaded Service');
 		// });
-
-		// $scope.$on('services.updated', function(event) {
-		// 	$scope.office.services = servicesService.services;
-		// 	console.log('[Updated] Services');
-		// });
-
-		$scope.$on('loadedService.updated', function(event) {
-			vm.service.loaded = Service.loadedService;
-			vm.service.panelOpen = true;
-			console.log('[Updated] Loaded Service');
-		});
 
 		// $scope.$on('ask.allPanels.close', function(event) {
 		// 	console.log('[Ask] All panels to close');
