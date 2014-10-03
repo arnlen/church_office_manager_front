@@ -16,6 +16,7 @@
 		vm.Office.getPrevious = getPrevious;
 		vm.Office.getNext = getNext;
 		vm.Office.closeAllPanels = closeAllPanels;
+		vm.Office.eventList = [];
 
 		vm.Service = Service;
 		vm.Member = Member;
@@ -73,41 +74,25 @@
 
 		// ================= EVENT CATCHERS ================= //
 
+		vm.Office.eventList = [
+			'service-list-item.directive > service.clicked',
+			'service-panel.directive > service.panelClosed',
+			'service-panel.directive > member.clicked',
+			'member-panel.directive > member.panelOpen',
+			'member-panel.directive > member.panelClosed'
+		];
 
-		// ------------------- Service -------------------
+		angular.forEach(vm.Office.eventList, function(eventMessage) {
+			var splitted = eventMessage.split(' > ');
+			var eventSender = splitted[0],
+					eventName = splitted[1];
 
-		$scope.$on('service-list-item.directive > service.clicked', function(event) {
-			event.stopPropagation();
-			console.log('[OfficesController][Event catched] "service-list-item.directive > service.clicked"');
-			$scope.$broadcast('OfficesController > service.clicked');
+			$scope.$on(eventMessage, function(event) {
+				event.stopPropagation();
+				console.log('[OfficesController][Event catched] "' + eventMessage + '"');
+				$scope.$broadcast('OfficesController > ' + eventName);
+			});
 		});
-
-		$scope.$on('service-panel.directive > service.panelClosed', function(event) {
-			event.stopPropagation();
-			console.log('[OfficesController][Event catched] "service-panel.directive > service.panelClosed"');
-			$scope.$broadcast('OfficesController > service.panelClosed');
-		});
-
-		// ------------------- Member -------------------
-
-		$scope.$on('service-panel.directive > member.clicked', function(event) {
-			event.stopPropagation();
-			console.log('[OfficesController][Event catched] "service-list-item.directive > service.clicked"');
-			$scope.$broadcast('OfficesController > member.clicked');
-		});
-
-		$scope.$on('member-panel.directive > member.panelOpen', function(event) {
-			event.stopPropagation();
-			console.log('[OfficesController][Event catched] "member-panel.directive > member.panelOpen"');
-			$scope.$broadcast('OfficesController > member.panelOpen');
-		});
-
-		$scope.$on('member-panel.directive > member.panelClosed', function(event) {
-			event.stopPropagation();
-			console.log('[OfficesController][Event catched] "member-panel.directive > member.panelClosed"');
-			$scope.$broadcast('OfficesController > member.panelClosed');
-		});
-
 	}
 
 })();
