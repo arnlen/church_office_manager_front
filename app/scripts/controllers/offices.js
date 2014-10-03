@@ -13,11 +13,12 @@
 		var vm = this;
 
 		vm.Office = Office;
-		vm.Service = Service;
-		vm.Member = Member;
 		vm.Office.getPrevious = getPrevious;
 		vm.Office.getNext = getNext;
 		vm.Office.closeAllPanels = closeAllPanels;
+
+		vm.Service = Service;
+		vm.Member = Member;
 
 		activate();
 
@@ -57,7 +58,6 @@
 			return deferred.promise;
 		}
 
-
 		function getPrevious() {
 			vm.Office.find('previous');
 		}
@@ -74,10 +74,16 @@
 
 		// ================= EVENT CATCHERS ================= //
 
-		$scope.$on('service-list-item.directive > service.clicked', function(event, service) {
+		$scope.$on('service-list-item.directive > service.clicked', function(event) {
 			event.stopPropagation();
-			console.log('[OfficeController][Event] Catched "service-list-item.directive > service.clicked"');
-			$scope.$broadcast('ServiceController > service.clicked');
+			console.log('[OfficesController][Event catched] "service-list-item.directive > service.clicked"');
+			$scope.$broadcast('OfficesController > service.clicked');
+		});
+
+		$scope.$on('service-panel.directive > member.clicked', function(event) {
+			event.stopPropagation();
+			console.log('[OfficesController][Event catched] "service-list-item.directive > service.clicked"');
+			$scope.$broadcast('OfficesController > member.clicked');
 		});
 
 		// $scope.$on('loadedService.updated', function(event) {

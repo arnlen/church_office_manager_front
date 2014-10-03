@@ -11,11 +11,9 @@
 
 		var directive = {
 			restrict: 'E',
-			scope: {
-				panelOpen: '=',
-				loadedMember: '='
-			},
+			scope: true,
 			templateUrl: 'scripts/directives/member-panel.directive.html',
+			link: link,
 			controller: controller,
 			controllerAs: 'dvm'
 		};
@@ -24,46 +22,39 @@
 
 		// ---------------- Functions ---------------- //
 
+		function link (scope, element, attr, vm) {
+			scope.$on('OfficesController > member.clicked', function(event) {
+				console.log('[MemberPanelDirective][Event catched] "OfficesController > member.clicked"');
+
+				vm.Member.find(vm.Member.clicked).then(function(member) {
+					vm.Member.loaded = member;
+					vm.Member.openPanel();
+				});
+			});
+		}
+
 		function controller ($scope) {
 			var vm = this;
 
-			vm.panelOpen = false;
-			vm.editMode = false;
-			vm.openPanel = openPanel;
-			vm.closePanel = closePanel;
-			vm.toggleEditMode = toggleEditMode;
-			vm.updateScope = updateScope;
-
-			$scope.$watch('panelOpen', function() {
-				if ($scope.panelOpen) {
-					vm.openPanel();
-				} else {
-					vm.closePanel();
-				}
-			});
+			vm.Member = Member;
+			vm.Member.openPanel = openPanel;
+			vm.Member.closePanel = closePanel;
+			vm.Member.toggleEditMode = toggleEditMode;
 
 			function openPanel () {
-				vm.panelOpen = true;
-				vm.bodyScrollable = false;
-				vm.updateScope(); // update scope with new controller variables status
+				vm.Member.panelOpen = true;
+				$scope.$emit('member-panel.directive > member.panelOpen');
 			}
 
 			function closePanel () {
-				vm.panelOpen = false;
-				vm.bodyScrollable = true;
-				vm.updateScope();  // update scope with new controller variables status
+				vm.Member.panelOpen = false;
+				$scope.$emit('member-panel.directive > member.panelClosed');
 			}
 
 			function toggleEditMode () {
-				vm.editMode = !vm.editMode
-			}
-
-			function updateScope () {
-				$scope.panelOpen = vm.panelOpen;
-				$scope.bodyScrollable = vm.bodyScrollable;
+				vm.Member.editMode = !vm.Member.editMode
 			}
 		}
-
 	}
 
 })();

@@ -24,14 +24,15 @@
 </div>
 
 <div class="services">
-
 	<!-- Service -->
 	<div ng-repeat="service in vm.Office.services" ch-service-list-item service="service"></div>
-
-	<!-- Service panel -->
-	<ch-service-panel service="vm.Service"></ch-service-panel>
-
 </div>
+
+<!-- Service panel -->
+<ch-service-panel></ch-service-panel>
+
+<!-- Member panel -->
+<ch-member-panel></ch-member-panel>
 
 <!-- Overlay -->
 <div class="overlay" ng-class="{ 'visible': vm.Service.panelOpen }" ng-click="vm.Office.closeAllPanels()"></div>

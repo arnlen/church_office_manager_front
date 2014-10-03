@@ -5,15 +5,13 @@
 		.module('churchOfficeManager')
 		.directive('chServicePanel', chServicePanel);
 
-	chServicePanel.$inject = ['servicesService', '$q'];
+	chServicePanel.$inject = ['$q', 'servicesService', 'membersService'];
 
-	function chServicePanel (Service, $q) {
+	function chServicePanel ($q, Service, Member) {
 
 		var directive = {
 			restrict: 'E',
-			scope: {
-				service: '='
-			},
+			scope: true,
 			templateUrl: 'scripts/directives/service-panel.directive.html',
 			link: link,
 			controller: controller,
@@ -25,49 +23,46 @@
 		// ---------------- Functions ---------------- //
 
 		function link (scope, element, attr, vm) {
-			scope.$on('ServiceController > service.clicked', function(event) {
-				console.log('[ServicePanelDirective][Event] Catched "ServiceController > service.clicked"');
+			scope.$on('OfficesController > service.clicked', function(event) {
+				console.log('[ServicePanelDirective][Event catched] "OfficesController > service.clicked"');
 
-				loadService(vm.Service.clicked).then(function(success) {
+				vm.Service.find(vm.Service.clicked).then(function(service) {
+					vm.Service.loaded = service;
 					vm.Service.openPanel();
 				});
 			});
-
-			function loadService (service) {
-				var deferred = $q.defer();
-
-				Service.find(service).then(function(service) {
-					vm.Service.loaded = service;
-					deferred.resolve(vm.Service.loaded);
-				});
-
-				return deferred.promise;
-			}
 		}
 
-		function controller ($scope) {
+		function controller($scope) {
 			var vm = this;
 
-			vm.Service = $scope.service;
+			vm.Service = Service;
 			vm.Service.openPanel = openPanel;
 			vm.Service.closePanel = closePanel;
 			vm.Service.toggleEditMode = toggleEditMode;
+			vm.Service.selectMember = selectMember;
 
-			function openPanel () {
+			vm.Member = Member;
+
+			function openPanel() {
 				vm.Service.panelOpen = true;
 				$scope.$emit('service-panel.directive > service.panelOpen');
 			}
 
-			function closePanel () {
+			function closePanel() {
 				vm.Service.panelOpen = false;
 				$scope.$emit('service-panel.directive > service.panelClosed');
 			}
 
-			function toggleEditMode () {
+			function toggleEditMode() {
 				vm.Service.editMode = !vm.Service.editMode
 			}
-		}
 
+			function selectMember(member) {
+				vm.Member.clicked = member;
+				$scope.$emit('service-panel.directive > member.clicked');
+			}
+		}
 	}
 
 })();

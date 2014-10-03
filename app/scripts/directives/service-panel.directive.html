@@ -17,7 +17,7 @@
 
 		<!-- Manage service's members -->
 		<span class="btn btn-default" ng-click="editModeToggleMemberList()">
-			Gérer les membres <i class="fa fa-angle-double-down"></i>
+			Gérer les membres du service <i class="fa fa-angle-double-down"></i>
 		</span>
 
 		<div class="edit-member-list-container" ng-class="{ visible: editModeMemberListOpen }">
@@ -27,7 +27,7 @@
 
 		<!-- Manage service's leader -->
 		<span class="btn btn-default" ng-click="editModeToggleServiceMembersList()">
-			Définir le responsable <i class="fa fa-angle-double-down"></i>
+			Définir le responsable du service <i class="fa fa-angle-double-down"></i>
 		</span>
 
 		<div class="edit-service-members-list-container" ng-class="{ visible: editModeServiceMembersListOpen }">
@@ -37,45 +37,39 @@
 
 	</div>
 
-	<!-- ================= MEMBERS CONTROLLER ================= -->
+
+	<!-- ================= MEMBERS SECTION ================= -->
 
 
-	<div ng-controller="MembersController">
+	<div class="members-in-charge" ng-hide="dvm.Service.editMode">
 
-		<div class="members-in-charge" ng-hide="dvm.Service.editMode">
+		<!-- Leader -->
+		<span class="btn btn-default" ng-click="dvm.Service.selectMember(dvm.Service.loaded.leader_id)">
+			Responsable : {{ dvm.Service.loaded.leader_name }}
+		</span>
 
-			<!-- Leader -->
-			<span class="btn btn-default" ng-click="dvm.openMemberPanel(dvm.Service.loaded.leader_id)">
-				Responsable : {{ dvm.Service.loaded.leader_name }}
-			</span>
+		<!-- In charge this office -->
+		<span class="btn" ng-class="{ 'btn-primary': dvm.Service.loaded.member_in_charge_name, 'btn-danger': !dvm.Service.loaded.member_in_charge_name }" ng-click="toggleMemberList()">
+			Cette réunion : {{ dvm.Service.loaded.member_in_charge_name || "Personne" }}
+		</span>
 
-			<!-- In charge this office -->
-			<span class="btn" ng-class="{ 'btn-primary': dvm.Service.loaded.member_in_charge_name, 'btn-danger': !dvm.Service.loaded.member_in_charge_name }" ng-click="toggleMemberList()">
-				Cette réunion : {{ dvm.Service.loaded.member_in_charge_name || "Personne" }}
-			</span>
+	</div>
 
+	<div class="member-list-container" ng-class="{ visible: memberListOpen }">
+
+		<div class="list" ng-class="{ active: !memberToConfirm }">
+			<p>Quelle personne sera en charge durant cette réunion ?</p>
+			<span class="member btn btn-danger" ng-repeat="member in serviceMembers" ng-click="confirmMemberInCharge(member)">{{ member.name }}</span>
 		</div>
 
-		<div class="member-list-container" ng-class="{ visible: memberListOpen }">
-
-			<div class="list" ng-class="{ active: !memberToConfirm }">
-				<p>Quelle personne sera en charge durant cette réunion ?</p>
-				<span class="member btn btn-danger" ng-repeat="member in serviceMembers" ng-click="confirmMemberInCharge(member)">{{ member.name }}</span>
-			</div>
-
-			<div class="confirmation" ng-class="{ active: memberToConfirm }">
-				<p>
-					Assigner {{ memberToConfirm.name }} au service {{ dvm.Service.loaded.name }} pour cette réunion ?<br>
-					{{ memberToConfirm.name }} recevra un mail de confirmation.
-				</p>
-				<div class="btn btn-default" ng-click="confirmMemberInCharge(false)">Annuler</div>
-				<div class="btn btn-primary" ng-click="updateMemberInCharge(memberToConfirm)">Confirmer</div>
-			</div>
-
+		<div class="confirmation" ng-class="{ active: memberToConfirm }">
+			<p>
+				Assigner {{ memberToConfirm.name }} au service {{ dvm.Service.loaded.name }} pour cette réunion ?<br>
+				{{ memberToConfirm.name }} recevra un mail de confirmation.
+			</p>
+			<div class="btn btn-default" ng-click="confirmMemberInCharge(false)">Annuler</div>
+			<div class="btn btn-primary" ng-click="updateMemberInCharge(memberToConfirm)">Confirmer</div>
 		</div>
-
-		<!-- Member panel -->
-		<ch-member-panel loaded-member="dvm.member.loaded" panel-open="dvm.member.panelOpen"></ch-member-panel>
 
 	</div>
 
@@ -83,29 +77,26 @@
 	<!-- ================= TASKS CONTROLLER ================= -->
 
 
-	<div ng-controller="TasksController">
+	<h2>Tâches à accomplir pour cette réunion</h2>
 
-		<h2>Tâches à accomplir pour cette réunion</h2>
+	<!-- Table of tasks -->
+	<table class="tasks">
 
-		<!-- Table of tasks -->
-		<table class="tasks">
+		<tr>
+			<th>Tâche</th>
+			<th>Échéance</th>
+		</tr>
 
-			<tr>
-				<th>Tâche</th>
-				<th>Échéance</th>
-			</tr>
+		<tr class="task" ng-repeat="task in dvm.Service.loaded.tasks" ng-model="task">
+			<td class="name">
+				<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="update(task)">
+				<label for="task_{{ task.id }}">{{ task.name }}</label>
+			</td>
+			<td class="due-date">{{ task.due_date | date:'d/MM/yyyy' }}</td>
+		</tr>
 
-			<tr class="task" ng-repeat="task in dvm.Service.loaded.tasks" ng-model="task">
-				<td class="name">
-					<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="update(task)">
-					<label for="task_{{ task.id }}">{{ task.name }}</label>
-				</td>
-				<td class="due-date">{{ task.due_date | date:'d/MM/yyyy' }}</td>
-			</tr>
+	</table>
 
-		</table>
-
-	</div>
 
 	<!-- ================= END TASKS CONTROLLER ================= -->
 
