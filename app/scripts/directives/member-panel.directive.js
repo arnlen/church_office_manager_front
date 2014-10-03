@@ -50,6 +50,7 @@
 			vm.Member.openPanel = openPanel;
 			vm.Member.closePanel = closePanel;
 			vm.Member.toggleEditMode = toggleEditMode;
+			vm.Member.editMode = false;
 
 			function openPanel () {
 				vm.Member.panelOpen = true;

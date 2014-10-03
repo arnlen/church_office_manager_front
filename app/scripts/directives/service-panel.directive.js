@@ -57,6 +57,7 @@
 			vm.Service.toggleEditMode = toggleEditMode;
 			vm.Service.selectMember = selectMember;
 			vm.Service.panelPushed = false;
+			vm.Service.editMode = false;
 
 			vm.Member = Member;
 

@@ -29,9 +29,7 @@
 			panelOpen: panelOpen, // false on init
 			find: find, // promise
 			all: all, // promise
-			isMemberOfThisService: isMemberOfThisService, // bool
-			isLeaderOfThisService: isLeaderOfThisService, // bool
-			joinOrLeaveService: joinOrLeaveService // promise
+			// joinOrLeaveService: joinOrLeaveService // promise
 		};
 
 		return Member;
@@ -62,38 +60,20 @@
 			return deferred.promise;
 		}
 
-		function isMemberOfThisService (member, service) {
-			if (member && service) {
-				var isMember = false;
+		// function joinOrLeaveService (member, service) {
+		// 	var deferred = $q.defer(),
+		// 			isMember = isMemberOfThisService(member, service);
 
-				angular.forEach(member.services, function(memberService) {
-					if (!isMember && service.id === memberService.id) {
-						isMember = true;
-					};
-				});
-
-				return isMember;
-			}
-		}
-
-		function isLeaderOfThisService (member, service) {
-			return service.leader_id === member.id;
-		}
-
-		function joinOrLeaveService (member, service) {
-			var deferred = $q.defer(),
-					isMember = isMemberOfThisService(member, service);
-
-			member.$joinOrLeaveService({ id: member.id, serviceId: service.id, isMember: isMember }).then(
-				function(success) {
-					deferred.resolve(success);
-				},
-				function(failure) {
-					deferred.reject(failure);
-				}
-			);
-			return deferred.promise;
-		}
+		// 	member.$joinOrLeaveService({ id: member.id, serviceId: service.id, isMember: isMember }).then(
+		// 		function(success) {
+		// 			deferred.resolve(success);
+		// 		},
+		// 		function(failure) {
+		// 			deferred.reject(failure);
+		// 		}
+		// 	);
+		// 	return deferred.promise;
+		// }
 
 	}
 
