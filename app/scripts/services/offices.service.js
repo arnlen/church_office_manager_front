@@ -25,7 +25,10 @@
 
 		// ---------------- Functions ---------------- //
 
-		function find (id) {
+		// id might equals:
+		// => 'next', 'previous'
+		// => an 'id'
+		function find(id) {
 			var deferred = $q.defer();
 			if (id) {
 				var date = (loaded && loaded.date) || null;

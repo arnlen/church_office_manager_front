@@ -1,16 +1,21 @@
-<div class="right-panel level-two" ng-class="{ active: dvm.panelOpen }">
+<div class="right-panel level-two" ng-class="{ active: dvm.Member.panelOpen }">
 
-<i class="fa fa-angle-double-right close-button" ng-click="dvm.closePanel()"></i>
+	<!-- Panel buttons: close, edit, save -->
+	<div class="buttons">
+		<i class="fa fa-angle-double-right close-panel" ng-click="dvm.Member.closePanel()" ng-hide="dvm.Member.editMode"></i>
+		<i class="fa fa-check valid-edit-panel" ng-click="dvm.Member.toggleEditMode()" ng-show="dvm.Member.editMode"></i>
+		<i class="fa fa-edit edit-panel" ng-click="dvm.Member.toggleEditMode()" ng-hide="dvm.Member.editMode"></i>
+	</div>
 
-	<h1 class="name">{{ dvm.loadedMember.name }}</h1>
+	<h1 class="name">{{ dvm.Member.loaded.name }}</h1>
 	<ul>
-		<li>Email : {{ dvm.loadedMember.email || "Non renseigné" }}</li>
-		<li>Téléphone : {{ dvm.loadedMember.phone || "Non renseigné" }}</li>
+		<li>Email : {{ dvm.Member.loaded.email || "Non renseigné" }}</li>
+		<li>Téléphone : {{ dvm.Member.loaded.phone || "Non renseigné" }}</li>
 	</ul>
 
 	<!-- Member Services container -->
 	<div class="member-services">
-		<div class="service-badge" ng-class="{ leader: loadedMember.leader_of_id === service.id, member: isMemberOfThisService(service) }" ng-repeat="service in services" ng-click="toggleMemberService(loadedMember, service)">
+		<div class="service-badge" ng-class="{ leader: dvm.Member.loaded.leader_of_id === service.id, member: isMemberOfThisService(service) }" ng-repeat="service in services" ng-click="toggleMemberService(dvm.Member.loaded, service)">
 			{{ service.name }}
 		</div>
 	</div>

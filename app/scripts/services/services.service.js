@@ -33,15 +33,15 @@
 
 		// ---------------- Functions ---------------- //
 
-		function find (service) {
+		function find(serviceId) {
 			var deferred = $q.defer();
-			resource.get({ id: service.id }).$promise.then(function(result) {
+			resource.get({ id: serviceId.id }).$promise.then(function(result) {
 				deferred.resolve(result);
 			});
 			return deferred.promise;
 		}
 
-		function all (office) {
+		function all(office) {
 			var deferred = $q.defer();
 			resource.getOfficeServices({ officeId: office.id }).$promise.then(function(result) {
 				deferred.resolve(result);

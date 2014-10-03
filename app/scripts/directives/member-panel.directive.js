@@ -31,6 +31,16 @@
 					vm.Member.openPanel();
 				});
 			});
+
+			scope.$on('OfficesController > service.panelClosed', function() {
+				console.log('[MemberPanelDirective][Event catched] "OfficesController > service.panelClosed"');
+				vm.Member.closePanel();
+			});
+
+			scope.$on('OfficesController > closeAllPanels', function() {
+				console.log('[ServicePanelDirective][Event catched] "OfficesController > closeAllPanels"');
+				vm.Member.closePanel();
+			});
 		}
 
 		function controller ($scope) {

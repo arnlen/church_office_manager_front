@@ -38,17 +38,17 @@
 
 		// ---------------- Functions ---------------- //
 
-		function find (member) {
+		function find(memberId) {
 			var deferred = $q.defer();
-			if (member) {
-				this.resource.get({ id: member.id }).$promise.then(function(result) {
+			if (memberId) {
+				resource.get({ id: memberId }).$promise.then(function(result) {
 					deferred.resolve(result);
 				});
 			}
 			return deferred.promise;
 		}
 
-		function all (service) {
+		function all(service) {
 			var deferred = $q.defer();
 			if (service) {
 				resource.query({ serviceId: service.id }).$promise.then(function(result) {

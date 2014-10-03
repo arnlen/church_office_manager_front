@@ -67,12 +67,14 @@
 		}
 
 		function closeAllPanels() {
-			vm.Service.panelOpen = false;
-			vm.Member.panelOpen = false;
+			$scope.$broadcast('OfficesController > closeAllPanels');
 		}
 
 
 		// ================= EVENT CATCHERS ================= //
+
+
+		// ------------------- Service -------------------
 
 		$scope.$on('service-list-item.directive > service.clicked', function(event) {
 			event.stopPropagation();
@@ -80,24 +82,31 @@
 			$scope.$broadcast('OfficesController > service.clicked');
 		});
 
+		$scope.$on('service-panel.directive > service.panelClosed', function(event) {
+			event.stopPropagation();
+			console.log('[OfficesController][Event catched] "service-panel.directive > service.panelClosed"');
+			$scope.$broadcast('OfficesController > service.panelClosed');
+		});
+
+		// ------------------- Member -------------------
+
 		$scope.$on('service-panel.directive > member.clicked', function(event) {
 			event.stopPropagation();
 			console.log('[OfficesController][Event catched] "service-list-item.directive > service.clicked"');
 			$scope.$broadcast('OfficesController > member.clicked');
 		});
 
-		// $scope.$on('loadedService.updated', function(event) {
-		// 	vm.service.loaded = Service.loadedService;
-		// 	vm.service.panelOpen = true;
-		// 	console.log('[Updated] Loaded Service');
-		// });
+		$scope.$on('member-panel.directive > member.panelOpen', function(event) {
+			event.stopPropagation();
+			console.log('[OfficesController][Event catched] "member-panel.directive > member.panelOpen"');
+			$scope.$broadcast('OfficesController > member.panelOpen');
+		});
 
-		// $scope.$on('ask.allPanels.close', function(event) {
-		// 	console.log('[Ask] All panels to close');
-		// 	$scope.servicePanelOpen = false;
-		// 	$scope.memberPanelOpen = false;
-		// 	$scope.$apply(); // TODO: find why this doesn't work without this call
-		// });
+		$scope.$on('member-panel.directive > member.panelClosed', function(event) {
+			event.stopPropagation();
+			console.log('[OfficesController][Event catched] "member-panel.directive > member.panelClosed"');
+			$scope.$broadcast('OfficesController > member.panelClosed');
+		});
 
 	}
 

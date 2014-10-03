@@ -32,7 +32,7 @@
 		&.active {
 			right: 0;
 
-			&.pushed-once {
+			&.pushed {
 				right: $panel_width_high;
 
 				@media screen and (max-width: $max_width_medium) {
