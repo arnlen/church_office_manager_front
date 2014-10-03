@@ -1,0 +1,15 @@
+<div class="member-services">
+
+	<div ng-repeat="service in dvm.Office.services" class="service-badge" ng-class="{ leader: dvm.Member.loaded.id === service.leader_id, member: dvm.Member.isMemberOfThisService(dvm.Member.loaded, service) }"  ng-click="toggleMemberService(dvm.Member.loaded, service)">
+		{{ service.name }}
+	</div>
+
+</div>
+
+<a ng-click="displayCaption = !displayCaption"><i class="fa fa-angle-double-down"></i> Afficher la légende <i class="fa fa-angle-double-down"></i></a>
+
+<div class="caption" ng-show="displayCaption">
+	<div class="service-badge">Service</div>
+	<div class="service-badge member">Membre</div>
+	<div class="service-badge leader">Responsable</div>
+</div>

@@ -63,7 +63,7 @@
 		}
 
 		function isMemberOfThisService (member, service) {
-			if (service) {
+			if (member && service) {
 				var isMember = false;
 
 				angular.forEach(member.services, function(memberService) {

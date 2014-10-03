@@ -13,19 +13,7 @@
 		<li>Téléphone : {{ dvm.Member.loaded.phone || "Non renseigné" }}</li>
 	</ul>
 
-	<!-- Member Services container -->
-	<div class="member-services">
-		<div class="service-badge" ng-class="{ leader: dvm.Member.loaded.leader_of_id === service.id, member: isMemberOfThisService(service) }" ng-repeat="service in services" ng-click="toggleMemberService(dvm.Member.loaded, service)">
-			{{ service.name }}
-		</div>
-	</div>
-
-	<a ng-click="displayCaption = !displayCaption"><i class="fa fa-angle-double-down"></i> Afficher la légende <i class="fa fa-angle-double-down"></i></a>
-
-	<div class="caption" ng-show="displayCaption">
-		<div class="service-badge">Service</div>
-		<div class="service-badge member">Membre</div>
-		<div class="service-badge leader">Responsable</div>
-	</div>
+	<!-- Member Services  -->
+	<ch-member-services></ch-member-services>
 
 </div>
