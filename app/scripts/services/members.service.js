@@ -13,15 +13,18 @@
 		var clicked = undefined,
 				loaded = undefined,
 				panelOpen = false,
-				resource = $resource(API_BASE_URL + 'members/:id', { id: '@id' },
+				resource = $resource(API_BASE_URL + 'members/:id', { id: '@id' }),
+				membership = $resource(API_BASE_URL + 'memberships/:id', { id: '@id' },
 				{
-					joinOrLeaveService: { method: 'PUT', params: {
+					create: { method: 'POST', params: {
 						serviceId: '@serviceId',
-						isMember: '@isMember',
-						isLeader: '@isLeader'
+						memberId: '@memberId'
+					}},
+					destroy: { method: 'DELETE', params: {
+						serviceId: '@serviceId',
+						memberId: '@memberId'
 					}}
-				}
-			);
+				});
 
 		var Member = {
 			clicked: clicked, // undefined on init
@@ -29,7 +32,10 @@
 			panelOpen: panelOpen, // false on init
 			find: find, // promise
 			all: all, // promise
-			// joinOrLeaveService: joinOrLeaveService // promise
+			isMemberOfThisService: isMemberOfThisService, // bool
+			isLeaderOfThisService: isLeaderOfThisService, // bool
+			joinService: joinService, // promise
+			leaveService: leaveService // promise
 		};
 
 		return Member;
@@ -39,8 +45,8 @@
 		function find(memberId) {
 			var deferred = $q.defer();
 			if (memberId) {
-				resource.get({ id: memberId }).$promise.then(function(result) {
-					deferred.resolve(result);
+				resource.get({ id: memberId }).$promise.then(function(member) {
+					deferred.resolve(member);
 				});
 			}
 			return deferred.promise;
@@ -60,21 +66,58 @@
 			return deferred.promise;
 		}
 
-		// function joinOrLeaveService (member, service) {
-		// 	var deferred = $q.defer(),
-		// 			isMember = isMemberOfThisService(member, service);
+		function isMemberOfThisService (member, service) {
+			if (member && service) {
+				var isMember = false;
 
-		// 	member.$joinOrLeaveService({ id: member.id, serviceId: service.id, isMember: isMember }).then(
-		// 		function(success) {
-		// 			deferred.resolve(success);
-		// 		},
-		// 		function(failure) {
-		// 			deferred.reject(failure);
-		// 		}
-		// 	);
-		// 	return deferred.promise;
-		// }
+				angular.forEach(member.services, function(memberService) {
+					if (!isMember && service.id === memberService.id) {
+						isMember = true;
+					};
+				});
 
+				return isMember;
+			}
+		}
+
+		function isLeaderOfThisService(member, service) {
+			return service.leader_id === member.id;
+		}
+
+		function joinService(member, service) {
+			var deferred = $q.defer();
+
+			membership.create({ memberId: member.id, serviceId: service.id }).$promise.then(function() {
+				refreshLoaded().then(function() {
+					deferred.resolve();
+				});
+			});
+
+			return deferred.promise;
+		}
+
+		function leaveService(member, service) {
+			var deferred = $q.defer();
+
+			membership.destroy({ id: 42, memberId: member.id, serviceId: service.id }).$promise.then(function() {
+				refreshLoaded().then(function() {
+					deferred.resolve();
+				});
+			});
+
+			return deferred.promise;
+		}
+
+		function refreshLoaded() {
+			var deferred = $q.defer();
+
+			Member.find(Member.loaded.id).then(function(member) {
+				Member.loaded = member;
+				deferred.resolve();
+			});
+
+			return deferred.promise;
+		}
 	}
 
 })();
