@@ -5,9 +5,9 @@
 		.module('churchOfficeManager')
 		.directive('chServicePanel', chServicePanel);
 
-	chServicePanel.$inject = ['$q', 'servicesService', 'membersService'];
+	chServicePanel.$inject = ['$q', 'servicesService', 'membersService', 'logsService'];
 
-	function chServicePanel ($q, Service, Member) {
+	function chServicePanel ($q, Service, Member, Log) {
 
 		var directive = {
 			restrict: 'E',
@@ -24,7 +24,7 @@
 
 		function link (scope, element, attr, vm) {
 			scope.$on('OfficesController > service.clicked', function() {
-				console.log('[ServicePanelDirective][Event catched] "OfficesController > service.clicked"');
+				Log('ServicePanelDirective', 'Event catched', 'OfficesController > service.clicked');
 
 				vm.Service.find(vm.Service.clicked).then(function(service) {
 					vm.Service.loaded = service;
@@ -33,17 +33,17 @@
 			});
 
 			scope.$on('OfficesController > member.panelOpen', function() {
-				console.log('[ServicePanelDirective][Event catched] "OfficesController > member.panelOpen"');
+				Log('ServicePanelDirective', 'Event catched', 'OfficesController > member.panelOpen');
 				vm.Service.panelPushed = true;
 			});
 
 			scope.$on('OfficesController > member.panelClosed', function() {
-				console.log('[ServicePanelDirective][Event catched] "OfficesController > member.panelClosed"');
+				Log('ServicePanelDirective', 'Event catched', 'OfficesController > member.panelClosed');
 				vm.Service.panelPushed = false;
 			});
 
 			scope.$on('OfficesController > closeAllPanels', function() {
-				console.log('[ServicePanelDirective][Event catched] "OfficesController > closeAllPanels"');
+				Log('ServicePanelDirective', 'Event catched', 'OfficesController > closeAllPanels');
 				vm.Service.closePanel();
 			});
 		}

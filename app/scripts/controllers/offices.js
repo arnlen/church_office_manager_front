@@ -5,9 +5,9 @@
 		.module('churchOfficeManager')
 		.controller('OfficesController', OfficesController);
 
-	OfficesController.$inject = ['$scope', '$q', 'officesService', 'servicesService', 'membersService', 'tasksService'];
+	OfficesController.$inject = ['$scope', '$q', 'officesService', 'servicesService', 'membersService', 'tasksService', 'logsService'];
 
-	function OfficesController($scope, $q, Office, Service, Member, Task) {
+	function OfficesController($scope, $q, Office, Service, Member, Task, Log) {
 
 		/*jshint validthis: true */
 		var vm = this;
@@ -28,7 +28,7 @@
 
 		function activate() {
 			$q.all([loadOffice(), loadMembers()]).then(function(success) {
-				console.log('[OfficeController] Office and Members loaded');
+				Log('OfficeController', 'Info', 'Office and Members loaded');
 			});
 		}
 
@@ -89,7 +89,7 @@
 
 			$scope.$on(eventMessage, function(event) {
 				event.stopPropagation();
-				console.log('[OfficesController][Event catched] "' + eventMessage + '"');
+				Log('OfficesController', 'Event catched', eventMessage);
 				$scope.$broadcast('OfficesController > ' + eventName);
 			});
 		});

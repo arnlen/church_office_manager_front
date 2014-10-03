@@ -5,9 +5,9 @@
 		.module('churchOfficeManager')
 		.directive('chMemberPanel', chMemberPanel);
 
-	chMemberPanel.$inject = ['membersService'];
+	chMemberPanel.$inject = ['membersService', 'logsService'];
 
-	function chMemberPanel (Member) {
+	function chMemberPanel (Member, Log) {
 
 		var directive = {
 			restrict: 'E',
@@ -24,7 +24,7 @@
 
 		function link (scope, element, attr, vm) {
 			scope.$on('OfficesController > member.clicked', function(event) {
-				console.log('[MemberPanelDirective][Event catched] "OfficesController > member.clicked"');
+				Log('MemberPanelDirective', 'Event catched', 'OfficesController > member.clicked');
 
 				vm.Member.find(vm.Member.clicked).then(function(member) {
 					vm.Member.loaded = member;
@@ -33,12 +33,12 @@
 			});
 
 			scope.$on('OfficesController > service.panelClosed', function() {
-				console.log('[MemberPanelDirective][Event catched] "OfficesController > service.panelClosed"');
+				Log('MemberPanelDirective', 'Event catched', 'OfficesController > service.panelClosed');
 				vm.Member.closePanel();
 			});
 
 			scope.$on('OfficesController > closeAllPanels', function() {
-				console.log('[ServicePanelDirective][Event catched] "OfficesController > closeAllPanels"');
+				Log('ServicePanelDirective', 'Event catched', 'OfficesController > closeAllPanels');
 				vm.Member.closePanel();
 			});
 		}
