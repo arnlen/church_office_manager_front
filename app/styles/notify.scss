@@ -16,6 +16,6 @@
 
 	transition: top $transition_time ease, opacity $transition_time ease;
 
-	&.success { background-color: $blue; }
-	&.failure { background-color: $red; }
+	&.success { background-color: $ch_blue; }
+	&.failure { background-color: $ch_red; }
 }

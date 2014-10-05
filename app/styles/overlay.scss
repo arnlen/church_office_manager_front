@@ -1,0 +1,21 @@
+@import '_vars';
+
+// Overlay when the panel is open
+.overlay {
+	position: fixed;
+	z-index: 45;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: black;
+	opacity: 0;
+	pointer-events: none;
+
+	transition: opacity $transition_time ease;
+
+	&.visible {
+		opacity: 0.5;
+		pointer-events: auto;
+	}
+}

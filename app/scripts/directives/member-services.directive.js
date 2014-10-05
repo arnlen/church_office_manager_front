@@ -36,6 +36,7 @@
 
 			function toggleMemberService(service) {
 
+				// Check if we're in edit mode
 				if (service && vm.Member.editMode) {
 
 					var isMember = vm.Member.isMemberOfThisService(vm.Member.loaded, service),

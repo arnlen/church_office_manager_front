@@ -5,9 +5,9 @@
 		.module('churchOfficeManager')
 		.directive('chServicePanel', chServicePanel);
 
-	chServicePanel.$inject = ['$q', 'servicesService', 'membersService', 'logsService'];
+	chServicePanel.$inject = ['$q', 'servicesService', 'membersService', 'logsService', 'officesService'];
 
-	function chServicePanel ($q, Service, Member, Log) {
+	function chServicePanel ($q, Service, Member, Log, Office) {
 
 		var directive = {
 			restrict: 'E',
@@ -28,7 +28,13 @@
 
 				vm.Service.find(vm.Service.clicked).then(function(service) {
 					vm.Service.loaded = service;
+					Log('ServicePanelDirective', 'Info', 'Service loaded');
 					vm.Service.openPanel();
+
+					vm.Member.all(vm.Service.loaded).then(function(members) {
+						vm.Service.loaded.members = members;
+						Log('ServicePanelDirective', 'Info', 'Service\'s members loaded');
+					});
 				});
 			});
 
@@ -60,6 +66,7 @@
 			vm.Service.editMode = false;
 
 			vm.Member = Member;
+			vm.Office = Office;
 
 			function openPanel() {
 				vm.Service.panelOpen = true;

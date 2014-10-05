@@ -14,11 +14,11 @@
 	cursor: pointer;
 
 	&.member, &.leader {
-		background-color: $blue;
+		background-color: $ch_blue;
 	}
 
 	&.leader {
-		box-shadow: 0 0 0 4px $green;
+		box-shadow: 0 0 0 4px $ch_green;
 	}
 }
 

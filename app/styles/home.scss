@@ -7,6 +7,38 @@ $service_height: 100px;
 
 
 // --------------------------------------
+// OFFICE DATE
+
+.office-date {
+	font-size: 2em;
+	text-align: center;
+	margin-bottom: 10px;
+	color: white;
+
+	h1 { margin: 0 30px; }
+
+	.previous, .next {
+		position: absolute;
+		top: 0;
+		cursor: pointer;
+
+		&:hover {
+			color: $ch_blue;
+		}
+	}
+
+	.previous { left: 0; }
+	.next { right: 0; }
+
+	@media screen and (max-width: $max_width_medium) {
+	  .previous { left: 15px; }
+	  .next { right: 15px; }
+	}
+
+}
+
+
+// --------------------------------------
 // SERVICES
 
 .services {
@@ -14,7 +46,7 @@ $service_height: 100px;
 	.service {
 		height: $service_height;
 		background-color: white;
-		border: solid 1px $red;
+		border: solid 1px $ch_red;
 		padding: 10px;
 		position: relative;
 		margin-bottom: 10px;
@@ -33,23 +65,23 @@ $service_height: 100px;
 		}
 
 		&.completed {
-			border-color: $green;
+			border-color: $ch_green;
 
-			.status-color-line { background-color: $green; }
+			.completion-status-indicator { background-color: $ch_green; }
 
-			.service-status { color: $green; }
+			.service-information { color: $ch_green; }
 
 			&:hover {
-				.button { color: $green; }
+				.right-arrow { color: $ch_green; }
 			}
 
 		}
 
 		&:hover {
 
-			.button { color: $red; }
+			.right-arrow { color: $ch_red; }
 
-			.status-color-line { width: 3%; }
+			.completion-status-indicator { width: 3%; }
 
 			&:before, &:after { bottom: 25px; }
 
@@ -76,22 +108,22 @@ $service_height: 100px;
 		 }
 	}
 
-	.status-color-line {
+	.completion-status-indicator {
 		width: 2%;
 		position: absolute;
 		top: 0;
 		left: 0;
 		bottom: 0;
-		background-color: $red;
+		background-color: $ch_red;
 
 		transition: width 0.2s ease;
 	}
 
 	.name { margin-top: 5px; }
 
-	.service-status { color: $red; }
+	.service-information { color: $ch_red; }
 
-	.button {
+	.right-arrow {
 		font-family: comic sans ms;
 		text-align: center;
 		font-size: 3em;

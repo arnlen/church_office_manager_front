@@ -13,8 +13,9 @@
 	text-align: center;
 	box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
 	overflow: scroll;
+	backface-visibility: hidden;
 
-	transition: right $transition_time ease;
+	transition: right $transition_time ease, transform $transition_time ease;
 
 	@media screen and (max-width: $max_width_medium) {
 			width: $panel_width_medium;
@@ -54,35 +55,51 @@
 		}
 	}
 
-	&.edit-mode {
-		border: solid 4px $red;
+	// ----------- Regular / Edit faces ----------- //
 
-		transition: border $transition_time ease;
+	&.regular-face {
+		z-index: 100;
 
-		.header-edit-mode {
-			padding: 5px;
-			height: 30px;
+		transform: rotateY(0);
+
+		&.edit-mode {
+			transform: rotateY(180deg);
+		}
+
+		.content { }
+	}
+
+	&.edit-face {
+		border: 5px solid $ch_red;
+
+		transform: rotateY(180deg);
+
+		&.edit-mode {
+			transform: rotateY(0deg);
+		}
+
+		.content {
+			margin: 20px 10px 0;
 		}
 	}
 
+	// ----------- End Regular / Edit faces ----------- //
+
 	.header-edit-mode {
-		background-color: $red;
+		background-color: $ch_red;
 		color: white;
 		font-weight: bold;
 		overflow: hidden;
-		padding: 0;
-		height: 0;
-
-		transition: padding $transition_time ease, height $transition_time ease;
+		padding: 5px;
 	}
 
 	.buttons {
 		position: relative;
-		top: 20px;
 		font-size: 3em;
 		width: 100%;
 		cursor: pointer;
-		color: $gray;
+		color: $ch_gray;
+		z-index: 500;
 
 		transition: color $transition_time ease;
 
@@ -93,17 +110,35 @@
 		.close-panel, .cancel-edit-panel {
 			left: 20px;
 
-			&:hover { color: $red; }
+			&:hover { color: $ch_red; }
 		}
 
 		.edit-panel, .valid-edit-panel { right: 20px; }
 
 		.edit-panel {
-			&:hover { color: $blue; }
+			&:hover { color: $ch_blue; }
 		}
 
 		.valid-edit-panel {
-			&:hover { color: $green; }
+			&:hover { color: $ch_green; }
+		}
+	}
+
+	.member {
+		width: 100px;
+		margin: 2px;
+		padding: 5px 0;
+		color: white;
+		background-color: $ch_gray;
+		display: inline-block;
+		cursor: pointer;
+
+		// &:hover { background-color: $ch_gray_dark; }
+
+		.member-of-this-service {
+			background-color: $ch_blue;
+
+			// &:hover { background-color: $ch_blue_dark; }
 		}
 	}
 
@@ -118,24 +153,4 @@
 	}
 
 	td { position: relative; }
-}
-
-// Overlay when the panel is open
-.overlay {
-	position: fixed;
-	z-index: 45;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	background-color: black;
-	opacity: 0;
-	pointer-events: none;
-
-	transition: opacity $transition_time ease;
-
-	&.visible {
-		opacity: 0.5;
-		pointer-events: auto;
-	}
 }

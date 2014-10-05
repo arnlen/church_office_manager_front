@@ -1,8 +1,8 @@
 <div class="service" ng-class="{ completed: dvm.service.ready, 'ng-hide': dvm.service.ready && !dvm.Service.displayAll }">
 
-	<div class="status-color-line"></div>
+	<div class="completion-status-indicator"></div>
 	<h2 ch-capitalize class="name" name="{{ dvm.service.name }}"></h2>
-	<div class="service-status">
+	<div class="service-information">
 		<span ng-if="!dvm.service.ready">
 			Tâches effectuées : {{ dvm.service.task_done }} sur {{ dvm.service.task_total }}
 		</span>
@@ -10,6 +10,6 @@
 			Service prêt !
 		</span>
 	</div>
-	<div class='button'>></div>
+	<div class='right-arrow'>></div>
 
 </div>
