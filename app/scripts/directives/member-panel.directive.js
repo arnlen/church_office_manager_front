@@ -59,6 +59,7 @@
 
 			function closePanel () {
 				vm.Member.panelOpen = false;
+				vm.Member.editMode = false;
 				$scope.$emit('member-panel.directive > member.panelClosed');
 			}
 

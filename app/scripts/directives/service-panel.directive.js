@@ -82,6 +82,7 @@
 			function closePanel() {
 				vm.Service.panelOpen = false;
 				vm.Service.panelPushed = false;
+				vm.Service.editMode = false;
 				$scope.$emit('service-panel.directive > service.panelClosed');
 			}
 

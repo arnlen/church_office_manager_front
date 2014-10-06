@@ -114,9 +114,10 @@
 			var deferred = $q.defer();
 
 			// Case 1: we are in the Member Panel, reload the loaded member
-			if (Member.loaded) {
-				refreshLoaded().then(function() {
-					deferred.resolve();
+			if (Member.loaded && Member.panelOpen) {
+				Member.find(Member.loaded.id).then(function(member) {
+					Member.loaded = member;
+					deferred.resolve(member);
 				});
 
 			// Case 2: we are on the Service Panel, reload the Service members
