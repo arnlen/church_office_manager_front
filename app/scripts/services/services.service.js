@@ -26,16 +26,16 @@
 			panelOpen: panelOpen, // false on init
 			displayAll: displayAll, // false on init
 			find: find, // promise
-			all: all // promise
+			all: all, // promise
 		};
 
 		return Service;
 
 		// ---------------- Functions ---------------- //
 
-		function find(serviceId) {
+		function find(service) {
 			var deferred = $q.defer();
-			resource.get({ id: serviceId.id }).$promise.then(function(result) {
+			resource.get({ id: service.id }).$promise.then(function(result) {
 				deferred.resolve(result);
 			});
 			return deferred.promise;
@@ -46,6 +46,17 @@
 			resource.getOfficeServices({ officeId: office.id }).$promise.then(function(result) {
 				deferred.resolve(result);
 			});
+			return deferred.promise;
+		}
+
+		function refreshLoaded() {
+			var deferred = $q.defer();
+
+			Service.find(Service.loaded).then(function(service) {
+				Service.loaded = service;
+				deferred.resolve();
+			});
+
 			return deferred.promise;
 		}
 	}

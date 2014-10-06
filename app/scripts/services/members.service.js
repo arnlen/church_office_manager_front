@@ -55,18 +55,18 @@
 		function all(service) {
 			var deferred = $q.defer();
 			if (service) {
-				resource.query({ serviceId: service.id }).$promise.then(function(result) {
-					deferred.resolve(result);
+				resource.query({ serviceId: service.id }).$promise.then(function(members) {
+					deferred.resolve(members);
 				});
 			} else {
-				resource.query().$promise.then(function(result) {
-					deferred.resolve(result);
+				resource.query().$promise.then(function(members) {
+					deferred.resolve(members);
 				});
 			}
 			return deferred.promise;
 		}
 
-		function isMemberOfThisService (member, service) {
+		function isMemberOfThisService(member, service) {
 			if (member && service) {
 				var isMember = false;
 
@@ -88,8 +88,9 @@
 			var deferred = $q.defer();
 
 			membership.create({ memberId: member.id, serviceId: service.id }).$promise.then(function() {
-				refreshLoaded().then(function() {
-					deferred.resolve();
+				// Refresh member or service members after update
+				refreshLoaded(service).then(function(members) {
+					deferred.resolve(members);
 				});
 			});
 
@@ -100,21 +101,30 @@
 			var deferred = $q.defer();
 
 			membership.destroy({ id: 42, memberId: member.id, serviceId: service.id }).$promise.then(function() {
-				refreshLoaded().then(function() {
-					deferred.resolve();
+				// Refresh member or service members after update
+				refreshLoaded(service).then(function(members) {
+					deferred.resolve(members);
 				});
 			});
 
 			return deferred.promise;
 		}
 
-		function refreshLoaded() {
+		function refreshLoaded(service) {
 			var deferred = $q.defer();
 
-			Member.find(Member.loaded.id).then(function(member) {
-				Member.loaded = member;
-				deferred.resolve();
-			});
+			// Case 1: we are in the Member Panel, reload the loaded member
+			if (Member.loaded) {
+				refreshLoaded().then(function() {
+					deferred.resolve();
+				});
+
+			// Case 2: we are on the Service Panel, reload the Service members
+			} else {
+				$q.all([Member.all(),Member.all(service)]).then(function(members) {
+					deferred.resolve(members);
+				});
+			}
 
 			return deferred.promise;
 		}

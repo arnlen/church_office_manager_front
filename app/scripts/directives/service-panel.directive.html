@@ -25,23 +25,23 @@
 
 		</div>
 
-	<!-- 		<div class="member-list-container" ng-class="{ visible: memberListOpen }">
+		<!-- <div class="member-list-container" ng-class="{ visible: memberListOpen }">
 
-				<div class="list" ng-class="{ active: !memberToConfirm }">
-					<p>Quelle personne sera en charge durant cette réunion ?</p>
-					<span class="member btn btn-danger" ng-repeat="member in serviceMembers" ng-click="confirmMemberInCharge(member)">{{ member.name }}</span>
-				</div>
+			<div class="list" ng-class="{ active: !memberToConfirm }">
+				<p>Quelle personne sera en charge durant cette réunion ?</p>
+				<span class="member btn btn-danger" ng-repeat="member in serviceMembers" ng-click="confirmMemberInCharge(member)">{{ member.name }}</span>
+			</div>
 
-				<div class="confirmation" ng-class="{ active: memberToConfirm }">
-					<p>
-						Assigner {{ memberToConfirm.name }} au service {{ dvm.Service.loaded.name }} pour cette réunion ?<br>
-						{{ memberToConfirm.name }} recevra un mail de confirmation.
-					</p>
-					<div class="btn btn-default" ng-click="confirmMemberInCharge(false)">Annuler</div>
-					<div class="btn btn-primary" ng-click="updateMemberInCharge(memberToConfirm)">Confirmer</div>
-				</div>
+			<div class="confirmation" ng-class="{ active: memberToConfirm }">
+				<p>
+					Assigner {{ memberToConfirm.name }} au service {{ dvm.Service.loaded.name }} pour cette réunion ?<br>
+					{{ memberToConfirm.name }} recevra un mail de confirmation.
+				</p>
+				<div class="btn btn-default" ng-click="confirmMemberInCharge(false)">Annuler</div>
+				<div class="btn btn-primary" ng-click="updateMemberInCharge(memberToConfirm)">Confirmer</div>
+			</div>
 
-			</div> -->
+		</div> -->
 
 		<h2>Tâches à accomplir pour cette réunion</h2>
 
@@ -79,16 +79,16 @@
 			<i class="fa fa-check valid-edit-panel" ng-click="dvm.Service.toggleEditMode()"></i>
 		</div>
 
-		<!-- Manage service's members -->
-		<div class="edit-member-list-container">
-			<p>Ajouter / Retirer des membres de ce service</p>
-			<span ng-repeat="member in dvm.Office.members" class="member" ng-class="{'member-of-this-service': isMemberOfThisService(member)}" ng-click="toggleMembership(member)">{{ member.name }}</span>
+		<!-- Add / Remove members to the service -->
+		<div class="add-remove-member-container">
+			<h2>Ajouter / Retirer<br>des membres à ce service</h2>
+			<span ng-repeat="member in dvm.Office.members" class="member" ng-class="{'member-of-this-service': dvm.Member.isMemberOfThisService(member, vm.Service.loaded)}" ng-click="vm.Service.toggleMembership(member)">{{ member.name }}</span>
 		</div>
 
-		<!-- Manage service's leader -->
-		<div class="edit-service-members-list-container">
-			<p>Sélectionner le responsable du service</p>
-			<span ng-repeat="member in dvm.Service.loaded.members" class="member" ng-class="{ 'leader-of-this-service': thisServiceHasThisLeader(member) }" ng-click="toggleServiceLeader(member)">{{ member.name }}</span>
+		<!-- Set the service's leader -->
+		<div class="set-leader-containter">
+			<h2>Choisir le responsable du service</h2>
+			<span ng-repeat="member in dvm.Service.loaded.members" class="member" ng-class="{'leader-of-this-service': vm.Member.isLeaderOfThisService(member, vm.Service.loaded)}" ng-click="toggleServiceLeader(member)">{{ member.name }}</span>
 		</div>
 	</div>
 

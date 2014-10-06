@@ -133,12 +133,12 @@
 		display: inline-block;
 		cursor: pointer;
 
-		// &:hover { background-color: $ch_gray_dark; }
+		&:hover { background-color: $ch_gray_dark; }
 
-		.member-of-this-service {
+		&.member-of-this-service {
 			background-color: $ch_blue;
 
-			// &:hover { background-color: $ch_blue_dark; }
+			&:hover { background-color: $ch_blue_dark; }
 		}
 	}
 
