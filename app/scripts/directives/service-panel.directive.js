@@ -88,6 +88,9 @@
 
 			function toggleEditMode() {
 				vm.Service.editMode = !vm.Service.editMode;
+				if (vm.Service.editMode) {
+					$scope.$emit('service-panel.directive > service.editMode');
+				}
 				vm.Service.reloadService();
 			}
 

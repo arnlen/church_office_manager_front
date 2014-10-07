@@ -79,7 +79,8 @@
 			'service-panel.directive > service.panelClosed',
 			'service-panel.directive > member.clicked',
 			'member-panel.directive > member.panelOpen',
-			'member-panel.directive > member.panelClosed'
+			'member-panel.directive > member.panelClosed',
+			'service-panel.directive > service.editMode',
 		];
 
 		angular.forEach(vm.Office.eventList, function(eventMessage) {

@@ -37,8 +37,13 @@
 				vm.Member.closePanel();
 			});
 
+			scope.$on('OfficesController > service.editMode', function() {
+				Log('MemberPanelDirective', 'Event catched', 'OfficesController > service.editMode');
+				vm.Member.closePanel();
+			});
+
 			scope.$on('OfficesController > closeAllPanels', function() {
-				Log('ServicePanelDirective', 'Event catched', 'OfficesController > closeAllPanels');
+				Log('MemberPanelDirective', 'Event catched', 'OfficesController > closeAllPanels');
 				vm.Member.closePanel();
 			});
 		}
