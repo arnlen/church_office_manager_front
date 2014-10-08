@@ -135,11 +135,13 @@
 
 		&:hover { background-color: $ch_gray_dark; }
 
-		&.member-of-this-service {
+		&.member-of-this-service, &.leader {
 			background-color: $ch_blue;
 
 			&:hover { background-color: $ch_blue_dark; }
 		}
+
+		&.leader { box-shadow: 0 0 0 4px $ch_green; }
 	}
 
 	h2 { font-size: 1.5em; }

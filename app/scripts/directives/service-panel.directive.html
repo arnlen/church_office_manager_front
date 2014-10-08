@@ -71,7 +71,7 @@
 
 <div class="right-panel edit-face level-one" ng-class="{ active: dvm.Service.panelOpen, 'edit-mode': dvm.Service.editMode, 'pushed': dvm.Service.panelPushed }">
 
-	<div class="header-edit-mode">Modification du service</div>
+	<div class="header-edit-mode">Modification du service {{ dvm.Service.loaded.name }}</div>
 
 	<div class="content">
 		<!-- Panel buttons: close, edit, save -->
@@ -88,7 +88,7 @@
 		<!-- Set the service's leader -->
 		<div class="set-leader-containter">
 			<h2>Choisir le responsable du service</h2>
-			<span ng-repeat="member in dvm.Service.loaded.members" class="member" ng-class="{'leader-of-this-service': vm.Member.isLeaderOfThisService(member, vm.Service.loaded)}" ng-click="toggleServiceLeader(member)">{{ member.name }}</span>
+			<span ng-repeat="member in dvm.Service.loaded.members" class="member" ng-class="{leader: dvm.Member.isLeaderOfThisService(member, vm.Service.loaded)}" ng-click="dvm.Service.setLeader(member)">{{ member.name }}</span>
 		</div>
 	</div>
 

@@ -1,6 +1,6 @@
 <div class="member-services">
 
-	<div ng-repeat="service in dvm.Office.services" class="service-badge" ng-class="{ leader: dvm.Member.loaded.id === service.leader_id, member: dvm.Member.isMemberOfThisService(dvm.Member.loaded, service) }"  ng-click="dvm.Member.toggleMemberService(service)">
+	<div ng-repeat="service in dvm.Office.services" class="service-badge" ng-class="{leader: dvm.Member.isLeaderOfThisService(dvm.Member.loaded, service), member: dvm.Member.isMemberOfThisService(dvm.Member.loaded, service)}"  ng-click="dvm.Member.toggleMemberService(service)">
 		{{ service.name }}
 	</div>
 

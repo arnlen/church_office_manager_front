@@ -57,6 +57,7 @@
 			vm.Service.panelPushed = false;
 			vm.Service.editMode = false;
 			vm.Service.toggleMembership = toggleMembership;
+			vm.Service.setLeader = setLeader;
 
 			vm.Member = Member;
 			vm.Office = Office;
@@ -66,11 +67,6 @@
 					vm.Service.loaded = service;
 					Log('ServicePanelDirective', 'Info', 'Service loaded');
 					vm.Service.openPanel();
-
-					vm.Member.all(vm.Service.loaded).then(function(members) {
-						vm.Service.loaded.members = members;
-						Log('ServicePanelDirective', 'Info', 'Service\'s members loaded');
-					});
 				});
 			}
 
@@ -113,6 +109,17 @@
 						Log('ServicePanelDirective', 'Info', member.name + ' just joined service ' + vm.Service.loaded.name);
 					});
 				}
+			}
+
+			function setLeader(member) {
+				console.log('1. ' + vm.Service.loaded.leader_name);
+				vm.Service.loaded.leader_id = member.id;
+				vm.Service.loaded.leader_name = member.name;
+
+				console.log('2. ' + vm.Service.loaded.leader_name);
+				vm.Service.loaded.$update({ leader_id: member.id, leader_name: member.name }).then(function() {
+					console.log('3. ' + vm.Service.loaded.leader_name);
+				});
 			}
 		}
 	}
