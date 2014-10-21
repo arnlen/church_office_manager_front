@@ -36,3 +36,8 @@
 
 <!-- Overlay -->
 <div class="overlay" ng-class="{ 'visible': vm.Service.panelOpen }" ng-click="vm.Office.closeAllPanels()"></div>
+
+<div ng-init="user.name = 'joe'">
+	<input type="text" ng-model="user.name">
+	<pre>{{ user | json }}</pre>
+</div>
