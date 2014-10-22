@@ -17,6 +17,7 @@
 		);
 
 		var Task = {
+			find: find, // promise
 			all: all, // promise
 			update: update // promise
 		};
@@ -25,7 +26,15 @@
 
 		// ---------------- Functions ---------------- //
 
-		function all (service) {
+		function find(task) {
+			var deferred = $q.defer();
+			resource.get({ id: task.id }).$promise.then(function(result) {
+				deferred.resolve(result);
+			});
+			return deferred.promise;
+		}
+
+		function all(service) {
 			var deferred = $q.defer();
 			resource.getServiceTasks({ serviceId: service.id }).$promise.then(function(result) {
 				deferred.resolve(result);
@@ -33,26 +42,12 @@
 			return deferred.promise;
 		}
 
-		function update (task) {
-			var found = false,
-					loadedService = scope.loadedService;
-
-			task.$update().then(function() {
-
-				// Get updated service
-				loadedService.$get().then(function() {
-
-					// Refresh the global list with all services
-					angular.forEach(scope.services, function(service) {
-						if (!found && service.id === loadedService.id) {
-							found = true;
-							service.task_done = loadedService.task_done;
-							service.ready = loadedService.ready;
-						}
-					});
-
-				});
+		function update(task) {
+			var deferred = $q.defer();
+			task.$update().then(function(success) {
+					deferred.resolve();
 			});
+			return deferred.promise;
 		}
 	}
 

@@ -55,7 +55,7 @@
 
 			<tr class="task" ng-repeat="task in dvm.Service.loaded.tasks" ng-model="task">
 				<td class="name">
-					<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="update(task)">
+					<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="dvm.Task.toggleCompletion(task)">
 					<label for="task_{{ task.id }}">{{ task.name }}</label>
 				</td>
 				<td class="due-date">{{ task.due_date | date:'d/MM/yyyy' }}</td>

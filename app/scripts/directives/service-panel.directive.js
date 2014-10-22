@@ -5,9 +5,9 @@
 		.module('churchOfficeManager')
 		.directive('chServicePanel', chServicePanel);
 
-	chServicePanel.$inject = ['$q', 'servicesService', 'membersService', 'logsService', 'officesService'];
+	chServicePanel.$inject = ['$q', 'servicesService', 'membersService', 'logsService', 'officesService', 'tasksService'];
 
-	function chServicePanel ($q, Service, Member, Log, Office) {
+	function chServicePanel ($q, Service, Member, Log, Office, Task) {
 
 		var directive = {
 			restrict: 'E',
@@ -62,37 +62,23 @@
 			vm.Member = Member;
 			vm.Office = Office;
 
+			vm.Task = Task;
+			vm.Task.toggleCompletion = toggleTaskCompletion;
+
+
+			// ----- Resource management ----- //
+
 			function loadService() {
 				vm.Service.find(vm.Service.clicked).then(function(service) {
 					vm.Service.loaded = service;
 					Log('ServicePanelDirective', 'Info', 'Service loaded');
 					vm.Service.openPanel();
+
+					vm.Task.all(vm.Service.loaded).then(function(tasks) {
+						vm.Service.loaded.tasks = tasks;
+						Log('ServicePanelDirective', 'Info', 'Service tasks loaded');
+					});
 				});
-			}
-
-			function openPanel() {
-				vm.Service.panelOpen = true;
-				$scope.$emit('service-panel.directive > service.panelOpen');
-			}
-
-			function closePanel() {
-				vm.Service.panelOpen = false;
-				vm.Service.panelPushed = false;
-				vm.Service.editMode = false;
-				$scope.$emit('service-panel.directive > service.panelClosed');
-			}
-
-			function toggleEditMode() {
-				vm.Service.editMode = !vm.Service.editMode;
-				if (vm.Service.editMode) {
-					$scope.$emit('service-panel.directive > service.editMode');
-				}
-				vm.Service.reloadService();
-			}
-
-			function selectMember(memberId) {
-				vm.Member.clicked = memberId;
-				$scope.$emit('service-panel.directive > member.clicked');
 			}
 
 			function toggleMembership(member) {
@@ -121,6 +107,51 @@
 					console.log('3. ' + vm.Service.loaded.leader_name);
 				});
 			}
+
+			function toggleTaskCompletion(task) {
+				var found = false;
+
+				task.$update().then(function() {
+
+					// Manually update the service in the global Office list of services
+					angular.forEach(vm.Office.services, function(service) {
+						if (!found && service.id === task.service_id) {
+							found = true;
+							service.$get();
+							Log('ServicePanelDirective', 'Info', 'Task updated and Office service concerned updated');
+						}
+					});
+
+				});
+			}
+
+			// ----- UI / UX ----- //
+
+			function openPanel() {
+				vm.Service.panelOpen = true;
+				$scope.$emit('service-panel.directive > service.panelOpen');
+			}
+
+			function closePanel() {
+				vm.Service.panelOpen = false;
+				vm.Service.panelPushed = false;
+				vm.Service.editMode = false;
+				$scope.$emit('service-panel.directive > service.panelClosed');
+			}
+
+			function toggleEditMode() {
+				vm.Service.editMode = !vm.Service.editMode;
+				if (vm.Service.editMode) {
+					$scope.$emit('service-panel.directive > service.editMode');
+				}
+				vm.Service.reloadService();
+			}
+
+			function selectMember(memberId) {
+				vm.Member.clicked = memberId;
+				$scope.$emit('service-panel.directive > member.clicked');
+			}
+
 		}
 	}
 

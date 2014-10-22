@@ -48,17 +48,6 @@
 			});
 			return deferred.promise;
 		}
-
-		function refreshLoaded() {
-			var deferred = $q.defer();
-
-			Service.find(Service.loaded).then(function(service) {
-				Service.loaded = service;
-				deferred.resolve();
-			});
-
-			return deferred.promise;
-		}
 	}
 
 })();
