@@ -82,8 +82,6 @@
 
 		function isLeaderOfThisService(member, service) {
 			if (member && service) {
-				console.log(service.name, service.leader_id, service.leader_name);
-				console.log(member.name, member.id);
 				return service.leader_id === member.id;
 			}
 		}

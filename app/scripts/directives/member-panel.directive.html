@@ -1,45 +1,48 @@
 <!-- ================= REGULAR FACE ================= -->
 
-<div class="right-panel regular-face level-two" ng-class="{ active: dvm.Member.panelOpen, 'edit-mode': dvm.Service.editMode }">
+<div class="right-panel regular-face level-two" ng-class="{ active: dvm.Member.panelOpen, 'edit-mode': dvm.Member.editMode }">
 
-	<div class="buttons">
-		<i class="fa fa-angle-double-right close-panel" ng-click="dvm.Service.closePanel()"></i>
-		<i class="fa fa-edit edit-panel" ng-click="dvm.Service.toggleEditMode()"></i>
-	</div>
+	<div class="content">
+		<div class="buttons">
+			<i class="fa fa-angle-double-right close-panel" ng-click="dvm.Member.closePanel()"></i>
+			<i class="fa fa-edit edit-panel" ng-click="dvm.Member.toggleEditMode()"></i>
+		</div>
 
-	<div class="member-data" ng-hide="dvm.Member.editMode">
 		<h1 class="name">{{ dvm.Member.loaded.name }}</h1>
 		<ul>
 			<li>Email : {{ dvm.Member.loaded.email || "Non renseigné" }}</li>
 			<li>Téléphone : {{ dvm.Member.loaded.phone || "Non renseigné" }}</li>
 		</ul>
-	</div>
 
-	<!-- Member Services  -->
-	<ch-member-services></ch-member-services>
+		<!-- Member Services  -->
+		<ch-member-services></ch-member-services>
+
+	</div>
 
 </div>
 
 
 <!-- ================= EDIT FACE ================= -->
 
-<div class="right-panel edit-face level-two" ng-class="{ active: dvm.Service.panelOpen, 'edit-mode': dvm.Service.editMode }">
+<div class="right-panel edit-face level-two" ng-class="{ active: dvm.Member.panelOpen, 'edit-mode': dvm.Member.editMode }">
 
-	<div class="header-edit-mode">Modification de la fiche</div>
+	<div class="header-edit-mode">Modification de la fiche de {{ dvm.Member.loaded.name }}</div>
 
-	<!-- Panel buttons: close, edit, save -->
-	<div class="buttons">
-		<i class="fa fa-check valid-edit-panel" ng-click="dvm.Service.toggleEditMode()"></i>
-	</div>
+	<div class="content">
+		<!-- Panel buttons: close, edit, save -->
+		<div class="buttons">
+			<i class="fa fa-check valid-edit-panel" ng-click="dvm.Member.toggleEditMode()"></i>
+		</div>
 
-	<div class="edit-section" ng-show="dvm.Member.editMode">
-		<input ng-model="dvm.Member.loaded.name" type="text" name="name" value="{{ dvm.Member.loaded.name }}" placeholder="Ex : Buzz l'Eclair">
-		<ul>
-			<input ng-model="dvm.Member.loaded.email" type="email" name="email" value="{{ dvm.Member.loaded.email }}" placeholder="Ex : buzz@starcommand.com">
-			<input ng-model="dvm.Member.loaded.phone" type="phone" name="phone" value="{{ dvm.Member.loaded.phone }}" placeholder="Ex : 06 01 02 03 04">
-		</ul>
+		<div class="edit-section" ng-show="dvm.Member.editMode">
+			<input ng-model="dvm.Member.loaded.name" type="text" name="name" value="{{ dvm.Member.loaded.name }}" placeholder="Ex : Buzz l'Eclair">
+			<ul>
+				<input ng-model="dvm.Member.loaded.email" type="email" name="email" value="{{ dvm.Member.loaded.email }}" placeholder="Ex : buzz@starcommand.com">
+				<input ng-model="dvm.Member.loaded.phone" type="phone" name="phone" value="{{ dvm.Member.loaded.phone }}" placeholder="Ex : 06 01 02 03 04">
+			</ul>
 
-		<p>Choisissez de quel(s) service(s) cette personne est membre et/ou responsable. Cliquer plusieurs fois sur un service pour sélectionner alternativement "Non membre", "Membre", "Responsable"</p>
+			<p>Choisissez de quel(s) service(s) cette personne est membre et/ou responsable. Cliquer plusieurs fois sur un service pour sélectionner alternativement "Non membre", "Membre", "Responsable"</p>
+		</div>
 	</div>
 
 </div>

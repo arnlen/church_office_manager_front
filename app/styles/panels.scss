@@ -124,24 +124,32 @@
 		}
 	}
 
-	.member {
+	.panel-badge {
 		width: 100px;
 		margin: 2px;
 		padding: 5px 0;
 		color: white;
 		background-color: $ch_gray;
 		display: inline-block;
-		cursor: pointer;
+		cursor: default;
 
-		&:hover { background-color: $ch_gray_dark; }
-
-		&.member-of-this-service, &.leader {
+		&.member, &.leader {
 			background-color: $ch_blue;
-
-			&:hover { background-color: $ch_blue_dark; }
 		}
 
 		&.leader { box-shadow: 0 0 0 4px $ch_green; }
+	}
+
+	// panel-badge: Special behaviour in edit mode
+	.edit-mode {
+		.panel-badge {
+			cursor: pointer;
+			&:hover { background-color: $ch_gray_dark; }
+
+			&.member, &.leader {
+				&:hover { background-color: $ch_blue_dark; }
+			}
+		}
 	}
 
 	h2 { font-size: 1.5em; }

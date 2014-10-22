@@ -98,13 +98,11 @@
 			}
 
 			function setLeader(member) {
-				console.log('1. ' + vm.Service.loaded.leader_name);
 				vm.Service.loaded.leader_id = member.id;
 				vm.Service.loaded.leader_name = member.name;
 
-				console.log('2. ' + vm.Service.loaded.leader_name);
 				vm.Service.loaded.$update({ leader_id: member.id, leader_name: member.name }).then(function() {
-					console.log('3. ' + vm.Service.loaded.leader_name);
+					Log('ServicePanelDirective', 'Info', member.name + ' is now leader of service ' + vm.Service.loaded.name);
 				});
 			}
 
@@ -125,6 +123,7 @@
 				});
 			}
 
+
 			// ----- UI / UX ----- //
 
 			function openPanel() {
@@ -144,7 +143,6 @@
 				if (vm.Service.editMode) {
 					$scope.$emit('service-panel.directive > service.editMode');
 				}
-				vm.Service.reloadService();
 			}
 
 			function selectMember(memberId) {

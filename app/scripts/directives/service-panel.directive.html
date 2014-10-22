@@ -82,13 +82,13 @@
 		<!-- Add / Remove members to the service -->
 		<div class="add-remove-member-container">
 			<h2>Ajouter / Retirer<br>des membres à ce service</h2>
-			<span ng-repeat="member in dvm.Office.members" class="member" ng-class="{'member-of-this-service': dvm.Member.isMemberOfThisService(member, vm.Service.loaded)}" ng-click="vm.Service.toggleMembership(member)">{{ member.name }}</span>
+			<span ng-repeat="member in dvm.Office.members" class="panel-badge" ng-class="{ member: dvm.Member.isMemberOfThisService(member, vm.Service.loaded) }" ng-click="vm.Service.toggleMembership(member)">{{ member.name }}</span>
 		</div>
 
 		<!-- Set the service's leader -->
 		<div class="set-leader-containter">
 			<h2>Choisir le responsable du service</h2>
-			<span ng-repeat="member in dvm.Service.loaded.members" class="member" ng-class="{leader: dvm.Member.isLeaderOfThisService(member, vm.Service.loaded)}" ng-click="dvm.Service.setLeader(member)">{{ member.name }}</span>
+			<span ng-repeat="member in dvm.Service.loaded.members" class="panel-badge" ng-class="{ leader: dvm.Member.isLeaderOfThisService(member, vm.Service.loaded) }" ng-click="dvm.Service.setLeader(member)">{{ member.name }}</span>
 		</div>
 	</div>
 
