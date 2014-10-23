@@ -53,6 +53,22 @@ ul {
 	padding: 0;
 }
 
+form {
+	margin: 10px 0;
+
+	input[type="text"], input[type="email"] {
+		padding: 5px;
+		margin: 5px 0;
+		width: 80%;
+		max-width: 200px;
+	}
+
+	.ng-invalid {
+		border: solid 2px $ch_red;
+		color: $ch_red;
+	}
+}
+
 .container {
 	position: relative;
 

@@ -13,7 +13,10 @@
 		var clicked = undefined,
 				loaded = undefined,
 				panelOpen = false,
-				resource = $resource(API_BASE_URL + 'members/:id', { id: '@id' }),
+				resource = $resource(API_BASE_URL + 'members/:id', { id: '@id' },
+				{
+					update: { method: 'PUT' }
+				}),
 				membership = $resource(API_BASE_URL + 'memberships/:id', { id: '@id' },
 				{
 					create: { method: 'POST', params: {

@@ -52,10 +52,11 @@
 			var vm = this;
 
 			vm.Member = Member;
+			vm.Member.editMode = false;
 			vm.Member.openPanel = openPanel;
 			vm.Member.closePanel = closePanel;
 			vm.Member.toggleEditMode = toggleEditMode;
-			vm.Member.editMode = false;
+			vm.Member.validEdition = validEdition;
 
 			function openPanel () {
 				vm.Member.panelOpen = true;
@@ -70,6 +71,13 @@
 
 			function toggleEditMode () {
 				vm.Member.editMode = !vm.Member.editMode
+			}
+
+			function validEdition() {
+				vm.Member.loaded.$update().then(function() {
+					toggleEditMode();
+					Log('MemberPanelDirective', 'Info', vm.Member.loaded.name + 'saved');
+				});
 			}
 		}
 	}
