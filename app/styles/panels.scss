@@ -140,8 +140,8 @@
 		&.leader { box-shadow: 0 0 0 4px $ch_green; }
 	}
 
-	// panel-badge: Special behaviour in edit mode
-	.edit-mode {
+	// panel-badge: Special behaviour for the edit face
+	&.edit-face {
 		.panel-badge {
 			cursor: pointer;
 			&:hover { background-color: $ch_gray_dark; }
