@@ -93,10 +93,7 @@
 			var deferred = $q.defer();
 
 			membership.create({ memberId: member.id, serviceId: service.id }).$promise.then(function() {
-				// Refresh member or service members after update
-				refreshLoaded(service).then(function(members) {
-					deferred.resolve(members);
-				});
+				deferred.resolve();
 			});
 
 			return deferred.promise;
@@ -106,31 +103,8 @@
 			var deferred = $q.defer();
 
 			membership.destroy({ id: 42, memberId: member.id, serviceId: service.id }).$promise.then(function() {
-				// Refresh member or service members after update
-				refreshLoaded(service).then(function(members) {
-					deferred.resolve(members);
-				});
+				deferred.resolve();
 			});
-
-			return deferred.promise;
-		}
-
-		function refreshLoaded(service) {
-			var deferred = $q.defer();
-
-			// Case 1: we are in the Member Panel, reload the loaded member
-			if (Member.loaded && Member.panelOpen) {
-				Member.find(Member.loaded.id).then(function(member) {
-					Member.loaded = member;
-					deferred.resolve(member);
-				});
-
-			// Case 2: we are on the Service Panel, reload the Service members
-			} else {
-				$q.all([Member.all(),Member.all(service)]).then(function(members) {
-					deferred.resolve(members);
-				});
-			}
 
 			return deferred.promise;
 		}

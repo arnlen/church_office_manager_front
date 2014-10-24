@@ -43,8 +43,8 @@
 				vm.Service.closePanel();
 			});
 
-			scope.$on('OfficesController > serviceLeader.updated', function() {
-				Log('ServicePanelDirective', 'Event catched', 'OfficesController > serviceLeader.updated');
+			scope.$on('OfficesController > service.loaded.updated', function() {
+				Log('ServicePanelDirective', 'Event catched', 'OfficesController > service.loaded.updated');
 				vm.Service.reloadService();
 			});
 		}
@@ -96,14 +96,14 @@
 			function toggleMembership(member) {
 				if (vm.Member.isMemberOfThisService(member, vm.Service.loaded)) {
 					vm.Member.leaveService(member, vm.Service.loaded).then(function(members) {
-						vm.Office.members = members[0];
-						vm.Service.loaded.members = members[1];
+						vm.Service.reloadService();
+						$scope.$emit('service-panel.directive > member.loaded.updated');
 						Log('ServicePanelDirective', 'Info', member.name + ' just left service ' + vm.Service.loaded.name);
 					});
 				} else {
 					vm.Member.joinService(member, vm.Service.loaded).then(function(members) {
-						vm.Office.members = members[0];
-						vm.Service.loaded.members = members[1];
+						vm.Service.reloadService();
+						$scope.$emit('service-panel.directive > member.loaded.updated');
 						Log('ServicePanelDirective', 'Info', member.name + ' just joined service ' + vm.Service.loaded.name);
 					});
 				}

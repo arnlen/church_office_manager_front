@@ -52,7 +52,7 @@
 
 			vm.Service.all(Office.loaded).then(function(services) {
 				vm.Office.services = services;
-				Log('OfficeController', 'Info', 'Services loaded');
+				Log('OfficeController', 'Info', 'Services (re)loaded');
 				deferred.resolve();
 			});
 
@@ -64,7 +64,7 @@
 
 			vm.Member.all().then(function(members) {
 				vm.Office.members = members;
-				Log('OfficeController', 'Info', 'Members loaded');
+				Log('OfficeController', 'Info', 'Members (re)loaded');
 				deferred.resolve();
 			});
 
@@ -86,14 +86,18 @@
 
 		// ================= EVENT CATCHERS ================= //
 
-		$scope.$on('service-panel.directive > service.loaded.updated', function(event) {
-			event.stopPropagation();
-			Log('OfficesController', 'Event catched', 'service-panel.directive > service.loaded.updated');
-			loadServices();
-		});
+		// function eventCatcher(eventList, callback) {
+		// 	angular.forEach(eventList, function(eventMessage) {
+		// 		var splitted = eventMessage.split(' > ');
+		// 		var eventSender = splitted[0],
+		// 				eventName = splitted[1];
 
-
-		// Broadcaster-maniac
+		// 		$scope.$on(eventMessage, function(event) {
+		// 			event.stopPropagation();
+		// 			callback();
+		// 		});
+		// 	});
+		// }
 
 		vm.Office.eventList = [
 			'service-list-item.directive > service.clicked',
@@ -102,11 +106,13 @@
 			'service-panel.directive > member.clicked',
 			'service-panel.directive > service.editMode',
 			'service-panel.directive > service.loaded.updated',
+			'service-panel.directive > member.loaded.updated',
 
 			'member-panel.directive > member.panelOpen',
 			'member-panel.directive > member.panelClosed',
 
-			'member-services.directive > serviceLeader.updated',
+			'member-services.directive > service.loaded.updated',
+			'member-services.directive > member.loaded.updated',
 		];
 
 		angular.forEach(vm.Office.eventList, function(eventMessage) {
@@ -118,6 +124,13 @@
 				event.stopPropagation();
 				Log('OfficesController', 'Event catched', eventMessage);
 				$scope.$broadcast('OfficesController > ' + eventName);
+
+				// Specific actions where refresh is required
+				if (eventName === 'service.loaded.updated') {
+					loadServices();
+				} else if (eventName === 'member.loaded.updated') {
+					loadMembers();
+				}
 			});
 		});
 	}
