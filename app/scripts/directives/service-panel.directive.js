@@ -82,7 +82,7 @@
 					vm.Service.openPanel();
 
 					vm.Task.all(vm.Service.loaded).then(function(tasks) {
-						vm.Service.loaded.tasks = tasks;
+						vm.Service.loadedTasks = tasks;
 						Log('ServicePanelDirective', 'Info', 'Service tasks loaded');
 					});
 				});

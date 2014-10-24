@@ -49,7 +49,7 @@
 				<th>Échéance</th>
 			</tr>
 
-			<tr class="task" ng-repeat="task in dvm.Service.loaded.tasks" ng-model="task">
+			<tr class="task" ng-repeat="task in dvm.Service.loadedTasks" ng-model="task">
 				<td class="name">
 					<input name="task_{{ task.id }}" id="task_{{ task.id }}" type="checkbox" ng-model="task.completed" ng-change="dvm.Task.toggleCompletion(task)">
 					<label for="task_{{ task.id }}">{{ task.name }}</label>
