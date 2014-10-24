@@ -76,7 +76,7 @@
 			function validEdition() {
 				vm.Member.loaded.$update().then(function() {
 					toggleEditMode();
-					Log('MemberPanelDirective', 'Info', vm.Member.loaded.name + 'saved');
+					Log('MemberPanelDirective', 'Info', vm.Member.loaded.name + ' saved');
 				});
 			}
 		}

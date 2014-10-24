@@ -45,7 +45,7 @@
 					// If member > become leader of the service
 					if (isMember && !isLeader) {
 						service.$update({ leader_id: vm.Member.loaded.id }).then(function(success) {
-
+							$scope.$emit('member-services.directive > serviceLeader.updated');
 							Log('MemberServiceDirective', 'Info', vm.Member.loaded.name + ' is now leader of service ' + service.name);
 						});
 
@@ -57,6 +57,7 @@
 						service.leader_id = 0;
 
 						$q.all(membership, leadership).then(function() {
+							$scope.$emit('member-services.directive > serviceLeader.updated');
 							Log('MemberServiceDirective', 'Info', vm.Member.loaded.name + ' has left service ' + service.name);
 						});
 

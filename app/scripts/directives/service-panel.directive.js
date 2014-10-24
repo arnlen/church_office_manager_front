@@ -42,6 +42,11 @@
 				Log('ServicePanelDirective', 'Event catched', 'OfficesController > closeAllPanels');
 				vm.Service.closePanel();
 			});
+
+			scope.$on('OfficesController > serviceLeader.updated', function() {
+				Log('ServicePanelDirective', 'Event catched', 'OfficesController > serviceLeader.updated');
+				vm.Service.reloadService();
+			});
 		}
 
 		function controller($scope) {
