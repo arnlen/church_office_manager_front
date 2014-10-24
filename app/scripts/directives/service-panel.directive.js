@@ -114,6 +114,7 @@
 				vm.Service.loaded.leader_name = member.name;
 
 				vm.Service.loaded.$update({ leader_id: member.id, leader_name: member.name }).then(function() {
+					$scope.$emit('service-panel.directive > service.loaded.updated');
 					Log('ServicePanelDirective', 'Info', member.name + ' is now leader of service ' + vm.Service.loaded.name);
 				});
 			}

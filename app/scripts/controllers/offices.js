@@ -28,7 +28,7 @@
 
 		function activate() {
 			$q.all([loadOffice(), loadMembers()]).then(function(success) {
-				Log('OfficeController', 'Info', 'Office and Members loaded');
+				Log('OfficeController', 'Info', '---> System activated and ready to rock!');
 			});
 		}
 
@@ -37,12 +37,23 @@
 
 			vm.Office.find('next').then(function(office) {
 				vm.Office.loaded = office;
+				Log('OfficeController', 'Info', 'Office loaded');
 
-				vm.Service.all(Office.loaded).then(function(services) {
-					vm.Office.services = services;
-
-					deferred.resolve(vm.Office);
+				loadServices().then(function() {
+					deferred.resolve();
 				});
+			});
+
+			return deferred.promise;
+		}
+
+		function loadServices() {
+			var deferred = $q.defer();
+
+			vm.Service.all(Office.loaded).then(function(services) {
+				vm.Office.services = services;
+				Log('OfficeController', 'Info', 'Services loaded');
+				deferred.resolve();
 			});
 
 			return deferred.promise;
@@ -53,7 +64,8 @@
 
 			vm.Member.all().then(function(members) {
 				vm.Office.members = members;
-				deferred.resolve(vm.Office);
+				Log('OfficeController', 'Info', 'Members loaded');
+				deferred.resolve();
 			});
 
 			return deferred.promise;
@@ -74,13 +86,26 @@
 
 		// ================= EVENT CATCHERS ================= //
 
+		$scope.$on('service-panel.directive > service.loaded.updated', function(event) {
+			event.stopPropagation();
+			Log('OfficesController', 'Event catched', 'service-panel.directive > service.loaded.updated');
+			loadServices();
+		});
+
+
+		// Broadcaster-maniac
+
 		vm.Office.eventList = [
 			'service-list-item.directive > service.clicked',
+
 			'service-panel.directive > service.panelClosed',
 			'service-panel.directive > member.clicked',
+			'service-panel.directive > service.editMode',
+			'service-panel.directive > service.loaded.updated',
+
 			'member-panel.directive > member.panelOpen',
 			'member-panel.directive > member.panelClosed',
-			'service-panel.directive > service.editMode',
+
 			'member-services.directive > serviceLeader.updated',
 		];
 
