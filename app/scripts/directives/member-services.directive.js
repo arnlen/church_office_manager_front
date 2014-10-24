@@ -52,7 +52,9 @@
 					// Else if leader > leave service
 					} else if (isLeader) {
 						var membership = vm.Member.leaveService(vm.Member.loaded, service),
-								leadership = service.$update({ leader_id: 0 });
+								leadership = service.$update();
+
+						service.leader_id = 0;
 
 						$q.all(membership, leadership).then(function() {
 							Log('MemberServiceDirective', 'Info', vm.Member.loaded.name + ' has left service ' + service.name);
