@@ -11,37 +11,33 @@
 
 		<h1 class="name">{{ dvm.Service.loaded.name }}</h1>
 
-		<div class="members-in-charge">
+		<!-- Leader -->
+		<span class="btn btn-default" ng-click="dvm.Service.selectMember(dvm.Service.loaded.leader_id)">
+			Responsable : {{ dvm.Service.loaded.leader_name }}
+		</span>
 
-			<!-- Leader -->
-			<span class="btn btn-default" ng-click="dvm.Service.selectMember(dvm.Service.loaded.leader_id)">
-				Responsable : {{ dvm.Service.loaded.leader_name }}
-			</span>
+		<!-- In charge this office -->
+		<span class="btn" ng-class="{ 'btn-primary': dvm.Service.loaded.member_in_charge_name, 'btn-danger': !dvm.Service.loaded.member_in_charge_name }" ng-click="dvm.Service.toggleMemberInChargeList()">
+			Cette réunion : {{ dvm.Service.loaded.member_in_charge_name || "Personne" }}
+		</span>
 
-			<!-- In charge this office -->
-			<span class="btn" ng-class="{ 'btn-primary': dvm.Service.loaded.member_in_charge_name, 'btn-danger': !dvm.Service.loaded.member_in_charge_name }" ng-click="toggleMemberList()">
-				Cette réunion : {{ dvm.Service.loaded.member_in_charge_name || "Personne" }}
-			</span>
+		<div class="select-member-in-charge-container" ng-class="{ visible: dvm.Service.memberInChargeListOpen }">
+
+			<div class="list" ng-class="{ active: !dvm.Service.memberToConfirm }">
+				<p>Quelle personne sera en charge durant cette réunion ?</p>
+				<span ng-repeat="member in dvm.Service.loaded.members" class="panel-badge" ng-click="dvm.Service.selectMemberInCharge(member)">{{ member.name }}</span>
+			</div>
+
+			<div class="confirmation" ng-class="{ active: dvm.Service.memberToConfirm }">
+				<p>
+					Assigner {{ dvm.Service.memberToConfirm.name }} au service {{ dvm.Service.loaded.name }} pour cette réunion ?<br>
+					{{ dvm.Service.memberToConfirm.name }} recevra un mail de confirmation.
+				</p>
+				<div class="btn btn-default" ng-click="dvm.Service.resetMemberToConfirm()">Annuler</div>
+				<div class="btn btn-primary" ng-click="dvm.Service.confirmSelectedMemberInCharge(dvm.Service.memberToConfirm)">Confirmer</div>
+			</div>
 
 		</div>
-
-		<!-- <div class="member-list-container" ng-class="{ visible: memberListOpen }">
-
-			<div class="list" ng-class="{ active: !memberToConfirm }">
-				<p>Quelle personne sera en charge durant cette réunion ?</p>
-				<span class="member btn btn-danger" ng-repeat="member in serviceMembers" ng-click="confirmMemberInCharge(member)">{{ member.name }}</span>
-			</div>
-
-			<div class="confirmation" ng-class="{ active: memberToConfirm }">
-				<p>
-					Assigner {{ memberToConfirm.name }} au service {{ dvm.Service.loaded.name }} pour cette réunion ?<br>
-					{{ memberToConfirm.name }} recevra un mail de confirmation.
-				</p>
-				<div class="btn btn-default" ng-click="confirmMemberInCharge(false)">Annuler</div>
-				<div class="btn btn-primary" ng-click="updateMemberInCharge(memberToConfirm)">Confirmer</div>
-			</div>
-
-		</div> -->
 
 		<h2>Tâches à accomplir pour cette réunion</h2>
 

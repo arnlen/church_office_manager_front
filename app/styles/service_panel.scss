@@ -21,7 +21,7 @@
 	}
 
 	// Set the member in charge for
-	.service-members-container {
+	.select-member-in-charge-container {
 		background-color: $ch_red;
 		box-shadow: 3px 3px 9px -2px rgba(0, 0, 0, 0.4) inset;
 		overflow: hidden;
@@ -47,6 +47,13 @@
 			left: 5%;
 			width: 90%;
 			top: -240px;
+
+			.panel-badge {
+				color: $ch_red;
+				cursor: pointer;
+
+				&:hover { background-color: $ch_gray_dark; }
+			}
 
 			@media screen and (max-width: $max_width_medium) {
 				// line-height: 1.5em;

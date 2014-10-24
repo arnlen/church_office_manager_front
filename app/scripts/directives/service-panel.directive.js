@@ -54,10 +54,17 @@
 			vm.Service.closePanel = closePanel;
 			vm.Service.toggleEditMode = toggleEditMode;
 			vm.Service.selectMember = selectMember;
-			vm.Service.panelPushed = false;
-			vm.Service.editMode = false;
 			vm.Service.toggleMembership = toggleMembership;
 			vm.Service.setLeader = setLeader;
+			vm.Service.toggleMemberInChargeList = toggleMemberInChargeList;
+			vm.Service.selectMemberInCharge = selectMemberInCharge;
+			vm.Service.resetMemberToConfirm = resetMemberToConfirm;
+			vm.Service.confirmSelectedMemberInCharge = confirmSelectedMemberInCharge;
+			vm.Service.panelPushed = false;
+			vm.Service.editMode = false;
+			vm.Service.memberInChargeListOpen = false;
+			vm.Service.memberToConfirm = false;
+
 
 			vm.Member = Member;
 			vm.Office = Office;
@@ -119,7 +126,27 @@
 							Log('ServicePanelDirective', 'Info', 'Task updated and Office service concerned updated');
 						}
 					});
+				});
+			}
 
+			function toggleMemberInChargeList() {
+				vm.Service.memberInChargeListOpen = !vm.Service.memberInChargeListOpen;
+			}
+
+			function selectMemberInCharge(member) {
+				vm.Service.memberToConfirm = member;
+			}
+
+			function resetMemberToConfirm() {
+				vm.Service.memberToConfirm = false;
+			}
+
+			function confirmSelectedMemberInCharge() {
+				vm.Service.loaded.member_in_charge_id = vm.Service.memberToConfirm.id;
+				vm.Service.loaded.$update().then(function(service) {
+					Log('ServicePanelDirective', 'Info', service.member_in_charge_name + ' is now in charge of service ' + vm.Service.loaded.name + ' for this office');
+					resetMemberToConfirm();
+					toggleMemberInChargeList();
 				});
 			}
 
