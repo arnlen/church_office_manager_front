@@ -14,15 +14,16 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/offices/header.css">
-    <link rel="stylesheet" href="styles/offices/show.css">
-    <link rel="stylesheet" href="styles/services/show.css">
-    <link rel="stylesheet" href="styles/members/show.css">
-    <link rel="stylesheet" href="styles/shared/notify.css">
-    <link rel="stylesheet" href="styles/shared/panels.css">
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/panels.css">
+    <link rel="stylesheet" href="styles/service_panel.css">
+    <link rel="stylesheet" href="styles/member_panel.css">
+    <link rel="stylesheet" href="styles/notify.css">
+    <link rel="stylesheet" href="styles/overlay.css">
+    <link rel="stylesheet" href="styles/switch_button.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="churchOfficeManagerFrontApp" ng-controller="BodyController" class="background-2" ng-class="{ 'no-scroll': bodyNoScroll }">
+  <body ng-app="churchOfficeManager" ng-controller="GlobalController as global" class="background-2" ng-class="{ 'no-scroll': !global.bodyScrollable }">
 
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -31,7 +32,7 @@
     <!-- Add your site or application content here -->
     <div class="container">
 
-      <div ng-include="'views/offices/show.html'" ng-controller="OfficesController"></div>
+      <div ng-include="'views/offices/show.html'" ng-controller="OfficesController as vm"></div>
 
       <footer>EDD @arnlen &copy 2014</footer>
 
@@ -68,20 +69,27 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/config.js"></script>
+        <script src="scripts/church-office-manager.module.js"></script>
+        <script src="scripts/church-office-manager.config.js"></script>
+
+        <script src="scripts/controllers/global.js"></script>
+        <script src="scripts/controllers/members.js"></script>
         <script src="scripts/controllers/offices.js"></script>
         <script src="scripts/controllers/services.js"></script>
         <script src="scripts/controllers/tasks.js"></script>
-        <script src="scripts/controllers/members.js"></script>
-        <script src="scripts/controllers/body.js"></script>
-        <script src="scripts/factories/offices.js"></script>
-        <script src="scripts/factories/tasks.js"></script>
-        <script src="scripts/factories/services.js"></script>
-        <script src="scripts/factories/members.js"></script>
-        <script src="scripts/directives/capitalize.js"></script>
-        <script src="scripts/directives/after-transition.js"></script>
-        <!-- endbuild -->
 
+        <script src="scripts/directives/after-transition.directive.js"></script>
+        <script src="scripts/directives/capitalize.directive.js"></script>
+        <script src="scripts/directives/service-list-item.directive.js"></script>
+        <script src="scripts/directives/service-panel.directive.js"></script>
+        <script src="scripts/directives/member-panel.directive.js"></script>
+        <script src="scripts/directives/member-services.directive.js"></script>
+
+        <script src="scripts/services/members.service.js"></script>
+        <script src="scripts/services/offices.service.js"></script>
+        <script src="scripts/services/services.service.js"></script>
+        <script src="scripts/services/tasks.service.js"></script>
+        <script src="scripts/services/logs.service.js"></script>
+        <!-- endbuild -->
 </body>
 </html>

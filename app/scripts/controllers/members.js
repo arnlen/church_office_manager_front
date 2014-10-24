@@ -1,95 +1,79 @@
-'use strict';
+(function() {
+	'use strict';
 
-app.controller('MembersController', function ($scope, membersFactory, notify) {
+	angular
+		.module('churchOfficeManager')
+		.controller('MembersController', MembersController);
 
-	// ------------------------------------------------------
-	// Service loading
+	MembersController.$inject = ['$scope', 'notify', 'membersService'];
 
-	var loadMember = function(memberId) {
-		membersFactory.get({ id: memberId }).$promise.then(function(result) {
-			$scope.loadedMember = result;
-			$scope.pushServicePanel();
-			$scope.memberPanelOpen = true;
-		});
-	};
+	function MembersController ($scope, notify, Member) {
 
-	// ------------------------------------------------------
-	// Panels management
+		/*jshint validthis: true */
+		var vm = this;
 
-	$scope.openMemberPanel = function(memberId) {
-		loadMember(memberId);
-	};
 
-	$scope.closeMemberPanel = function() {
-		$scope.memberPanelOpen = false;
-		$scope.closeMemberList();
-		$scope.pullServicePanel();
-	};
+		// ---------------- Functions ---------------- //
 
-	// Broadcast message ordering to close panel
-	$scope.$watch('broadcastCloseMemberPanel', function() {
-		if (!$scope.broadcastCloseMemberPanel) { return; }
 
-		$scope.closeMemberPanel();
-		$scope.broadcastCloseMemberPanelAck();
-	});
+		// ------------------------------------------------------
+		// Assign a member section
 
-	// ------------------------------------------------------
-	// Assign a member section
+		$scope.toggleMemberList = function() {
+			// This test should be useless since member list
+			// is loaded in ServicesController. Keep it whatever for now.
+			if (!$scope.members) { $scope.loadMemberList(); }
 
-	$scope.toggleMemberList = function() {
-		// This test should be useless since member list
-		// is loaded in ServicesController. Keep it whatever for now.
-		if (!$scope.members) { $scope.loadMemberList(); }
+			$scope.memberListOpen = !$scope.memberListOpen;
+		};
 
-		$scope.memberListOpen = !$scope.memberListOpen;
-	};
+		$scope.closeMemberList = function() {
+			$scope.memberListOpen = false;
+			$scope.memberToConfirm = false;
+		};
 
-	$scope.closeMemberList = function() {
-		$scope.memberListOpen = false;
-		$scope.memberToConfirm = false;
-	};
+		$scope.confirmMemberInCharge = function(member) {
+			$scope.memberToConfirm = member;
+		};
 
-	$scope.confirmMemberInCharge = function(member) {
-		$scope.memberToConfirm = member;
-	};
+		$scope.updateMemberInCharge = function(member) {
+			$scope.loadedService.member_in_charge_id = member.id;
+			$scope.loadedService.$update();
+			$scope.closeMemberList();
+		};
 
-	$scope.updateMemberInCharge = function(member) {
-		$scope.loadedService.member_in_charge_id = member.id;
-		$scope.loadedService.$update();
-		$scope.closeMemberList();
-	};
+		// ------------------------------------------------------
+		// Member service
 
-	// ------------------------------------------------------
-	// Member service
+		$scope.toggleMemberService = function(member, service) {
+			var isLeader = $scope.loadedMember.leader_of_id === service.id,
+					isMember = $scope.isMemberOfThisService(service);
 
-	$scope.toggleMemberService = function(member, service) {
-		var isLeader = $scope.loadedMember.leader_of_id === service.id,
-				isMember = $scope.isMemberOfThisService(service);
+			$scope.loadedMember.$toggleMemberService({ id: member.id, serviceId: service.id, isMember: isMember, isLeader: isLeader },
+				function(success) {
+					notify({ message: success.message, classes: 'success' });
+				},
+				function(failure) {
+					notify({ message: failure.data.message, classes: 'failure' });
+				}
+			);
+		};
 
-		$scope.loadedMember.$toggleMemberService({ id: member.id, serviceId: service.id, isMember: isMember, isLeader: isLeader },
-			function(success) {
-				notify({ message: success.message, classes: 'success' });
-			},
-			function(failure) {
-				notify({ message: failure.data.message, classes: 'failure' });
+		$scope.isMemberOfThisService = function(service) {
+			if ($scope.loadedMember) {
+				var isMember = false;
+
+				angular.forEach($scope.loadedMember.services, function(memberService) {
+
+					if (!isMember && service.id === memberService.id) {
+						isMember = true;
+					};
+				});
+
+				return isMember;
 			}
-		);
-	};
+		};
 
-	$scope.isMemberOfThisService = function(service) {
-		if ($scope.loadedMember) {
-			var isMember = false;
+	}
 
-			angular.forEach($scope.loadedMember.services, function(memberService) {
-
-				if (!isMember && service.id === memberService.id) {
-					isMember = true;
-				};
-			});
-
-			return isMember;
-		}
-	};
-
-});
+})();

@@ -1,31 +1,23 @@
-'use strict';
+(function() {
+	'use strict';
 
-app.controller('TasksController', function ($scope, tasksFactory) {
+	angular
+		.module('churchOfficeManager')
+		.controller('TasksController', TasksController);
 
-	$scope.loadTasks = function(serviceId) {
-		tasksFactory.getServiceTasks({ serviceId: serviceId }).$promise.then(function(result) {
-			$scope.tasks = result;
-		});
-	};
+	TasksController.$inject = ['$scope', 'tasksService'];
 
-	$scope.$watch('selectedService', function() {
-		if (!$scope.selectedService) { return; }
+	function TasksController ($scope, Task) {
 
-		$scope.loadTasks($scope.selectedService.id);
-	});
+		/*jshint validthis: true */
+		var vm = this;
 
-	$scope.updateTask = function(task) {
+		vm.update = update;
 
-		// Task update
-		task.$update().then(function() {
+		function update(task) {
+			Task.update($scope, task);
+		}
 
-			// Get updated service
-			$scope.loadedService.$get().then(function() {
+	}
 
-				// Refresh the global list with all services
-				$scope.refreshService($scope.loadedService);
-			});
-		});
-	};
-
-});
+})();

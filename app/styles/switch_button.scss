@@ -25,10 +25,10 @@
 		width: 50%;
 		box-shadow: 3px 3px 9px -2px rgba(0, 0, 0, 0.4) inset;
 		line-height: 28px;
-		background-color: $green;
+		background-color: $ch_green;
 		color: white;
 
-		&.right { background-color: $red; }
+		&.right { background-color: $ch_red; }
 
 		@media screen and (max-width: $max_width_medium) {
 				padding: 5px 12px;
@@ -63,36 +63,4 @@
 			box-shadow: 1px 1px 0px 1px rgba(0, 0, 0, 0.2);
 		}
 	}
-}
-
-
-// --------------------------------------
-// OFFICE DATE
-
-.office-date {
-	font-size: 2em;
-	text-align: center;
-	margin-bottom: 10px;
-	color: white;
-
-	h1 { margin: 0 30px; }
-
-	.previous, .next {
-		position: absolute;
-		top: 0;
-		cursor: pointer;
-
-		&:hover {
-			color: $blue;
-		}
-	}
-
-	.previous { left: 0; }
-	.next { right: 0; }
-
-	@media screen and (max-width: $max_width_medium) {
-	  .previous { left: 15px; }
-	  .next { right: 15px; }
-	}
-
 }

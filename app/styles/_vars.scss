@@ -8,10 +8,21 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 // -------------------
 // COLORS
 
-$red: #EB6A6A;
-$green: #28AB24;
-$blue: #637DA6;
-$gray: #DDDDDD;
+$ch_red: #EB6A6A;
+$ch_red_light: lighten($ch_red, 10);
+$ch_red_dark: darken($ch_red, 10);
+
+$ch_green: #28AB24;
+$ch_green_light: lighten($ch_green, 10);
+$ch_green_dark: darken($ch_green, 10);
+
+$ch_blue: #637DA6;
+$ch_blue_light: lighten($ch_blue, 10);
+$ch_blue_dark: darken($ch_blue, 10);
+
+$ch_gray: #DDDDDD;
+$ch_gray_light: lighten($ch_gray, 10);
+$ch_gray_dark: darken($ch_gray, 10);
 
 
 // -------------------

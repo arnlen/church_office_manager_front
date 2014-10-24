@@ -13,8 +13,9 @@
 	text-align: center;
 	box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
 	overflow: scroll;
+	backface-visibility: hidden;
 
-	transition: right $transition_time ease;
+	transition: right $transition_time ease, transform $transition_time ease;
 
 	@media screen and (max-width: $max_width_medium) {
 			width: $panel_width_medium;
@@ -32,7 +33,7 @@
 		&.active {
 			right: 0;
 
-			&.pushed-once {
+			&.pushed {
 				right: $panel_width_high;
 
 				@media screen and (max-width: $max_width_medium) {
@@ -54,56 +55,100 @@
 		}
 	}
 
-	&.edit-mode {
-		border: solid 4px $red;
+	// ----------- Regular / Edit faces ----------- //
 
-		transition: border $transition_time ease;
+	&.regular-face {
+		z-index: 100;
 
-		.header-edit-mode {
-			padding: 5px;
-			height: 30px;
+		transform: rotateY(0);
+
+		&.edit-mode {
+			transform: rotateY(180deg);
+		}
+
+		.content { }
+	}
+
+	&.edit-face {
+		border: 5px solid $ch_red;
+
+		transform: rotateY(180deg);
+
+		&.edit-mode {
+			transform: rotateY(0deg);
+		}
+
+		.content {
+			margin: 20px 10px 0;
 		}
 	}
 
+	// ----------- End Regular / Edit faces ----------- //
+
 	.header-edit-mode {
-		background-color: $red;
+		background-color: $ch_red;
 		color: white;
 		font-weight: bold;
 		overflow: hidden;
-		padding: 0;
-		height: 0;
-
-		transition: padding $transition_time ease, height $transition_time ease;
+		padding: 5px;
 	}
 
 	.buttons {
 		position: relative;
-		top: 20px;
 		font-size: 3em;
 		width: 100%;
 		cursor: pointer;
-		color: $gray;
+		color: $ch_gray;
+		z-index: 500;
 
 		transition: color $transition_time ease;
 
-		.close-panel, .edit-panel, .cancel-edit-panel, .save-panel {
+		.close-panel, .edit-panel, .cancel-edit-panel, .valid-edit-panel {
 			position: absolute;
 		}
 
 		.close-panel, .cancel-edit-panel {
 			left: 20px;
 
-			&:hover { color: $red; }
+			&:hover { color: $ch_red; }
 		}
 
-		.edit-panel, .save-panel { right: 20px; }
+		.edit-panel, .valid-edit-panel { right: 20px; }
 
 		.edit-panel {
-			&:hover { color: $blue; }
+			&:hover { color: $ch_blue; }
 		}
 
-		.save-panel {
-			&:hover { color: $green; }
+		.valid-edit-panel {
+			&:hover { color: $ch_green; }
+		}
+	}
+
+	.panel-badge {
+		width: 100px;
+		margin: 2px;
+		padding: 5px 0;
+		color: white;
+		background-color: $ch_gray;
+		display: inline-block;
+		cursor: default;
+
+		&.member, &.leader {
+			background-color: $ch_blue;
+		}
+
+		&.leader { box-shadow: 0 0 0 4px $ch_green; }
+	}
+
+	// panel-badge: Special behaviour for the edit face
+	&.edit-face {
+		.panel-badge {
+			cursor: pointer;
+			&:hover { background-color: $ch_gray_dark; }
+
+			&.member, &.leader {
+				&:hover { background-color: $ch_blue_dark; }
+			}
 		}
 	}
 
@@ -118,24 +163,4 @@
 	}
 
 	td { position: relative; }
-}
-
-// Overlay when the panel is open
-.overlay {
-	position: fixed;
-	z-index: 45;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	background-color: black;
-	opacity: 0;
-	pointer-events: none;
-
-	transition: opacity $transition_time ease;
-
-	&.visible-service, &.visible-member {
-		opacity: 0.5;
-		pointer-events: auto;
-	}
 }
