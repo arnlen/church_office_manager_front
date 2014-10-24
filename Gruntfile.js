@@ -393,13 +393,13 @@ module.exports = function (grunt) {
     // ngConstants for Factory's URLs
     ngconstant: {
       options: {
-        name: 'config',
+        name: 'churchOfficeManagerConfig',
         wrap: '"use strict";\n\n{%= __ngModule %}',
         space: '  '
       },
       development: {
         options: {
-          dest: '<%= yeoman.app %>/scripts/config.js',
+          dest: '<%= yeoman.app %>/scripts/church-office-manager.config.js',
         },
         constants: {
           ENV: 'development',
@@ -408,7 +408,7 @@ module.exports = function (grunt) {
       },
       production: {
         options: {
-          dest: '<%= yeoman.dist %>/scripts/config.js',
+          dest: '<%= yeoman.dist %>/scripts/church-office-manager.config.js',
         },
         constants: {
           ENV: 'production',
