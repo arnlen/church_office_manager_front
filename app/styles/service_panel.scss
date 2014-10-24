@@ -3,9 +3,6 @@
 // --------------------------------------
 // SERVICE PANEL
 
-// --------------------------------------
-// PANELS
-
 .right-panel {
 
 	.tasks {
@@ -23,8 +20,9 @@
 		}
 	}
 
-	.member-list-container {
-		background-color: $red;
+	// Set the member in charge for
+	.select-member-in-charge-container {
+		background-color: $ch_red;
 		box-shadow: 3px 3px 9px -2px rgba(0, 0, 0, 0.4) inset;
 		overflow: hidden;
 		height: 0;
@@ -50,6 +48,13 @@
 			width: 90%;
 			top: -240px;
 
+			.panel-badge {
+				color: $ch_red;
+				cursor: pointer;
+
+				&:hover { background-color: $ch_gray_dark; }
+			}
+
 			@media screen and (max-width: $max_width_medium) {
 				// line-height: 1.5em;
 			}
@@ -60,22 +65,6 @@
 
 			&.active { top: 20px; }
 
-			.member {
-				display: inline-block;
-				width: 80px;
-				padding: 5px 0;
-				margin: 2px;
-
-				@media screen and (max-width: $max_width_medium) {
-					// line-height: 1.5em;
-				}
-
-				@media screen and (max-width: $max_width_low) {
-					// line-height: 1em;
-				}
-
-				&:hover { background-color: $blue; }
-			}
 		}
 
 		.confirmation {
@@ -97,43 +86,29 @@
 		}
 	}
 
-	.edit-section {
+	.edit-face {
 
-		.edit-member-list-container {
+		.edit-member-list-container, .edit-service-members-list-container {
 			background-color: white;
 			box-shadow: 3px 3px 9px -2px rgba(0, 0, 0, 0.4) inset;
 			overflow: hidden;
 			height: 0;
-			margin: 20px 0;
+			margin: 0;
 			padding: 0;
 			position: relative;
 			display: inline-block;
+			width: 100%;
 
-			transition: height $transition_time ease, padding $transition_time ease;
+			transition: height $transition_time ease, padding $transition_time ease, margin $transition_time ease;
 
 			&.visible {
 				height: 220px;
 				padding: 20px 0;
+				margin: 20px 0;
 			}
 
 			@media screen and (max-width: $max_width_medium) {
 				&.visible { height: 340px; }
-			}
-
-			.member {
-				color: white;
-				display: inline-block;
-				width: 80px;
-				padding: 5px 0;
-				margin: 2px;
-				background-color: lightgray;
-				cursor: pointer;
-
-				&:hover { background-color: $blue; }
-
-				&.member-of-this-service { background-color: $blue; }
-
-				&.leader-of-this-service { box-shadow: 0 0 0 4px $green; }
 			}
 		}
 	}
