@@ -226,7 +226,7 @@ module.exports = function (grunt) {
         flow: {
           html: {
             steps: {
-              js: ['concat', 'uglifyjs'],
+              js: ['concat'],
               css: ['cssmin']
             },
             post: {}
@@ -358,6 +358,16 @@ module.exports = function (grunt) {
           cwd: '.',
           src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
           dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
+          cwd: 'bower_components/font-awesome/fonts/',
+          src: '*',
+          dest: '<%= yeoman.dist %>/fonts'
+        }, {
+          expand: true,
+          cwd: 'bower_components/angular-resource/',
+          src: 'angular-resource.min.js.map',
+          dest: '<%= yeoman.dist %>/scripts'
         }]
       },
       styles: {
@@ -466,7 +476,7 @@ module.exports = function (grunt) {
     'copy:dist',
     'cdnify',
     'cssmin',
-    'uglify',
+    // 'uglify',
     'filerev',
     'usemin',
     'htmlmin'

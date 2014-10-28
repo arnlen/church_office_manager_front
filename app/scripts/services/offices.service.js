@@ -9,9 +9,6 @@
 
 	function officesService ($resource, ENV, $rootScope, $q) {
 
-		console.log(ENV.name);
-		console.log(ENV.apiBaseURL);
-
 		var loaded = undefined,
 				members = undefined,
 				services = undefined,
