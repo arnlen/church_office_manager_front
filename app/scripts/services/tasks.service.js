@@ -5,11 +5,11 @@
 		.module('churchOfficeManager')
 		.factory('tasksService', tasksService);
 
-	tasksService.$inject = ['$resource', 'API_BASE_URL', '$q'];
+	tasksService.$inject = ['$resource', 'ENV', '$q'];
 
-	function tasksService ($resource, API_BASE_URL, $q) {
+	function tasksService ($resource, ENV, $q) {
 
-		var resource = $resource(API_BASE_URL + 'tasks/:id', { id: '@id' },
+		var resource = $resource(ENV.apiBaseURL + 'tasks/:id', { id: '@id' },
 			{
 				update: { method: 'PUT' },
 				getServiceTasks: { method: 'GET', params: { serviceId: '@serviceId' }, isArray: true }

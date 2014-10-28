@@ -2,8 +2,6 @@
 
 angular.module('churchOfficeManagerConfig', [])
 
-.constant('ENV', 'development')
-
-.constant('API_BASE_URL', 'http://localhost:3000/')
+.constant('ENV', {name:'development',apiBaseURL:'http://localhost:3000/'})
 
 ;
