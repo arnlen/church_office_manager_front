@@ -5,14 +5,17 @@
 		.module('churchOfficeManager')
 		.factory('officesService', officesService);
 
-	officesService.$inject = ['$resource', 'API_BASE_URL', '$rootScope', '$q'];
+	officesService.$inject = ['$resource', 'ENV', '$rootScope', '$q'];
 
-	function officesService ($resource, API_BASE_URL, $rootScope, $q) {
+	function officesService ($resource, ENV, $rootScope, $q) {
+
+		console.log(ENV.name);
+		console.log(ENV.apiBaseURL);
 
 		var loaded = undefined,
 				members = undefined,
 				services = undefined,
-				resource = $resource(API_BASE_URL + 'offices/:id', { id: '@id' });
+				resource = $resource(ENV.apiBaseURL + 'offices/:id', { id: '@id' });
 
 		var Office = {
 			loaded: loaded, // undefined on init
