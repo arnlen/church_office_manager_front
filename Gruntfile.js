@@ -426,7 +426,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiBaseURL: 'http://church-office-manager-api.herokuapp.com/'
+            apiBaseURL: 'https://church-office-manager-api.herokuapp.com/'
           }
         }
       }
