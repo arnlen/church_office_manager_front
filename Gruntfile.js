@@ -226,7 +226,7 @@ module.exports = function (grunt) {
         flow: {
           html: {
             steps: {
-              js: ['concat', 'uglifyjs'],
+              js: ['concat'],
               css: ['cssmin']
             },
             post: {}
@@ -304,7 +304,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.dist %>',
-          src: ['*.html', 'views/{,*/}*.html'],
+          src: ['*.html', 'views/{,*/}*.html', 'scripts/directives/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -344,6 +344,7 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'views/{,*/}*.html',
+            'scripts/directives/*.html',
             'images/{,*/}*.{webp}',
             'fonts/*'
           ]
@@ -357,6 +358,16 @@ module.exports = function (grunt) {
           cwd: '.',
           src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
           dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
+          cwd: 'bower_components/font-awesome/fonts/',
+          src: '*',
+          dest: '<%= yeoman.dist %>/fonts'
+        }, {
+          expand: true,
+          cwd: 'bower_components/angular-resource/',
+          src: 'angular-resource.min.js.map',
+          dest: '<%= yeoman.dist %>/scripts'
         }]
       },
       styles: {
@@ -402,8 +413,10 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.app %>/scripts/church-office-manager.config.js',
         },
         constants: {
-          ENV: 'development',
-          API_BASE_URL: 'http://localhost:3000/'
+          ENV: {
+            name: 'development',
+            apiBaseURL: 'http://localhost:3000/'
+          }
         }
       },
       production: {
@@ -411,8 +424,10 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>/scripts/church-office-manager.config.js',
         },
         constants: {
-          ENV: 'production',
-          API_BASE_URL: 'http://church-office-manager-api.herokuapp.com/'
+          ENV: {
+            name: 'production',
+            apiBaseURL: 'http://church-office-manager-api.herokuapp.com/'
+          }
         }
       }
     }
@@ -461,7 +476,7 @@ module.exports = function (grunt) {
     'copy:dist',
     'cdnify',
     'cssmin',
-    'uglify',
+    // 'uglify',
     'filerev',
     'usemin',
     'htmlmin'

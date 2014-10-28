@@ -5,19 +5,19 @@
 		.module('churchOfficeManager')
 		.factory('membersService', membersService);
 
-	membersService.$inject = ['$resource', 'API_BASE_URL', '$rootScope', 'notify', '$q'];
+	membersService.$inject = ['$resource', 'ENV', '$rootScope', 'notify', '$q'];
 
-	function membersService ($resource, API_BASE_URL, $rootScope, notify, $q) {
+	function membersService ($resource, ENV, $rootScope, notify, $q) {
 
 		// Init attributes
 		var clicked = undefined,
 				loaded = undefined,
 				panelOpen = false,
-				resource = $resource(API_BASE_URL + 'members/:id', { id: '@id' },
+				resource = $resource(ENV.apiBaseURL + 'members/:id', { id: '@id' },
 				{
 					update: { method: 'PUT' }
 				}),
-				membership = $resource(API_BASE_URL + 'memberships/:id', { id: '@id' },
+				membership = $resource(ENV.apiBaseURL + 'memberships/:id', { id: '@id' },
 				{
 					create: { method: 'POST', params: {
 						serviceId: '@serviceId',
